@@ -1,0 +1,8 @@
+{
+  "name": "conscience",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "latest",
+    "exec-local-bin": "latest"
+  }
+}
