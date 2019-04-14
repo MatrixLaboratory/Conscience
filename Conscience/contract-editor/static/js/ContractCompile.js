@@ -3,9 +3,11 @@
 import Web3 from 'web3'
 import axios from 'axios'
 
-export function compileIostContract (code, fileName = 'test.js') {
+export async function compileIostContract(code, fileName = 'test.js') {
   let source = {};
-  source[fileName] = { content: code };
+  source[fileName] = {
+    content: code
+  };
   let input = {
     language: 'JavaScript',
     sources: source,
@@ -17,16 +19,17 @@ export function compileIostContract (code, fileName = 'test.js') {
       }
     }
   };
-  return axios.post('/api/iost/compile', {
+  const response = await axios.post('/api/iost/compile', {
     input: JSON.stringify(input)
-  }).then(response => {
-    return response.data;
-  })
+  });
+  return response.data;
 }
 
-export function compileSolContract (code, fileName = 'test.sol') {
+export async function compileSolContract(code, fileName = 'test.sol') {
   let source = {};
-  source[fileName] = { content: code };
+  source[fileName] = {
+    content: code
+  };
   let input = {
     language: 'Solidity',
     sources: source,
@@ -38,11 +41,24 @@ export function compileSolContract (code, fileName = 'test.sol') {
       }
     }
   };
-  return axios.post('/api/solidity/compile', {
+  const response = await axios.post('/api/solidity/compile', {
     input: JSON.stringify(input)
-  }).then(response => {
-    return response.data;
-  })
+  });
+  return response.data;
+}
+
+export function generateIostContractHierachy(index, compileFile, abi) {
+  let hierachy = {
+    id: index,
+    label: "Contract:" + compileFile,
+    children: []
+  };
+  abi.forEach(func => {
+    hierachy.children.push({
+      label: `f(${func.args.join(', ')}): ${func.name}`
+    });
+  });
+  return hierachy;
 }
 
 export function deployContract(input) {
@@ -71,5 +87,3 @@ export function deployContract(input) {
     });
   });
 }
-
-

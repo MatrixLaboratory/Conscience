@@ -86,8 +86,10 @@
   import CodeEditor from '../components/CodeEditor'
   import ContractAction from '../components/ContractActions'
 
+  const suffix = '.js'
+
   export default {
-    name: "EditorIndex",
+    name: 'EditorIndex',
     data() {
       return {
         leftAside: true,
@@ -116,7 +118,7 @@
       let fileStr = localStorage.getItem('files');
       this.files = JSON.parse(fileStr);
       if (this.files == null || this.files.length === 0) {
-        this.files = ['contract.sol'];
+        this.files = ['contract' + suffix];
       }
       let defaultFile = this.files[0];
       this.editorFileChange(defaultFile);
@@ -142,13 +144,13 @@
         }
       },
       addFile() {
-        this.$prompt('请输入文件名（默认为.sol文件)', '提示', {
+        this.$prompt(`请输入文件名（默认为${suffix}文件)`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           inputPattern: '',
           inputErrorMessage: '请输入正确的文件名！'
         }).then(({ value }) => {
-          let newFile = value + '.sol';
+          let newFile = value + suffix;
           for (let index in this.files) {
             if (this.files[index] === newFile) {
               this.$message({
@@ -168,14 +170,14 @@
       },
       editFileName(index) {
         let fileName = index.target.id;
-        this.$prompt('请输入文件名（默认为.sol文件)', '提示', {
+        this.$prompt(`请输入文件名（默认为${suffix}文件)`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           inputValue: fileName.split(".")[0],
           inputPattern: '',
           inputErrorMessage: '请输入正确的文件名！'
         }).then(({ value }) => {
-          let newFile = value + '.sol';
+          let newFile = value + suffix;
           for (let index in this.files) {
             if (this.files[index] === newFile) {
               this.$message({

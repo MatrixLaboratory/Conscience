@@ -27,14 +27,14 @@ function compileIostLocallyAndCleanup(folderPath, filePath, res) {
             console.log('stdout:', stdout);
             const groups = ABI_REGEX.exec(stdout);
             const abiFilePath = groups[1];
-            console.log(abiFilePath);
+            console.log('abiFilePath:', abiFilePath);
             fileSystem.readFile(abiFilePath, {encoding: "utf8"}, function (err, data) {
                 if (err) {
                     console.error(err);
                     res.status(422).send({error: error});
                 }
-                console.log(data);
-                res.status(200).send({message: data});
+                console.log('data:', data);
+                res.status(200).json(JSON.parse(data));
                 fileSystem.rmdirSync(folderPath);
             });
         })
