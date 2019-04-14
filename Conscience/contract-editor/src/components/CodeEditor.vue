@@ -4,6 +4,7 @@
 
 <script>
 
+  const defaultLang = 'javascript'
   import * as monaco from 'monaco-editor';
 
   export default {
@@ -16,8 +17,8 @@
     },
     mounted () {
       this.editor = monaco.editor.create(document.getElementById('editor'), {
-        value: '',
-        language: '',
+	      value: '',
+        language: defaultLang,
         theme: 'vs-dark',
         automaticLayout: true,
         fontSize: 16
@@ -26,6 +27,7 @@
         let code = this.editor.getValue();
         if (code !== undefined) {
           localStorage.setItem(this.editorFile, code);
+          this.changeLang(defaultLang);
         }
       });
     },
@@ -41,6 +43,7 @@
       changeEditor(fileName, code) {
         this.editorFile = fileName;
         this.editor.setValue(code);
+        this.changeLang(defaultLang);
       },
       changeLang(lang) {
         monaco.editor.setModelLanguage(this.editor.getModel(), lang);
