@@ -134,7 +134,8 @@ export default {
     },
     deploy: function() {
       // TODO: rewrite for IOST
-      // deployContract(this.compiledContracts[this.deployIndex]);
+
+      deployContract(this.compiledContracts[this.deployIndex]);
     }
   }
 };

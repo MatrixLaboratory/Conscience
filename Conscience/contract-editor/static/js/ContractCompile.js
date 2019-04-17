@@ -2,7 +2,7 @@
 
 import Web3 from 'web3'
 import axios from 'axios'
-
+const IOST = require('iost')
 export async function compileIostContract(code, fileName = 'test.js') {
   let source = {};
   source[fileName] = {
@@ -64,26 +64,72 @@ export function generateIostContractHierachy(index, compileFile, abi) {
 export function deployContract(input) {
   let contractName = input.name;
   let compileValue = input.value;
-  if (!Web3.givenProvider) {
-    this.$notify.error({
-      title: '插件异常',
-      message: '请先安装MetaMask并解锁您的钱包！'
-    });
-  }
-  let web3 = new Web3(Web3.givenProvider);
-  web3.eth.getAccounts().then(value => {
-    const account = value[0];
-    let contract = new web3.eth.Contract(compileValue.abi);
-    let data = '0x' + compileValue.evm.bytecode.object;
-    contract.deploy({
-      data: data,
-      name: contractName
-    }).send({
-      from: account,
-      gas: 0,
-      gasPrice: '4700000'
-    }, function (e, c) {
-      console.log(e, c);
-    });
-  });
+
+    // TODO: rewrite for IOST
+    console.log("enter iost deploy");
+
+
+    var abi2="{\n" +
+        "    \"lang\": \"javascript\",\n" +
+        "    \"version\": \"1.0.0\",\n" +
+        "    \"abi\": [\n" +
+        "        {\n" +
+        "            \"name\": \"hello\",\n" +
+        "            \"args\": [\n" +
+        "                \"string\"\n" +
+        "            ],\n" +
+        "            \"amountLimit\": [],\n" +
+        "            \"description\": \"\"\n" +
+        "        }\n" +
+        "    ]\n" +
+        "}\n";
+    var code2="class HelloWorld {\n" +
+        "    init() {} // needs to provide an init function that will be called during deployment\n" +
+        "    hello(someone) {\n" +
+        "        return \"hello, \"+ someone\n" +
+        "    }\n" +
+        "}\n" +
+        "\n" +
+        "module.exports = HelloWorld;\n";
+    var infot="\"info\"";
+    var codet="\"code\"";
+    var newtest1="{"+infot+":"+abi2+","+codet+":"+JSON.stringify(code2)+"}";
+    var newtest1t=[newtest1];
+
+    console.log(newtest1t);
+
+
+    window.IWalletJS.enable().then((account) => {
+        if(!account) return; // not login
+
+        const iost = window.IWalletJS.newIOST(IOST);
+        // if (!iost.currentAccount()) {
+        //     this.$notify.error({
+        //         title: '插件异常',
+        //         message: '请先安装MetaMask并解锁您的钱包！'
+        //     });
+        // }
+
+        let contractAddress1= "system.iost";
+        const ctx1 = iost.callABI(contractAddress1, "setCode",newtest1t);
+
+        //const ctx = iost.setCode(contractAddress, "hello",newtest2t);
+
+        // let rpgre = iost.currentRPC;
+        //  console.log(rpgre);
+        iost.signAndSend(ctx1).on('pending', (trx) => {
+            console.log(trx, 'contract is deploying');
+            // reset();
+
+        })
+            .on('success', (result) => {
+                console.log(result, 'result')
+                layer.msg('Contract Deploy successfully!');
+            })
+            .on('failed', (failed) => {
+                console.log(failed, 'failed')
+                layer.msg('Contract failed to merge!');
+            })
+
+    })
 }
