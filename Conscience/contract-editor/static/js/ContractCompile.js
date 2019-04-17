@@ -62,8 +62,8 @@ export function generateIostContractHierachy(index, compileFile, abi) {
 }
 
 export function deployContract(input) {
-  let contractName = input.name;
-  let compileValue = input.value;
+  // let contractName = input.name;
+  // let compileValue = input.value;
 
     // TODO: rewrite for IOST
     console.log("enter iost deploy");

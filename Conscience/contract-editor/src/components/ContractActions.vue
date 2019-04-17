@@ -133,9 +133,10 @@ export default {
       this.compiling = false;
     },
     deploy: function() {
-      // TODO: rewrite for IOST
+      // TODO: this.compiledContracts[this.deployIndex] is not working yet
+      // deployContract(this.compiledContracts[this.deployIndex]);
+        deployContract("test");
 
-      deployContract(this.compiledContracts[this.deployIndex]);
     }
   }
 };
