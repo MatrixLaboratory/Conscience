@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b85d4cb5-6e51-44eb-82fa-c6d891525def" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../contract-compiler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../contract-compiler/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ContractActions.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContractActions.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/ContractCompile.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/ContractCompile.js" afterDir="false" />
     </list>
@@ -15,6 +16,7 @@
     <session id="149189757">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
@@ -215,16 +217,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1555510475138</updated>
-      <workItem from="1555510480683" duration="2427000" />
+      <workItem from="1555510480683" duration="2933000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2427000" />
+    <option name="totallyTimeSpent" value="2933000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="334" y="27" width="1334" height="812" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
