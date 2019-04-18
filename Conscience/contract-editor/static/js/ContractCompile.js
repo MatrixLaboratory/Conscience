@@ -61,39 +61,40 @@ export function generateIostContractHierachy(index, compileFile, abi) {
   return hierachy;
 }
 
-export function deployContract(input) {
+export function deployContract(code,abi) {
   // let contractName = input.name;
   // let compileValue = input.value;
 
     // TODO: rewrite for IOST
     console.log("enter iost deploy");
-
-
-    var abi2="{\n" +
-        "    \"lang\": \"javascript\",\n" +
-        "    \"version\": \"1.0.0\",\n" +
-        "    \"abi\": [\n" +
-        "        {\n" +
-        "            \"name\": \"hello\",\n" +
-        "            \"args\": [\n" +
-        "                \"string\"\n" +
-        "            ],\n" +
-        "            \"amountLimit\": [],\n" +
-        "            \"description\": \"\"\n" +
-        "        }\n" +
-        "    ]\n" +
-        "}\n";
-    var code2="class HelloWorld {\n" +
-        "    init() {} // needs to provide an init function that will be called during deployment\n" +
-        "    hello(someone) {\n" +
-        "        return \"hello, \"+ someone\n" +
-        "    }\n" +
-        "}\n" +
-        "\n" +
-        "module.exports = HelloWorld;\n";
+    // abi2=abi;
+    // code2=code;
+    //
+    // var abi2="{\n" +
+    //     "    \"lang\": \"javascript\",\n" +
+    //     "    \"version\": \"1.0.0\",\n" +
+    //     "    \"abi\": [\n" +
+    //     "        {\n" +
+    //     "            \"name\": \"hello\",\n" +
+    //     "            \"args\": [\n" +
+    //     "                \"string\"\n" +
+    //     "            ],\n" +
+    //     "            \"amountLimit\": [],\n" +
+    //     "            \"description\": \"\"\n" +
+    //     "        }\n" +
+    //     "    ]\n" +
+    //     "}\n";
+    // var code2="class HelloWorld {\n" +
+    //     "    init() {} // needs to provide an init function that will be called during deployment\n" +
+    //     "    hello(someone) {\n" +
+    //     "        return \"hello, \"+ someone\n" +
+    //     "    }\n" +
+    //     "}\n" +
+    //     "\n" +
+    //     "module.exports = HelloWorld;\n";
     var infot="\"info\"";
     var codet="\"code\"";
-    var newtest1="{"+infot+":"+abi2+","+codet+":"+JSON.stringify(code2)+"}";
+    var newtest1="{"+infot+":"+abi+","+codet+":"+JSON.stringify(code)+"}";
     var newtest1t=[newtest1];
 
     console.log(newtest1t);

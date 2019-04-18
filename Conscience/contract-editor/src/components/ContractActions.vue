@@ -72,7 +72,9 @@ export default {
       treeData: [],
       compiledContracts: [],
       deployIndex: "",
-      openIndex: []
+      openIndex: [],
+        result:null
+
     };
   },
   props: {
@@ -105,6 +107,7 @@ export default {
               label: "Contract:" + this.compileFile,
               children: []
             });
+            this.result=result;
             const hierachy = generateIostContractHierachy(index, this.compileFile, result.abi);
             this.treeData[index] = hierachy;
             // TODO: 解析contracts，渲染到页面
@@ -135,7 +138,13 @@ export default {
     deploy: function() {
       // TODO: this.compiledContracts[this.deployIndex] is not working yet
       // deployContract(this.compiledContracts[this.deployIndex]);
-        deployContract("test");
+        console.log("compile");
+        console.log(localStorage.getItem(this.compileFile));
+        console.log("abi");
+        console.log(JSON.stringify(this.result));
+        let deploycode= localStorage.getItem(this.compileFile);
+        let deployabi = JSON.stringify(this.result);
+        deployContract(deploycode,deployabi);
 
     }
   }
