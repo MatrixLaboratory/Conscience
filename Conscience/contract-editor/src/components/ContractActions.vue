@@ -58,6 +58,7 @@ import {
   compileIostContract,
   compileSolContract,
   deployContract,
+  deployIostContract,
   generateIostContractHierachy
 } from "../../static/js/ContractCompile";
 
@@ -73,8 +74,7 @@ export default {
       compiledContracts: [],
       deployIndex: "",
       openIndex: [],
-        result:null
-
+      result: null
     };
   },
   props: {
@@ -97,10 +97,10 @@ export default {
         let code = localStorage.getItem(this.compileFile);
         compileIostContract(code, this.compileFile).then(result => {
           console.log(result);
+          //TODO: rewrite the response validation
           if (result.abi !== undefined) {
             this.treeData = [];
             this.compiledContracts = [];
-            const abi = result.abi;
             let index = 0;
             this.treeData.push({
               id: index,
@@ -115,15 +115,11 @@ export default {
               title: "编译成功",
               message: '"' + this.compileFile + '"编译成功!'
             });
-            // TODO: Not applicable for IOST, rewrite
-            // const contractsFile = result.contracts[this.compileFile];
-            // Object.keys(contractsFile).forEach(key => {
-            //   console.warn('key: ', key);
-            //   this.compiledContracts.push({
-            //     name: key,
-            //     value: contractsFile[key]
-            //   });
-            // });
+            this.compiledContracts.push({
+              name: this.compileFile,
+              contractCode: code,
+              contractAbi: JSON.stringify(result)
+            });
           } else {
             this.$notify.error({
               title: "编译失败",
@@ -136,16 +132,7 @@ export default {
       this.compiling = false;
     },
     deploy: function() {
-      // TODO: this.compiledContracts[this.deployIndex] is not working yet
-      // deployContract(this.compiledContracts[this.deployIndex]);
-        console.log("compile");
-        console.log(localStorage.getItem(this.compileFile));
-        console.log("abi");
-        console.log(JSON.stringify(this.result));
-        let deploycode= localStorage.getItem(this.compileFile);
-        let deployabi = JSON.stringify(this.result);
-        deployContract(deploycode,deployabi);
-
+      deployIostContract(this.compiledContracts[this.deployIndex]);
     }
   }
 };

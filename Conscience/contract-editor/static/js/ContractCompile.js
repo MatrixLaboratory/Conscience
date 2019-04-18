@@ -61,6 +61,13 @@ export function generateIostContractHierachy(index, compileFile, abi) {
   return hierachy;
 }
 
+export function deployIostContract(contract) {
+  console.warn(contract.name);
+  console.warn(contract.contractCode);
+  console.warn(contract.contractAbi);
+  //TODO: copy the existing code
+}
+
 export function deployContract(code,abi) {
   // let contractName = input.name;
   // let compileValue = input.value;
