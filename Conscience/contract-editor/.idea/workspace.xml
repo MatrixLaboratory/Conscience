@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b85d4cb5-6e51-44eb-82fa-c6d891525def" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../contract-compiler/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../contract-compiler/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/config/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,35 +16,37 @@
     <session id="149189757">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="js" value="7" />
+          <entry key="js" value="8" />
           <entry key="ts" value="1" />
-          <entry key="vue" value="2" />
+          <entry key="vue" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JavaScript" value="7" />
+          <entry key="JavaScript" value="8" />
           <entry key="TypeScript" value="1" />
-          <entry key="Vue.js" value="2" />
+          <entry key="Vue.js" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="256" />
+          <entry key="js" value="263" />
           <entry key="vue" value="201" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="256" />
+          <entry key="JavaScript" value="263" />
           <entry key="Vue.js" value="201" />
         </counts>
       </usages-collector>
@@ -53,21 +57,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/ContractActions.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="519">
-              <caret line="135" column="5" lean-forward="true" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
-              <folding>
-                <element signature="e#1689#1833#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="643">
+              <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/CodeEditor.vue">
+        <entry file="file://$PROJECT_DIR$/src/App.vue">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/page/EditorIndex.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-182">
-              <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-            </state>
+            <state relative-caret-position="-3423" />
           </provider>
         </entry>
       </file>
@@ -76,20 +80,25 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+            <state relative-caret-position="345">
+              <caret line="23" column="20" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/prod.env.js">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/js/ContractCompile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="356">
-              <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
+            <state relative-caret-position="566">
+              <caret line="152" column="35" selection-start-line="152" selection-start-column="24" selection-end-line="152" selection-end-column="35" />
               <folding>
                 <element signature="e#15#38#0" expanded="true" />
               </folding>
@@ -100,8 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/js/ContractCompilenew.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="149" column="6" lean-forward="true" selection-start-line="66" selection-end-line="149" selection-end-column="6" />
+            <state relative-caret-position="2220">
+              <caret line="149" column="6" selection-start-line="66" selection-end-line="149" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -109,7 +118,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/node_modules/iost/lib/structs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
+            <state relative-caret-position="1005">
               <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
             </state>
           </provider>
@@ -161,8 +170,8 @@
     </packageJsonPaths>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="261" />
-    <option name="y" value="94" />
+    <option name="x" value="106" />
+    <option name="y" value="28" />
     <option name="width" value="1334" />
     <option name="height" value="812" />
   </component>
@@ -172,6 +181,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -205,6 +216,12 @@
               <item name="contract-editor" type="b2602c69:ProjectViewProjectNode" />
               <item name="contract-editor" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="contract-editor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="contract-editor" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="router" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -228,8 +245,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -265,17 +280,19 @@
       <updated>1555510475138</updated>
       <workItem from="1555510480683" duration="2933000" />
       <workItem from="1555555958417" duration="4206000" />
+      <workItem from="1555561930903" duration="1110000" />
+      <workItem from="1555563521096" duration="589000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7139000" />
+    <option name="totallyTimeSpent" value="8838000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="261" y="94" width="1334" height="812" extended-state="0" />
+    <frame x="106" y="28" width="1334" height="812" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25386998" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2616099" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -311,20 +328,10 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/dev.env.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.dom.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="17145" column="12" selection-start-line="17145" selection-start-column="12" selection-end-line="17145" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CodeEditor.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-182">
-          <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -335,13 +342,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/ContractActions.vue">
+    <entry file="file://$PROJECT_DIR$/src/components/CodeEditor.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="519">
-          <caret line="135" column="5" lean-forward="true" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
-          <folding>
-            <element signature="e#1689#1833#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/dev.env.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="20" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/prod.env.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/ContractCompilenew.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2220">
+          <caret line="149" column="6" selection-start-line="66" selection-end-line="149" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/iost/lib/structs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1005">
+          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -352,34 +383,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/iost/lib/structs.js">
+    <entry file="file://$PROJECT_DIR$/src/components/ContractActions.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="67" column="4" selection-start-line="67" selection-start-column="4" selection-end-line="67" selection-end-column="4" />
+        <state relative-caret-position="643">
+          <caret line="135" column="5" selection-start-line="135" selection-start-column="5" selection-end-line="135" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/ContractCompilenew.js">
+    <entry file="file://$PROJECT_DIR$/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/page/EditorIndex.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="149" column="6" lean-forward="true" selection-start-line="66" selection-end-line="149" selection-end-column="6" />
-        </state>
+        <state relative-caret-position="-3423" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/js/ContractCompile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="138" lean-forward="true" selection-start-line="138" selection-end-line="138" />
+        <state relative-caret-position="566">
+          <caret line="152" column="35" selection-start-line="152" selection-start-column="24" selection-end-line="152" selection-end-column="35" />
           <folding>
             <element signature="e#15#38#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" column="18" lean-forward="true" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
         </state>
       </provider>
     </entry>

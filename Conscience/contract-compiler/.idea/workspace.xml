@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="89e2eb54-c199-4e40-bcef-7a786d5300bb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../contract-editor/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../contract-editor/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="89e2eb54-c199-4e40-bcef-7a786d5300bb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +12,7 @@
     <session id="-207647039">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.opened" value="2" />
@@ -205,16 +201,15 @@
       <option name="presentableId" value="Default" />
       <updated>1555518649944</updated>
       <workItem from="1555518651921" duration="684000" />
-      <workItem from="1555561868513" duration="25000" />
+      <workItem from="1555561868513" duration="63000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="709000" />
+    <option name="totallyTimeSpent" value="747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="96" y="88" width="1334" height="812" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25386998" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
