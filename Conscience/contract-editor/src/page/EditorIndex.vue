@@ -36,6 +36,23 @@
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
+        <el-submenu index="2">
+          <template slot="title">
+            <i class="el-icon-more"></i>
+            <span>案例模板</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item v-for="name in caseTemplate" :index="name" :key="name" :name="name" @click="openFile">
+              <el-row :gutter="20">
+                <el-col :span="16">
+                  <div class="grid-content bg-purple" style="overflow: hidden">
+                    {{ name }}
+                  </div>
+                </el-col>
+              </el-row>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-menu>
     </el-aside>
     <el-main>
@@ -76,7 +93,7 @@
       </el-container>
     </el-main>
     <el-aside v-show="rightAside" class="right" width="380px">
-      <contract-action :files="files" v-on:compileResult="compileResult"></contract-action>
+      <contract-action :files="compileNames" v-on:compileResult="compileResult"></contract-action>
     </el-aside>
   </el-container>
 </template>
@@ -85,6 +102,7 @@
 
   import CodeEditor from '../components/CodeEditor'
   import ContractAction from '../components/ContractActions'
+  import {caseTemplate} from "../assets/template/case.eg";
 
   const suffix = '.js'
 
@@ -99,7 +117,9 @@
         files: [],
         fileTabs: [],
         editorTab: '',
-        compileLoggers: []
+        compileLoggers: [],
+        caseTemplate: caseTemplate(),
+        compileNames: []
       }
     },
     components: {
@@ -128,6 +148,7 @@
         _this.leftAside = width > 800;
         _this.rightAside = width > 600;
       }
+      this.compileNames = this.files.concat(this.caseTemplate)
     },
     methods: {
       compileResult: function (file, result) {
