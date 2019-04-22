@@ -12,6 +12,7 @@
         background-color="#333333"
         text-color="#fff"
         active-text-color="#409EFF"
+        :default-openeds="['2']"
       >
         <el-submenu index="1">
           <template slot="title">
@@ -103,6 +104,7 @@
   import CodeEditor from '../components/CodeEditor'
   import ContractAction from '../components/ContractActions'
   import {caseTemplate} from "../assets/template/case.eg";
+  import {defaultCode} from "../assets/template/case.eg";
 
   const suffix = '.js'
 
@@ -141,6 +143,7 @@
         this.files = ['contract' + suffix];
       }
       let defaultFile = this.files[0];
+      localStorage.setItem(this.files[0], defaultCode())
       this.editorFileChange(defaultFile);
       const _this = this;
       window.onresize = function () {

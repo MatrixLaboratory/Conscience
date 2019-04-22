@@ -133,3 +133,10 @@ export function caseTemplate() {
     }
     return indexes
 }
+
+export function defaultCode() {
+    let code = 'hello(someone) {\n' +
+        '        return "hello, "+ someone\n' +
+        '    }'
+    return code
+}

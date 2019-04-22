@@ -28,7 +28,7 @@
 
       <!--渲染ABI列表-->
 
-      <el-tree node-key="id" :default-expanded-keys="openIndex" :data="treeData"></el-tree>
+      <el-tree node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
     <div v-show="activeMenu === '2'">
@@ -49,7 +49,18 @@
       </el-form>
     </div>
 
-    <div v-show="activeMenu === '3'">运行</div>
+    <div v-show="activeMenu === '3'">
+      <el-form :inline="true" class="compile-form">
+        <el-form-item>
+          <el-select v-model="value" placeholder="请选择要执行的方法">
+            <el-option v-for="(item, index) in runMethodList" :key="index" :value="index" :label="item.label"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary">运行</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -74,7 +85,9 @@ export default {
       compiledContracts: [],
       deployIndex: "",
       openIndex: [],
-      result: null
+      result: null,
+      runMethodList: [],
+      value: ''
     };
   },
   props: {
@@ -96,7 +109,6 @@ export default {
       } else {
         let code = localStorage.getItem(this.compileFile);
         compileIostContract(code, this.compileFile).then(result => {
-          console.log(result);
           //TODO: rewrite the response validation
           if (result.abi !== undefined) {
             this.treeData = [];
@@ -110,6 +122,7 @@ export default {
             this.result=result;
             const hierachy = generateIostContractHierachy(index, this.compileFile, result.abi);
             this.treeData[index] = hierachy;
+            this.runMethodList = this.treeData[0].children
             // TODO: 解析contracts，渲染到页面
             this.$notify.success({
               title: "编译成功",
