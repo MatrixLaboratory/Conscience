@@ -55,7 +55,8 @@ export function generateIostContractHierachy(index, compileFile, abi) {
   };
   abi.forEach(func => {
     hierachy.children.push({
-      label: `f(${func.args.join(', ')}): ${func.name}`
+      label: `f(${func.args.join(', ')}): ${func.name}`,
+      args: func.args
     });
   });
   return hierachy;

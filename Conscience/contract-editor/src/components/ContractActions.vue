@@ -17,7 +17,7 @@
     <div v-show="activeMenu === '1'">
       <el-form :inline="true" class="compile-form">
         <el-form-item>
-          <el-select v-model="compileFile" value="compiler" placeholder="请选择文件">
+          <el-select v-model="compileFile" value="compiler" placeholder="请选择文件" clearable>
             <el-option v-for="file in files" :key="file" :label="file" :value="file"></el-option>
           </el-select>
         </el-form-item>
@@ -34,7 +34,7 @@
     <div v-show="activeMenu === '2'">
       <el-form :inline="true" class="compile-form">
         <el-form-item>
-          <el-select v-model="deployIndex" value="deploy" placeholder="请选择已编译的合约">
+          <el-select v-model="deployIndex" value="deploy" placeholder="请选择已编译的合约" clearable>
             <el-option
               v-for="(contract, index) in compiledContracts"
               :key="index"
@@ -50,11 +50,18 @@
     </div>
 
     <div v-show="activeMenu === '3'">
-      <el-form :inline="true" class="compile-form">
+      <el-form class="compile-form" :label-position="labelPosition" label-width="50px">
         <el-form-item>
-          <el-select v-model="value" placeholder="请选择要执行的方法">
-            <el-option v-for="(item, index) in runMethodList" :key="index" :value="index" :label="item.label"></el-option>
+          <el-select class="el-select-run" v-model="runIndex" placeholder="请选择要执行的方法" clearable>
+            <el-option v-for="(item, index) in runMethodList" :key="index" :value="index"
+                       :label="item.label"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item  v-show="runIndex !== ''" v-for="(arg, index) in runMethodList.args" label="arg" class="el-form-item-run">
+          <el-input v-model="argList[index]" prefix-icon="el-icon-edit">
+            <template slot="prepend">({{arg}})</template>
+          </el-input>
+          <div style="margin: 20px;"></div>
         </el-form-item>
         <el-form-item>
           <el-button type="primary">运行</el-button>
@@ -63,6 +70,45 @@
     </div>
   </div>
 </template>
+
+<style lang="less" scoped>
+  @import "../styles/variable.less";
+
+  .el-menu-item {
+    width: 33.3%;
+    text-align: center;
+  }
+
+  .el-menu.el-menu--horizontal {
+    border-bottom: solid 1px #000000;
+  }
+
+  .el-tree {
+    background-color: @base-color;
+  }
+
+  .compile-form {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .run-form {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  .el-select-run {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+  }
+
+  .el-form-item-run {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+</style>
 
 <script>
 import {
@@ -87,7 +133,9 @@ export default {
       openIndex: [],
       result: null,
       runMethodList: [],
-      value: ''
+      runIndex: '',
+      argList: [],
+      labelPosition: 'left'
     };
   },
   props: {
@@ -109,6 +157,7 @@ export default {
       } else {
         let code = localStorage.getItem(this.compileFile);
         compileIostContract(code, this.compileFile).then(result => {
+          console.log(result)
           //TODO: rewrite the response validation
           if (result.abi !== undefined) {
             this.treeData = [];
@@ -151,24 +200,3 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-@import "../styles/variable.less";
-
-.el-menu-item {
-  width: 33.3%;
-  text-align: center;
-}
-
-.el-menu.el-menu--horizontal {
-  border-bottom: solid 1px #000000;
-}
-
-.el-tree {
-  background-color: @base-color;
-}
-
-.compile-form {
-  text-align: center;
-  margin-top: 40px;
-}
-</style>
