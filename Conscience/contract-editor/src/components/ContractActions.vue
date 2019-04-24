@@ -49,7 +49,7 @@
       </el-form>
     </div>
 
-    <div v-show="activeMenu === '3'">
+    <div v-show="activeMenu === '3'" style="text-align: center; margin-top: 40px">
       <el-form class="compile-form" :label-position="labelPosition" label-width="50px">
         <el-form-item>
           <el-select class="el-select-run" v-model="runIndex" placeholder="请选择要执行的方法" clearable>
@@ -57,12 +57,14 @@
                        :label="item.label"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item  v-show="runIndex !== ''" v-for="(arg, index) in runMethodList.args" label="arg" class="el-form-item-run">
-          <el-input v-model="argList[index]" prefix-icon="el-icon-edit">
-            <template slot="prepend">({{arg}})</template>
-          </el-input>
-          <div style="margin: 20px;"></div>
-        </el-form-item>
+        <div v-if="runIndex !== null">
+          <el-form-item v-for="arg in runMethodList[runIndex].args" label="arg" class="el-form-item-run">
+            <el-input v-model="argList[runIndex]" prefix-icon="el-icon-edit">
+              <template slot="prepend">({{arg}})</template>
+            </el-input>
+            <div style="margin: 20px;"></div>
+          </el-form-item>
+        </div>
         <el-form-item>
           <el-button type="primary">运行</el-button>
         </el-form-item>
@@ -133,7 +135,7 @@ export default {
       openIndex: [],
       result: null,
       runMethodList: [],
-      runIndex: '',
+      runIndex: null,
       argList: [],
       labelPosition: 'left'
     };
