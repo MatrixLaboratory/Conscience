@@ -1,6 +1,5 @@
 "use strict";
 
-import Web3 from 'web3'
 import axios from 'axios'
 const IOST = require('iost')
 export async function compileIostContract(code, fileName = 'test.js') {

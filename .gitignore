@@ -1,0 +1,5 @@
+**/node_modules/
+!**/node_modules/.bin/iwallet #Except for iwallet bin
+
+**/.idea
+
