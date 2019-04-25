@@ -58,7 +58,7 @@
           </el-select>
         </el-form-item>
         <div v-if="runIndex !== null">
-          <el-form-item v-for="arg in runMethodList[runIndex].args" label="arg" class="el-form-item-run">
+          <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg" class="el-form-item-run">
             <el-input v-model="argList[runIndex]" prefix-icon="el-icon-edit">
               <template slot="prepend">({{arg}})</template>
             </el-input>
