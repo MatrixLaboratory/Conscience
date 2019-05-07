@@ -58,7 +58,7 @@
           </el-select>
         </el-form-item>
         <div v-if="runIndex !== null">
-          <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg" class="el-form-item-run">
+          <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg:" class="el-form-item-run">
             <el-input v-model="argList[runIndex]" prefix-icon="el-icon-edit">
               <template slot="prepend">({{arg}})</template>
             </el-input>
@@ -108,6 +108,11 @@
   .el-form-item-run {
     width: 300px;
     margin: 0 auto;
+  }
+
+  .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+    background-color: #409eff;
+    color: white;
   }
 
 </style>

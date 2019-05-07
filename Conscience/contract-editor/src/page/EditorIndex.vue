@@ -12,7 +12,7 @@
         background-color="#333333"
         text-color="#fff"
         active-text-color="#409EFF"
-        :default-openeds="['2']"
+        :default-openeds="['1','2']"
       >
         <el-submenu index="1">
           <template slot="title">
