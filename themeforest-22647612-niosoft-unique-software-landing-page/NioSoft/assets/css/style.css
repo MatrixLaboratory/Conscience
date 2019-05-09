@@ -1,0 +1,1494 @@
+/*----------------------------------------------------------------------------------------
+* Author        : Coderspoint
+* Template Name : NioSoft - Unique Software Landing Page
+* File          : NioSoft main CSS file
+* Version       : 1.0
+* ---------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* INDEX
+----------------------------------------------------------------------------------------
+
+01. General css
+
+02. Navigation area css
+
+03. Slider area css
+
+04. Hero area css
+
+05. Price area css
+
+06. Action area css
+
+07. Service area css
+
+08. Pricing area css
+
+09. Testimonial area css
+
+10. Why Choose area css
+
+11. Subscribe area css
+
+12. Client area css
+
+13. Contact area css
+
+14. Footer area css
+
+-------------------------------------------------------------------------------------- */
+
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600,700');
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                       01. General css
+* -------------------------------------------------------------------------------------- */
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    color: #8a9fba;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    line-height: 26px;
+    font-family: 'Nunito', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #040039;
+    font-weight: 700;
+}
+
+p {
+    letter-spacing: 0px;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.3s;
+    -webkit-transition: all 0.3s;
+}
+
+a:hover {
+    color: #040039;
+    text-decoration: none;
+}
+
+a:focus {
+    outline: none;
+    text-decoration: none;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+fieldset {
+    border: 0 none;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.btn.active.focus,
+.btn.active:focus,
+.btn.focus,
+.btn.focus:active,
+.btn:active:focus,
+.btn:focus {
+    outline: none;
+}
+
+.btn, input[type='submit'] {
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 50px;
+    letter-spacing: 0px;
+    display: inline-block;
+    transition: 0.3s ease-out;
+    border: 1px solid transparent;
+    box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1);
+    text-transform: uppercase;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+ 
+.btn:hover, 
+input[type="submit"]:hover {
+    color: #b050ff;
+    background: #fff;
+    border: 1px solid #b050ff;
+}
+
+.btn-white {
+    color: #8a9fba;
+    background: #fff;
+}
+
+.btn-white:hover {
+    background: #6222b1;
+    color: #fff;
+}
+
+.btn-trnsp {
+    border: 1px solid #fff;
+    background: transparent;
+}
+
+.btn-trnsp:hover {
+    border: 1px solid #fff;
+    background: #fff;
+}
+
+.btn-dark {
+    background: #6222b1;
+    border: 1px solid #6222b1;
+}
+
+.btn-dark:hover {
+    background: #fff;
+    border: 1px solid #9125dc;
+}
+
+
+/* Section CSS */
+
+.section-big {
+    padding: 140px 0px;
+}
+
+@media (max-width: 767px) {
+    .section-big {
+        padding: 80px 0px;
+    }
+}
+
+.section-small {
+    padding: 50px 0px;
+}
+
+.section-title {
+    margin-bottom: 60px;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+.section-title h2 {
+    margin-top: 0;
+    font-size: 40px;
+    line-height: 38px;
+    position: relative;
+    margin-left: 80px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.section-title h2:before {
+    content: '';
+    top: 48%;
+    left: -80px;
+    width: 60px;
+    height: 4px;
+    position: absolute;
+    border-radius: 10px;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+.section-title p {
+    max-width: 530px;
+}
+
+.section-title.white h2,
+.section-title.white p {
+    color: #fff;
+}
+
+.section-btn {
+    width: 100%;
+    height: 1px;
+    text-align: right;
+}
+
+.section-btn .btn {
+    margin-top: -100px;
+}
+
+
+
+
+/* preloader css */
+
+#preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    background-image: url(../img/preloader.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+
+.table {
+    display: table;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+.table-cell {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+img {
+    max-width: 100%;
+}
+
+.space {
+    height: 30px;
+}
+
+.space-100 {
+    height: 100px;
+}
+
+.hr-center {
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* Gradient Color Background Css */
+.gradient-bg {
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+/* btn set */
+
+.btn-set {
+    margin-top: 15px;
+}
+
+.btn-set a.btn {
+    display: inline-block;
+    margin: 15px;
+}
+
+.color {
+    color: #9125dc;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                               02. Navigation area css
+* --------------------------------------------------------------------------------------- */
+.menu-area {
+    height: 75px;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+}
+
+.menu-area.sticky-menu {
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+.sticky-menu {
+    box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1); 
+}
+
+.mainmenu {
+    margin-top: 12px;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border: 0px;
+}
+
+.nav.navbar-nav.navbar-right {
+    margin-right: 0;
+}
+
+.navbar-brand {
+    padding: 0;
+    font-size: 36px;
+    display: flex;
+    color: #b050ff;
+    align-items: center;
+    text-transform: uppercase;
+}
+
+.navbar-brand span {
+    color: #f45e58;
+}
+
+.navbar-brand:hover {
+    color: #b050ff;
+}
+
+.navbar-nav  li {
+    float: none;
+    display: inline-block;
+}
+
+.navbar-nav li a {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-nav a.btn {
+    color: #fff;
+    padding: 10px 25px;
+    margin-left: 20px;
+}
+
+.navbar-nav a.btn:hover {
+    color: rgb(255,101,165);
+    background: #fff;
+    border: 1px solid rgb(255,101,165);
+}
+
+.nav > li > a:hover,
+.nav > li > a:active,
+.nav > li > a:focus {
+    background: none;
+}
+
+.mainmenu .navbar-nav li.active a {}
+
+/* Mobile Nav css */
+.navbar-toggle .icon-bar {
+    background: #fff;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                               03. Slider area css
+* -------------------------------------------------------------------------------------- */
+
+.slider-area {
+    background-image: url("../img/bg/slider-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+
+.intro-text {
+    margin: auto;
+    max-width: 1000px;
+    margin-top: 150px;
+    color: #fff;
+}
+
+.intro-text h1 {
+    color: inherit;
+    font-size: 70px;
+    font-weight: 700;
+    margin-top: 0px;
+    margin-bottom: 30px;
+    line-height: 70px;
+}
+
+.intro-text p {
+    font-size: 18px;
+    font-weight: 600;
+    max-width: 850px;
+    margin: auto;
+}
+
+.intro-img {
+    margin-top: 100px;
+    margin-bottom: -130px;
+}
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                               04. About area css
+* ---------------------------------------------------------------------------------------*/
+.about-area {
+    z-index: 5;
+    position: relative;
+    padding-top: 250px;
+    padding-bottom: 0px;
+}
+
+.about-area .row {
+    display: flex;
+    display: -moz-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+}
+
+.about-area .fw-col {
+    padding: 0;
+}
+
+.about-content {
+    float: right;
+    max-width: 555px;
+    margin-bottom: 170px;
+}
+
+.about-content ul {
+    margin-left: 30px;
+    margin-bottom: 30px;
+}
+
+.about-bg {
+    background-image: url(../img/about/dashboard.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+.about-img img {
+    width: 100%;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   05. Counter area css
+* --------------------------------------------------------------------------------------- */
+.counter-area {
+    color: #fff;
+    background-image: url("../img/bg/counter-bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    position: relative;
+    z-index: 6;
+    margin-top: -100px;
+}
+
+.fun-fact {
+    text-align: center;
+}
+
+.fun-fact i.fa {
+    font-size: 50px;
+}
+
+.fun-fact h3 {
+    color: inherit;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.counter-area .btn {
+    position: absolute;
+    left: 50%;
+    bottom: -20px;
+    transform: translate(-50%, 0%);
+}
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   05. Feature area css
+* --------------------------------------------------------------------------------------- */
+.feature-area {}
+
+.feature-box {
+    margin-top: 30px;
+}
+
+.feature-box i.fa, 
+.feature-box span.lnr, 
+.feature-box img {
+    float: left;
+    width: 50px;
+    height: 60px;
+    font-size: 25px;
+    line-height: 60px;
+    text-align: center;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+
+.feature-box p {
+    margin-bottom: 0;
+}
+
+.feature-content {
+    overflow: hidden;
+}
+
+.feature-content h3 {
+    position: relative;
+    margin-top: 0px;
+}
+
+.feture-img {
+    margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+    .feture-img {
+        margin-bottom: 30px;
+        margin-top: 0px;
+    }
+    .feture-img img {
+        width: 100%;
+    }
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   05. service area css
+* --------------------------------------------------------------------------------------- */
+.service-area {
+    background-color: #f1f2f8;
+}
+
+.service-area .section-title {
+    margin-bottom: 30px;
+}
+
+.service-box {
+    margin-top: 30px;
+    padding: 40px 30px;
+    background-color: #fff;
+}
+
+.service-box i.fa,
+.service-box img {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   05. Video area css
+* --------------------------------------------------------------------------------------- */
+.video-area {
+    color: #fff;
+    background-image: url("../img/bg/video-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+}
+
+.video-text h2,
+.video-text h4 {
+    color: #fff;
+}
+
+.video-content {
+    text-align: center;
+}
+
+.video-content a.popup-youtube i.fa,
+.video-content a.popup-youtube span.lnr {
+    color: #040039;
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    border-radius: 500px;
+    transition: 0.3s ease;
+    background: #fff;
+    box-shadow: 0px 0px 0px 10px rgba(255, 255, 255, 0.1),
+                0px 0px 0px 20px rgba(255, 255, 255, 0.06);
+}
+
+.video-content a.popup-youtube i.fa:hover,
+.video-content a.popup-youtube span.lnr:hover {
+    color: #9125dc;
+    box-shadow: 0px 0px 0px 15px rgba(255, 255, 255, 0.1),
+                0px 0px 0px 25px rgba(255, 255, 255, 0.06);
+}
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   05. Tab area css
+* --------------------------------------------------------------------------------------- */
+.tab-area {}
+
+.tab-area .tab-contents {
+    position: relative;
+}
+
+.tab-area .tab-nav-pos {
+    float: right;
+    width: 50%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.nav-tab {
+    display: inline-block;
+    background-color: #fff;
+    list-style: none;
+    margin-left: 15px;
+    padding: 15px 10px;
+    border-radius: 50px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0px 5px 10px 0px #ddd;    
+}
+
+.nav-tab li {
+    float: left;
+}
+
+.nav-tab li a {
+    padding: 10px 30px;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+.nav-tab li.active>a {
+    color: #fff;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+.tab-content img {
+    width: 100%;
+}
+
+
+@media (max-width: 991px) {
+    .tab-area .tab-nav-pos {
+        width: 100%;
+        float: left;
+        margin-top: 0px;
+    }
+    .nav-tab {
+        margin-left: 0px;
+    }
+    .tab-content img {
+        margin-bottom: 30px;
+    }
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   05. Price area css
+* --------------------------------------------------------------------------------------- */
+.pricing-area {
+    background-color: #f1f2f8;
+}
+
+.pricing-title {
+    margin-top: 90px;
+}
+
+.pricing-area .nav-tab {
+    margin-left: 0px;
+    margin-top: 20px;
+}
+
+.price-item {
+    position: relative;
+    z-index: 4;
+    background: #fff;
+    margin-top: 30px;
+    padding: 60px 30px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+    transition: 0.3s ease-out;
+    box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1);
+}
+
+@media (min-width: 768px) {
+    .price-item.featured {
+        zoom: 1.1;
+        margin-top: -30px;
+        margin-left: -30px;
+        position: relative;
+        z-index: 5;
+    }
+}
+
+.price-item ul {
+    margin-left: 0;
+    list-style: none;
+    padding-left: 0px;
+}
+
+.price-item h3 {
+    margin-top: 0px;
+}
+
+.price-item p.desc {
+    display: none;
+}
+
+.price span {
+    font-size: 15px;
+    color: #777;
+}
+
+.price-item p.price {
+    margin-top: 35px;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 42px;
+}
+
+.price-item .features {
+    margin: 30px 0;
+}
+
+.price-item .features li {
+    padding: 5px 0;
+}
+
+.price-item a.btn {
+    display: inline-block;
+}
+
+
+
+@media (max-width: 991px) {
+    .pricing-title {
+        margin-top: 90px;
+    }
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   06. faq area css
+* --------------------------------------------------------------------------------------- */
+.faq-area {
+    background-size: inherit;
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-image: url(../img/bg/faq-bg.png);
+    padding-bottom: 0px;
+}
+
+.faq-area .section-title {
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    margin-top: 30px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.faq-item span {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 100px;
+    display: block;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   06. Action area css
+* --------------------------------------------------------------------------------------- */
+.action-area {
+    text-align: center;
+}
+
+.action-area .content-box h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.action-area .content-box p {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.action-area .btn-set .btn {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 0px;
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                07. howitwork area css
+* --------------------------------------------------------------------------------------- */
+.howitwork-area {
+    background-color: #f1f2f8;
+}
+
+.howitwork-area .section-title {
+    margin-bottom: 30px;
+}
+
+.how-box {
+    margin-top: 30px;
+}
+
+.how-box span {
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+    border-radius: 100px;
+    display: block;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                07. Screenshot area css
+* --------------------------------------------------------------------------------------- */
+.screenshot-area {}
+
+.screen {
+    margin: 0 15px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.screen img {
+    border-radius: 5px;
+}
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                07. Info area css
+* --------------------------------------------------------------------------------------- */
+.info-area {
+    background-color: #f8faf8;
+}
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                07. extra-Info area css
+* --------------------------------------------------------------------------------------- */
+.extra-info {
+    margin-top: 100px;
+}
+
+.extra-info h2 {
+    max-width: 350px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.extra-info h2:before {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 4px;
+    border-radius: 10px;
+    top: -30px;
+    left: 0;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+.extra-info .btn {
+    margin-top: 20px;
+}
+
+.center-container {
+    display: flex;
+    align-items: center;
+}
+
+.center-text {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+
+.one .center-text {
+    padding-right: 30px;
+}
+
+.two .center-text {
+    padding-left: 30px;
+}
+
+.center-img {
+    width: 50%;
+    float: left;
+    display: inline-block;
+}
+
+.center-img img {
+    width: 100%;
+}
+
+@media(max-width: 768px) {
+
+    .center-container {
+        display: block;
+    }
+
+    .center-text,
+    .center-img {
+        width: 100%;
+        float: none;
+        margin-top: 30px;
+    }
+
+    .two .center-text {
+        padding-left: 0px;
+    }
+}
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                08. Testimonial area css
+* --------------------------------------------------------------------------------------- */
+.testimonial-area .section-title {
+    margin-bottom: 0px;
+}
+
+.single-testimonial {
+    padding: 25px;
+    margin: 50px 20px;
+    margin-bottom: 35px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 30px 0px rgba(153, 153, 153, 0.2);
+}
+
+.single-testimonial i.fa,
+.single-testimonial span.lnr {
+    font-size: 20px;
+    margin-right: 10px;
+    display: inline-block;
+    color: rgb(255,101,165);
+}
+
+.single-testimonial i.fa.fa-quote-right {
+    margin-left: 10px;
+}
+
+.single-testimonial p:not(.desg) {
+    text-align: left;
+    overflow: hidden;
+}
+
+.single-testimonial img {
+    border-radius: 100px;
+    float: left;
+    margin-right: 25px;
+    margin-bottom: 30px;
+}
+
+.single-testimonial .desg {
+    font-size: 12px;
+    line-height: 30px;
+    background: #fff;
+    margin: 0;
+}
+
+.desg strong {
+    color: #444;
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.owl-theme .owl-controls {
+    height: 20px;
+    margin-top: 30px;
+}
+
+.testimonial-list .owl-controls {
+    margin-top: 0px;
+}
+
+.owl-theme .owl-controls .owl-page span {
+    display: block;
+    width: 20px;
+    height: 5px;
+    margin: 5px 7px;
+    filter: Alpha(Opacity=50);
+    opacity: .5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    background: #777;
+}
+
+.owl-theme .owl-controls .owl-buttons div {
+    font-size: 25px;
+    background: none;
+    padding: 5px;
+}
+
+.owl-pagination {
+    text-align: center;
+}
+.owl-pagination .owl-page {
+    display: inline-block;
+}
+.owl-theme .owl-controls .owl-page span {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+    margin: 2px 4px;
+    border-radius: 10px;
+    background-color: #ddd;
+    transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+}
+.owl-pagination .owl-page.active span {
+    width: 30px;
+    background: rgba(102,71,238,1);
+    background: -moz-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(102,71,238,1)), color-stop(100%, rgba(146,36,220,1)));
+    background: -webkit-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -o-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: -ms-linear-gradient(left, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    background: linear-gradient(to right, rgba(102,71,238,1) 0%, rgba(146,36,220,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6647ee', endColorstr='#9224dc', GradientType=1 );
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   11. Client area css
+* --------------------------------------------------------------------------------------- */
+.client-area {
+    display: flex;
+    align-items: center;
+    height: 250px;
+}
+
+.owl-client .item {
+    margin: 0 7px;
+}
+
+.owl-client .item img {
+    width: auto;
+    max-width: 100%;
+    padding: 0 15px;
+}
+
+@media (max-width: 767px) {
+    .client-area {
+        display: block;
+        padding: 90px 0;
+    }
+}
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   12. Contact area css
+* --------------------------------------------------------------------------------------- */
+
+.contact-form {}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #777;
+}
+
+.address {}
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: 35px;
+    padding: 2px 15px;
+    color: #fff;
+    border: 1px solid #555;
+    background-color: #404040;
+    background-image: none;
+    border-radius: 0px;
+    box-shadow: none;
+    border-radius: 0px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 10px;
+}
+
+.form-control:focus {
+    outline: 0;
+    border-color: rgb(255,101,165);
+    box-shadow: none;
+}
+
+.contact-form textarea#message {
+    height: 80px;
+    padding-top: 10px;
+}
+
+#submitButton {
+    float: right;
+}
+
+#submitButton:hover {}
+
+.success {
+    color: #fff;
+    padding: 10px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.error {
+    padding: 10px;
+    color: #ff0000;
+    font-weight: 500;
+    text-align: center;
+}
+
+.contact-info {
+    margin-bottom: 30px;
+}
+
+.address span.lnr, 
+.address i.fa {
+    width: 40px;
+    float: left;
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+/* ----------------------------------------------------------------------------------------
+*                                   13. Footer area css
+* --------------------------------------------------------------------------------------- */
+footer {
+    position: relative;
+    z-index: -1;
+    margin-top: -250px;
+}
+
+.footer-widget-area {
+    color: #777;
+    background-image: url("../img/bg/footer-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center top;
+    padding-top: 190px;
+}
+
+.footer-text {
+    text-align: center;
+    color: #fff;
+    margin-top: 180px;
+}
+
+.footer-text h2 {
+    color: #fff;
+}
+
+.footer-bottom-area {
+    border-top: 1px solid #3d456d;
+    color: #aaa;
+    background: #191f3b;
+    padding: 30px 0px;
+}
+
+.footer-bottom-area p {
+    margin: 0px;
+}
+
+@media (min-width: 768px) {
+    .social-links{
+        float: right;
+    }
+}
+
+.social-links li {
+    list-style: none;
+    float: left;
+    line-height: 30px;
+}
+
+
+.social-links li a i {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+
+@media (max-width: 767px) {
+    .footer-bottom-area {
+        text-align: center;
+    }
+    .footer-bottom-area .social-links {
+        float:none;
+        display:table;
+        margin: auto;
+    }
+}
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------------
+*                                   Responsive CSS
+* ------------------------------------------------------------------------------- */
+
+
+/* Medium Layout */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  
+}
+/* Medium Layout */
+
+
+
+
+
+/* Tablet Layout */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+    /* Mobile Menu Css Starts */
+    .navbar-nav li a {
+        padding: 15px 5px;
+    }
+    /* Mobile Menu Css Ends */
+
+    .tab-margin-bottom {
+        margin-bottom: 30px;
+    }
+
+    .info-img {
+        margin-top: 30px;
+    }
+
+}
+/* Tablet Layout */
+
+
+
+
+/* Mobile Layout */
+
+@media only screen and (max-width: 767px) {
+    
+    /* Mobile Menu Css Starts */
+    .navbar-toggle {
+        margin-right: 0px;
+    }
+    .navbar-fixed-bottom .navbar-collapse,
+    .navbar-fixed-top .navbar-collapse {
+        background: #fff;
+        margin-top: 15px;
+        box-shadow: 0px 20px 50px 0px rgba(153, 153, 153, 0.1); 
+    }
+    .navbar {
+        min-height: 0px;
+    }
+    .mainmenu .navbar-nav {
+        margin: 0;
+    }
+    .mainmenu .navbar-nav li {
+        float: none;
+        display: block;
+    }
+    .mainmenu .navbar-nav li a {
+        padding: 11px 15px;
+        color: inherit;
+    }
+    .navbar-fixed-bottom .navbar-collapse,
+    .navbar-fixed-top .navbar-collapse {
+        max-height: 420px;
+    }
+    /* Mobile Menu Css Ends */
+
+
+
+    /* Slider Css Starts */
+    .intro-text {
+        padding: 0 15px;
+    }
+    .intro-text h1 {
+        font-size: 40px;
+        line-height: 50px;
+        margin-bottom: 10px;
+    }
+    /* Slider Css Ends */
+
+    
+
+
+    
+}
+
+
+/* Small Mobile Layout */
+@media only screen and (max-width: 480px) {
+
+}
+/* Small Mobile Layout 
