@@ -35,9 +35,6 @@
       theme: function() {
         monaco.editor.setTheme(this.theme);
       },
-      // editorFile: function() {
-      //   console.log('file ' + this.editorFile);
-      // }
     },
     methods: {
       changeEditor(fileName, code) {
