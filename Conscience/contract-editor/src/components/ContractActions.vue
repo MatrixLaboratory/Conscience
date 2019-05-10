@@ -9,20 +9,20 @@
       text-color="#fff"
       active-text-color="#409EFF"
     >
-      <el-menu-item index="1">编译</el-menu-item>
-      <el-menu-item index="2">部署</el-menu-item>
-      <el-menu-item index="3">运行</el-menu-item>
+      <el-menu-item index="1">{{menuLang.compile.topTitle}}</el-menu-item>
+      <el-menu-item index="2">{{menuLang.deploy.topTitle}}</el-menu-item>
+      <el-menu-item index="3">{{menuLang.run.topTitle}}</el-menu-item>
     </el-menu>
 
     <div v-show="activeMenu === '1'">
       <el-form :inline="true" class="compile-form">
         <el-form-item>
-          <el-select v-model="compileFile" value="compiler" placeholder="请选择文件" clearable>
+          <el-select v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
             <el-option v-for="file in files" :key="file" :label="file" :value="file"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="compile" :loading="compiling">编译</el-button>
+          <el-button type="primary" @click="compile" :loading="compiling">{{menuLang.compile.button}}</el-button>
         </el-form-item>
       </el-form>
 
@@ -34,7 +34,7 @@
     <div v-show="activeMenu === '2'">
       <el-form :inline="true" class="compile-form">
         <el-form-item>
-          <el-select v-model="deployIndex" value="deploy" placeholder="请选择已编译的合约" clearable>
+          <el-select v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
             <el-option
               v-for="(contract, index) in compiledContracts"
               :key="index"
@@ -44,7 +44,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="deploy">部署</el-button>
+          <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -52,7 +52,7 @@
     <div v-show="activeMenu === '3'" style="text-align: center; margin-top: 40px">
       <el-form class="compile-form" :label-position="labelPosition" label-width="50px">
         <el-form-item>
-          <el-select class="el-select-run" v-model="runIndex" placeholder="请选择要执行的方法" clearable>
+          <el-select class="el-select-run" v-model="runIndex" :placeholder="menuLang.run.placeholder" clearable>
             <el-option v-for="(item, index) in runMethodList" :key="index" :value="index"
                        :label="item.label"></el-option>
           </el-select>
@@ -66,7 +66,7 @@
           </el-form-item>
         </div>
         <el-form-item>
-          <el-button type="primary">运行</el-button>
+          <el-button type="primary">{{menuLang.run.button}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -148,6 +148,28 @@ export default {
   props: {
     files: {
       type: Array
+    },
+    menuLang: {
+      type: Object,
+      default: function () {
+        return {
+          compile: {
+            topTitle: '编译',
+            placeholder: '请选择文件',
+            button: '编译'
+          },
+          deploy: {
+            topTitle: '部署',
+            placeholder: '请选择已编译的合约',
+            button: '部署'
+          },
+          run: {
+            topTitle: '运行',
+            placeholder: '请选择要执行的方法',
+            button: '运行'
+          }
+        }
+      }
     }
   },
   methods: {

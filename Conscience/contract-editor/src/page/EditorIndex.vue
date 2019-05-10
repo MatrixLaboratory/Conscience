@@ -1,8 +1,8 @@
 <template>
   <el-container>
     <el-aside v-show="leftAside" width="240px">
-      <div class="left-header">
-        <el-tooltip class="item" effect="dark" content="新增文件" placement="right">
+      <div class="left-header" v-show="!showSettingsOnWindow">
+        <el-tooltip class="item" effect="dark" :content="menuLang.topPlaceholder" placement="right">
           <el-button class="plus-file" type="primary" icon="el-icon-plus" circle @click="addFile"></el-button>
         </el-tooltip>
       </div>
@@ -13,17 +13,18 @@
         text-color="#fff"
         active-text-color="#409EFF"
         :default-openeds="['1','2']"
+        v-show="!showSettingsOnWindow"
       >
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-menu"></i>
-            <span>智能合约</span>
+            <span>{{menuLang.contract}}</span>
           </template>
           <el-menu-item-group>
             <el-menu-item v-for="file in files" :index="file" :key="file" :name="file" @click="openFile">
               <el-row :gutter="20">
                 <el-col :span="16">
-                  <div class="grid-content bg-purple" style="overflow: hidden">
+                  <div class="grid-content bg-purple">
                     {{ file }}
                   </div>
                 </el-col>
@@ -40,13 +41,13 @@
         <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-more"></i>
-            <span>案例模板</span>
+            <span>{{menuLang.template}}</span>
           </template>
           <el-menu-item-group>
             <el-menu-item v-for="name in caseTemplate" :index="name" :key="name" :name="name" @click="openFile">
               <el-row :gutter="20">
                 <el-col :span="16">
-                  <div class="grid-content bg-purple" style="overflow: hidden">
+                  <div class="grid-content bg-purple">
                     {{ name }}
                   </div>
                 </el-col>
@@ -55,8 +56,41 @@
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
+      <!--setting menu aside start-->
+      <el-menu v-show="showSettingsOnWindow"
+               default-active="1"
+               class="el-menu-vertical-demo"
+               background-color="#333333"
+               text-color="#fff"
+               active-text-color="#409EFF"
+               :default-openeds="['1']"
+      >
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-menu"></i>
+            <span>{{settingTitle}}</span>
+          </template>
+          <el-menu-item v-for="item in settingSelect" :index="item.name" :key="item.name" :name="item.name"
+                        @click="openOption">
+            <el-row :gutter="20">
+              <el-col :span="16">
+                <div class="grid-content bg-purple">
+                  {{ item.name }}
+                </div>
+              </el-col>
+            </el-row>
+          </el-menu-item>
+        </el-submenu>
+      </el-menu>
+      <!--setting menu aside end-->
+      <el-footer id="btn-footer">
+        <div class="btn-setting" style="height: 100%; text-align: center;">
+          <el-button type="info" icon="el-icon-edit" round @click="showCode">code</el-button>
+          <el-button type="info" icon="el-icon-setting" round @click="showSettings">settings</el-button>
+        </div>
+      </el-footer>
     </el-aside>
-    <el-main>
+    <el-main v-show="!showSettingsOnWindow">
       <el-container>
         <el-header>
           <el-tabs v-model="editorTab" type="card" closable @tab-remove="removeTab" @tab-click="tabClick">
@@ -93,8 +127,28 @@
         </el-footer>
       </el-container>
     </el-main>
-    <el-aside v-show="rightAside" class="right" width="500px">
-      <contract-action :files="compileNames" v-on:compileResult="compileResult"></contract-action>
+
+    <!--setting menu main start-->
+    <el-main v-show="settingSelect[0].data.show">
+      <el-form ref="settingForm" :model="settingSelect[0].data" label-width="80px">
+        <el-form-item :label="settingSelect[0].data.label">
+          <el-select v-model="langMode">
+            <el-option v-for="item in settingSelect[0].data.lang" :key="item" :label="item" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+    </el-main>
+    <el-main v-show="settingSelect[1].data.show">
+      <el-form ref="aboutForm" :model="settingSelect[1].data" label-width="80px">
+        <el-form-item>
+          {{ settingSelect[1].data.content }}
+        </el-form-item>
+      </el-form>
+    </el-main>
+    <!--setting menu main end-->
+
+    <el-aside v-show="!showSettingsOnWindow" class="right" width="500px">
+      <contract-action v-show="rightAside" :menuLang="menuLang" :files="compileNames" v-on:compileResult="compileResult"></contract-action>
     </el-aside>
   </el-container>
 </template>
@@ -105,6 +159,7 @@
   import ContractAction from '../components/ContractActions'
   import {caseTemplate} from "../assets/template/case.eg";
   import {defaultCode} from "../assets/template/case.eg";
+  import {settingLang, menuLang} from "../assets/template/settings";
 
   const suffix = '.js'
 
@@ -121,7 +176,44 @@
         editorTab: '',
         compileLoggers: [],
         caseTemplate: caseTemplate(),
-        compileNames: []
+        compileNames: [],
+        showSettingsOnWindow: false,
+        langMode: '简体中文',
+        settingSelect: [{
+          name: '设置',
+          data: {
+            show: false,
+            label: '语言',
+            lang: ['简体中文', 'English']
+          }
+        }, {
+          name: '关于',
+          data: {
+            show: false,
+            content: 'hello'
+          }
+        }],
+        settingTitle: '通用',
+        menuLang: {
+          contract: '智能合约',
+          template: '案例模板',
+          topPlaceholder: '新增文件',
+          compile: {
+            topTitle: '编译',
+            placeholder: '请选择文件',
+            button: '编译'
+          },
+          deploy: {
+            topTitle: '部署',
+            placeholder: '请选择已编译的合约',
+            button: '部署'
+          },
+          run: {
+            topTitle: '运行',
+            placeholder: '请选择要执行的方法',
+            button: '运行'
+          }
+        }
       }
     },
     components: {
@@ -134,6 +226,14 @@
           localStorage.setItem('files', JSON.stringify(newValue));
         },
         deep: true
+      },
+      langMode: {
+        handler: function (newValue) {
+          this.settingSelect = settingLang(newValue)
+          this.openOption({index: newValue == '简体中文' ? '设置' : 'Settings'})
+          this.settingTitle = newValue == '简体中文' ? '通用' : 'Commons'
+          this.menuLang = menuLang(newValue)
+        }
       }
     },
     mounted() {
@@ -173,7 +273,7 @@
           cancelButtonText: '取消',
           inputPattern: '',
           inputErrorMessage: '请输入正确的文件名！'
-        }).then(({ value }) => {
+        }).then(({value}) => {
           let newFile = value + suffix;
           for (let index in this.files) {
             if (this.files[index] === newFile) {
@@ -200,7 +300,7 @@
           inputValue: fileName.split(".")[0],
           inputPattern: '',
           inputErrorMessage: '请输入正确的文件名！'
-        }).then(({ value }) => {
+        }).then(({value}) => {
           let newFile = value + suffix;
           for (let index in this.files) {
             if (this.files[index] === newFile) {
@@ -284,6 +384,22 @@
             break;
           }
         }
+      },
+      showCode() {
+        this.openOption({index: 'index'})
+        this.showSettingsOnWindow = false
+      },
+      showSettings() {
+        this.showSettingsOnWindow = true
+        this.openOption({index: this.langMode == '简体中文' ? '设置' : 'Settings'})
+      },
+      openOption(index) {
+        for (let i = 0; i < this.settingSelect.length; i++) {
+          this.settingSelect[i].data.show = false
+          if (this.settingSelect[i].name === index.index) {
+            this.settingSelect[i].data.show = true
+          }
+        }
       }
     }
   }
@@ -357,6 +473,23 @@
     background-color: #1e1e1e;
     border-radius: 5px;
   }
+
+  /*.el-button--info {*/
+  /*background-color: #454545;*/
+  /*border-color: #4e5052;*/
+  /*margin-top: 10px;*/
+  /*}*/
+
+  #btn-footer {
+    width: 240px;
+    position: fixed;
+    bottom: 0;
+  }
+
+  .el-menu-vertical-demo {
+    width: 100%;
+  }
+
 </style>
 
 <style>
