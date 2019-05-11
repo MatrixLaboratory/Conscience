@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside v-show="leftAside" width="240px">
+    <el-aside v-show="leftAside" width="240px" :style="{backgroundColor : backgroundColor}">
       <div class="left-header" v-show="!showSettingsOnWindow">
         <el-tooltip class="item" effect="dark" :content="menuLang.topPlaceholder" placement="right">
           <el-button class="plus-file" type="primary" icon="el-icon-plus" circle @click="addFile"></el-button>
@@ -9,7 +9,7 @@
       <el-menu
         :default-active="editorTab"
         class="el-menu-vertical-demo"
-        background-color="#333333"
+        :background-color="backgroundColor"
         text-color="#fff"
         active-text-color="#409EFF"
         :default-openeds="['1','2']"
@@ -60,7 +60,7 @@
       <el-menu v-show="showSettingsOnWindow"
                default-active="1"
                class="el-menu-vertical-demo"
-               background-color="#333333"
+               :background-color="backgroundColor"
                text-color="#fff"
                active-text-color="#409EFF"
                :default-openeds="['1']"
@@ -129,16 +129,23 @@
     </el-main>
 
     <!--setting menu main start-->
-    <el-main v-show="settingSelect[0].data.show">
+    <el-main v-show="settingSelect[0].show">
       <el-form ref="settingForm" :model="settingSelect[0].data" label-width="80px">
-        <el-form-item :label="settingSelect[0].data.label">
+        <el-form-item :label="settingSelect[0].data.lang.label">
           <el-select v-model="langMode">
-            <el-option v-for="item in settingSelect[0].data.lang" :key="item" :label="item" :value="item"></el-option>
+            <el-option v-for="item in settingSelect[0].data.lang.list" :key="item" :label="item"
+                       :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item :label="settingSelect[0].data.theme.label">
+          <el-select v-model="themeMode">
+            <el-option v-for="item in settingSelect[0].data.theme.list" :key="item" :label="item"
+                       :value="item"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
     </el-main>
-    <el-main v-show="settingSelect[1].data.show">
+    <el-main v-show="settingSelect[1].show">
       <el-form ref="aboutForm" :model="settingSelect[1].data" label-width="80px">
         <el-form-item>
           {{ settingSelect[1].data.content }}
@@ -147,8 +154,9 @@
     </el-main>
     <!--setting menu main end-->
 
-    <el-aside v-show="!showSettingsOnWindow" class="right" width="500px">
-      <contract-action v-show="rightAside" :menuLang="menuLang" :files="compileNames" v-on:compileResult="compileResult"></contract-action>
+    <el-aside v-show="!showSettingsOnWindow" class="right" width="500px" :style="{backgroundColor : backgroundColor}">
+      <contract-action v-show="rightAside" :menuLang="menuLang" :files="compileNames" :backgroundColor="backgroundColor"
+                       v-on:compileResult="compileResult"></contract-action>
     </el-aside>
   </el-container>
 </template>
@@ -159,7 +167,7 @@
   import ContractAction from '../components/ContractActions'
   import {caseTemplate} from "../assets/template/case.eg";
   import {defaultCode} from "../assets/template/case.eg";
-  import {settingLang, menuLang} from "../assets/template/settings";
+  import {settingLang, menuLang, defaultSettingSelect} from "../assets/template/settings";
 
   const suffix = '.js'
 
@@ -179,41 +187,11 @@
         compileNames: [],
         showSettingsOnWindow: false,
         langMode: '简体中文',
-        settingSelect: [{
-          name: '设置',
-          data: {
-            show: false,
-            label: '语言',
-            lang: ['简体中文', 'English']
-          }
-        }, {
-          name: '关于',
-          data: {
-            show: false,
-            content: 'hello'
-          }
-        }],
+        themeMode: 'Dark',
+        settingSelect: settingLang(),
         settingTitle: '通用',
-        menuLang: {
-          contract: '智能合约',
-          template: '案例模板',
-          topPlaceholder: '新增文件',
-          compile: {
-            topTitle: '编译',
-            placeholder: '请选择文件',
-            button: '编译'
-          },
-          deploy: {
-            topTitle: '部署',
-            placeholder: '请选择已编译的合约',
-            button: '部署'
-          },
-          run: {
-            topTitle: '运行',
-            placeholder: '请选择要执行的方法',
-            button: '运行'
-          }
-        }
+        menuLang: menuLang(),
+        backgroundColor: '#333333'
       }
     },
     components: {
@@ -233,6 +211,17 @@
           this.openOption({index: newValue == '简体中文' ? '设置' : 'Settings'})
           this.settingTitle = newValue == '简体中文' ? '通用' : 'Commons'
           this.menuLang = menuLang(newValue)
+        }
+      },
+      themeMode: {
+        handler: function (color) {
+          if (color == 'Dark') {
+            this.backgroundColor = '#333333'
+            return
+          }
+          if (color == 'Blue') {
+            this.backgroundColor = 'darkcyan'
+          }
         }
       }
     },
@@ -395,9 +384,9 @@
       },
       openOption(index) {
         for (let i = 0; i < this.settingSelect.length; i++) {
-          this.settingSelect[i].data.show = false
+          this.settingSelect[i].show = false
           if (this.settingSelect[i].name === index.index) {
-            this.settingSelect[i].data.show = true
+            this.settingSelect[i].show = true
           }
         }
       }

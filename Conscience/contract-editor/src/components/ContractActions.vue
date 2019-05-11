@@ -5,7 +5,7 @@
       class="el-menu-demo"
       mode="horizontal"
       @select="handleSelect"
-      background-color="#333333"
+      :background-color="backgroundColor"
       text-color="#fff"
       active-text-color="#409EFF"
     >
@@ -28,7 +28,7 @@
 
       <!--渲染ABI列表-->
 
-      <el-tree node-key="id" default-expand-all :data="treeData"></el-tree>
+      <el-tree v-show="treeData.length != null" :style="{backgroundColor : backgroundColor}" node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
     <div v-show="activeMenu === '2'">
@@ -170,6 +170,10 @@ export default {
           }
         }
       }
+    },
+    backgroundColor: {
+      type: String,
+      default: '#333333'
     }
   },
   methods: {
