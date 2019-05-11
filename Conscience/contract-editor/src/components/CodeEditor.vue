@@ -19,7 +19,10 @@
     props: {
       codeFontSize: {
         type: String,
-        default: '14px'
+        // default: '14px'
+      },
+      theme: {
+        type: String
       }
     },
     mounted () {
@@ -39,8 +42,8 @@
       });
     },
     watch: {
-      theme: function() {
-        monaco.editor.setTheme(this.theme);
+      theme: function(newTheme) {
+        monaco.editor.setTheme(newTheme);
       },
       codeFontSize: function (size) {
         this.editor.updateOptions({'fontSize' : parseInt(size)})

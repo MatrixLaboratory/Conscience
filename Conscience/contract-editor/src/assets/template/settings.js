@@ -20,6 +20,10 @@ export function settingLang(lang) {
             Large: '18px',
             ExtraLarge: '20px'
           }
+        },
+        codeTheme: {
+          label: '代码主题',
+          list: ['vs', 'vs-dark', 'hc-black']
         }
       }
     },

@@ -101,7 +101,7 @@
           </el-tabs>
         </el-header>
         <el-main>
-          <code-editor ref="codeEditor" :codeFontSize="fontSize"></code-editor>
+          <code-editor ref="codeEditor" :codeFontSize="fontSize" :theme="codeThemeMode"></code-editor>
         </el-main>
         <el-footer :height="footerH">
           <el-container>
@@ -151,6 +151,12 @@
                        :value="val"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item :label="settingSelect[0].data.codeTheme.label">
+          <el-select v-model="codeThemeMode">
+            <el-option v-for="item in settingSelect[0].data.codeTheme.list" :key="item" :label="item"
+                       :value="item"></el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
     </el-main>
     <el-main v-show="settingSelect[1].show">
@@ -197,6 +203,7 @@
         showSettingsOnWindow: false,
         langMode: '简体中文',
         themeMode: 'Dark',
+        codeThemeMode: 'vs-dark',
         settingSelect: settingLang(),
         settingTitle: '通用',
         menuLang: menuLang(),
@@ -233,12 +240,15 @@
           if (color == 'Blue') {
             this.backgroundColor = 'darkcyan'
           }
-        },
-        fontSizeName: {
-          handler: function (name) {
-            this.fontSize = this.settingSelect[0].data.fontSize.map[name]
-          }
         }
+      },
+      fontSizeName: {
+        handler: function (name) {
+          this.fontSize = this.settingSelect[0].data.fontSize.map[name]
+        }
+      },
+      codeThemeMode: function (codeTheme) {
+
       }
     },
     mounted() {
