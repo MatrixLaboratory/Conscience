@@ -132,7 +132,7 @@
 
     <!--setting menu main start-->
     <el-main v-show="settingSelect[0].show">
-      <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="80px">
+      <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px">
         <el-form-item :label="settingSelect[0].data.lang.label">
           <el-select v-model="langMode">
             <el-option v-for="item in settingSelect[0].data.lang.list" :key="item" :label="item"

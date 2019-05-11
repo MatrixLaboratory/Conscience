@@ -43,7 +43,7 @@ export function settingLang(lang) {
         show: false,
         data: {
           lang: {
-            label: 'language',
+            label: 'Language',
             list: ['简体中文', 'English']
           },
           theme: {
@@ -52,7 +52,16 @@ export function settingLang(lang) {
           },
           fontSize: {
             label: 'Font Size',
-            list: ['Base', 'Medium', 'large', 'Extra large']
+            map: {
+              Base: '14px',
+              Medium: '16px',
+              Large: '18px',
+              ExtraLarge: '20px'
+            }
+          },
+          codeTheme: {
+            label: 'Code Theme',
+            list: ['vs', 'vs-dark', 'hc-black']
           }
         }
       },
