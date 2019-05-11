@@ -130,7 +130,7 @@
 
     <!--setting menu main start-->
     <el-main v-show="settingSelect[0].show">
-      <el-form ref="settingForm" :model="settingSelect[0].data" label-width="80px">
+      <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="80px">
         <el-form-item :label="settingSelect[0].data.lang.label">
           <el-select v-model="langMode">
             <el-option v-for="item in settingSelect[0].data.lang.list" :key="item" :label="item"
@@ -146,7 +146,7 @@
       </el-form>
     </el-main>
     <el-main v-show="settingSelect[1].show">
-      <el-form ref="aboutForm" :model="settingSelect[1].data" label-width="80px">
+      <el-form id="about" ref="aboutForm" :model="settingSelect[1].data" label-width="80px">
         <el-form-item>
           {{ settingSelect[1].data.content }}
         </el-form-item>
@@ -250,10 +250,10 @@
             let error = result.errors[i];
             this.compileLoggers.push(error);
             if (error.response !== undefined) {
-              const errorMemssage = `${JSON.stringify(error.response, null, 4)}` 
-              console.error(errorMemssage);
-              this.compileLoggers.push(errorMemssage);
-            } 
+              const errorMessage = `${JSON.stringify(error.response, null, 4)}`
+              console.error(errorMessage);
+              this.compileLoggers.push(errorMessage);
+            }
           }
         } else {
           this.compileLoggers.push({
@@ -482,6 +482,16 @@
 
   .el-menu-vertical-demo {
     width: 100%;
+  }
+
+  #setting {
+    margin-top: 3%;
+    margin-left: 5%;
+  }
+
+  #about {
+    margin-top: 4%;
+    margin-left: 5%;
   }
 
 </style>
