@@ -190,44 +190,49 @@ export default {
       } else {
         let code = localStorage.getItem(this.compileFile);
         compileIostContract(code, this.compileFile).then(result => {
-          console.log(result)
-          //TODO: rewrite the response validation
-          if (result.abi !== undefined) {
-            this.treeData = [];
-            this.compiledContracts = [];
-            let index = 0;
-            this.treeData.push({
-              id: index,
-              label: "Contract:" + this.compileFile,
-              children: []
-            });
-            this.result=result;
-            const hierachy = generateIostContractHierachy(index, this.compileFile, result.abi);
-            this.treeData[index] = hierachy;
-            this.runMethodList = this.treeData[0].children
-            // TODO: 解析contracts，渲染到页面
-            this.$notify.success({
-              title: "编译成功",
-              message: '"' + this.compileFile + '"编译成功!'
-            });
-            this.compiledContracts.push({
-              name: this.compileFile,
-              contractCode: code,
-              contractAbi: JSON.stringify(result)
-            });
-          } else {
-            this.$notify.error({
-              title: "编译失败",
-              message: '"' + this.compileFile + '"编译失败!'
-            });
+          console.log('result:', result);
+          if (result == undefined || result.abi == undefined) {
+            this.reportError(result);
+            return;
           }
+          this.treeData = [];
+          this.compiledContracts = [];
+          let index = 0;
+          this.treeData.push({
+            id: index,
+            label: "Contract:" + this.compileFile,
+            children: []
+          });
+          const hierachy = generateIostContractHierachy(index, this.compileFile, result.abi);
+          this.treeData[index] = hierachy;
+          this.runMethodList = this.treeData[0].children
+          // TODO: 解析contracts，渲染到页面
+          this.$notify.success({
+            title: "编译成功",
+            message: '"' + this.compileFile + '"编译成功!'
+          });
+          this.compiledContracts.push({
+            name: this.compileFile,
+            contractCode: code,
+            contractAbi: JSON.stringify(result)
+          });
           this.$emit("compileResult", this.compileFile, result);
-        });
+        }, (result) => this.reportError(result));
       }
       this.compiling = false;
     },
     deploy: function() {
       deployIostContract(this.compiledContracts[this.deployIndex]);
+    },
+    reportError: function(result) {
+      // if (error !== undefined) {
+      //   errorMemssage = `Error Message: <pre><code> ${JSON.stringify(error.response, null, 4)}</code></pre>` 
+      // } 
+      this.$notify({
+        title: '编译失败',
+        message: '"' + this.compileFile + '"编译失败!'
+      })
+      this.$emit("compileResult", this.compileFile, result);
     }
   }
 };

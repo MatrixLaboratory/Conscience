@@ -244,10 +244,16 @@
     },
     methods: {
       compileResult: function (file, result) {
-        const errors = result.errors;
-        if (errors !== undefined) {
-          for (let i = 0; i < errors.length; i++) {
-            this.compileLoggers.push(errors[i]);
+        if (result.errors !== undefined) {
+          console.log('errors:', result.errors);
+          for (let i = 0; i < result.errors.length; i++) {
+            let error = result.errors[i];
+            this.compileLoggers.push(error);
+            if (error.response !== undefined) {
+              const errorMemssage = `${JSON.stringify(error.response, null, 4)}` 
+              console.error(errorMemssage);
+              this.compileLoggers.push(errorMemssage);
+            } 
           }
         } else {
           this.compileLoggers.push({
@@ -334,6 +340,7 @@
         });
       },
       openFile(index) {
+        console.warn("openFile");
         this.editorFileChange(index.index)
       },
       tabClick(tab) {
@@ -363,8 +370,6 @@
         this.editorTab = fileName;
         let code = localStorage.getItem(fileName);
         this.$refs.codeEditor.changeEditor(fileName, code == null ? '' : code);
-        const splits = fileName.split(".");
-        this.$refs.codeEditor.changeLang(splits[splits.length - 1]);
       },
       removeValue(arr, value) {
         for (let i = 0; i < arr.length; i++) {
