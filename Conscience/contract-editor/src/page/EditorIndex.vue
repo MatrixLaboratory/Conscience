@@ -18,10 +18,11 @@
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-menu"></i>
-            <span>{{menuLang.contract}}</span>
+            <span :style="{fontSize : fontSize}">{{menuLang.contract}}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-for="file in files" :index="file" :key="file" :name="file" @click="openFile">
+            <el-menu-item v-for="file in files" :style="{fontSize : fontSize}" :index="file" :key="file" :name="file"
+                          @click="openFile">
               <el-row :gutter="20">
                 <el-col :span="16">
                   <div class="grid-content bg-purple">
@@ -41,10 +42,11 @@
         <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-more"></i>
-            <span>{{menuLang.template}}</span>
+            <span :style="{fontSize : fontSize}">{{menuLang.template}}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-for="name in caseTemplate" :index="name" :key="name" :name="name" @click="openFile">
+            <el-menu-item v-for="name in caseTemplate" :style="{fontSize : fontSize}" :index="name" :key="name"
+                          :name="name" @click="openFile">
               <el-row :gutter="20">
                 <el-col :span="16">
                   <div class="grid-content bg-purple">
@@ -68,10 +70,10 @@
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-menu"></i>
-            <span>{{settingTitle}}</span>
+            <span :style="{fontSize : fontSize}">{{settingTitle}}</span>
           </template>
           <el-menu-item v-for="item in settingSelect" :index="item.name" :key="item.name" :name="item.name"
-                        @click="openOption">
+                        @click="openOption" :style="{fontSize : fontSize}">
             <el-row :gutter="20">
               <el-col :span="16">
                 <div class="grid-content bg-purple">
@@ -99,7 +101,7 @@
           </el-tabs>
         </el-header>
         <el-main>
-          <code-editor ref="codeEditor"></code-editor>
+          <code-editor ref="codeEditor" :codeFontSize="fontSize"></code-editor>
         </el-main>
         <el-footer :height="footerH">
           <el-container>
@@ -143,11 +145,17 @@
                        :value="item"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item :label="settingSelect[0].data.fontSize.label">
+          <el-select v-model="fontSize">
+            <el-option v-for="(val, key) in settingSelect[0].data.fontSize.map" :key="key" :label="key"
+                       :value="val"></el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
     </el-main>
     <el-main v-show="settingSelect[1].show">
       <el-form id="about" ref="aboutForm" :model="settingSelect[1].data" label-width="80px">
-        <el-form-item>
+        <el-form-item :style="{fontSize : fontSize}">
           {{ settingSelect[1].data.content }}
         </el-form-item>
       </el-form>
@@ -156,6 +164,7 @@
 
     <el-aside v-show="!showSettingsOnWindow" class="right" width="500px" :style="{backgroundColor : backgroundColor}">
       <contract-action v-show="rightAside" :menuLang="menuLang" :files="compileNames" :backgroundColor="backgroundColor"
+                       :fontSize="fontSize"
                        v-on:compileResult="compileResult"></contract-action>
     </el-aside>
   </el-container>
@@ -191,7 +200,9 @@
         settingSelect: settingLang(),
         settingTitle: '通用',
         menuLang: menuLang(),
-        backgroundColor: '#333333'
+        backgroundColor: '#333333',
+        fontSizeName: 'Base',
+        fontSize: '14px'
       }
     },
     components: {
@@ -221,6 +232,11 @@
           }
           if (color == 'Blue') {
             this.backgroundColor = 'darkcyan'
+          }
+        },
+        fontSizeName: {
+          handler: function (name) {
+            this.fontSize = this.settingSelect[0].data.fontSize.map[name]
           }
         }
       }

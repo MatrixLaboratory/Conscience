@@ -11,6 +11,15 @@ export function settingLang(lang) {
         theme: {
           label: '界面主题',
           list: ['Dark', 'Blue']
+        },
+        fontSize: {
+          label: '字体大小',
+          map: {
+            Base: '14px',
+            Medium: '16px',
+            Large: '18px',
+            ExtraLarge: '20px'
+          }
         }
       }
     },
@@ -36,6 +45,10 @@ export function settingLang(lang) {
           theme: {
             label: 'theme UI',
             list: ['Dark', 'Blue']
+          },
+          fontSize: {
+            label: 'Font Size',
+            list: ['Base', 'Medium', 'large', 'Extra large']
           }
         }
       },

@@ -9,9 +9,9 @@
       text-color="#fff"
       active-text-color="#409EFF"
     >
-      <el-menu-item index="1">{{menuLang.compile.topTitle}}</el-menu-item>
-      <el-menu-item index="2">{{menuLang.deploy.topTitle}}</el-menu-item>
-      <el-menu-item index="3">{{menuLang.run.topTitle}}</el-menu-item>
+      <el-menu-item index="1" :style="{fontSize : fontSize}">{{menuLang.compile.topTitle}}</el-menu-item>
+      <el-menu-item index="2" :style="{fontSize : fontSize}">{{menuLang.deploy.topTitle}}</el-menu-item>
+      <el-menu-item index="3" :style="{fontSize : fontSize}">{{menuLang.run.topTitle}}</el-menu-item>
     </el-menu>
 
     <div v-show="activeMenu === '1'">
@@ -28,7 +28,7 @@
 
       <!--渲染ABI列表-->
 
-      <el-tree v-show="treeData.length != null" :style="{backgroundColor : backgroundColor}" node-key="id" default-expand-all :data="treeData"></el-tree>
+      <el-tree v-show="treeData.length != null" :style="{backgroundColor : backgroundColor, fontSize : fontSize}" node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
     <div v-show="activeMenu === '2'">
@@ -174,6 +174,10 @@ export default {
     backgroundColor: {
       type: String,
       default: '#333333'
+    },
+    fontSize: {
+      type: String,
+      default: '14px'
     }
   },
   methods: {
@@ -226,8 +230,8 @@ export default {
     },
     reportError: function(result) {
       // if (error !== undefined) {
-      //   errorMemssage = `Error Message: <pre><code> ${JSON.stringify(error.response, null, 4)}</code></pre>` 
-      // } 
+      //   errorMemssage = `Error Message: <pre><code> ${JSON.stringify(error.response, null, 4)}</code></pre>`
+      // }
       this.$notify({
         title: '编译失败',
         message: '"' + this.compileFile + '"编译失败!'

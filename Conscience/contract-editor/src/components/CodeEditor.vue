@@ -12,7 +12,14 @@
     data () {
       return {
         editor: null,
-        editorFile: ''
+        editorFile: '',
+        code: ''
+      }
+    },
+    props: {
+      codeFontSize: {
+        type: String,
+        default: '14px'
       }
     },
     mounted () {
@@ -21,7 +28,7 @@
         language: defaultLang,
         theme: 'vs-dark',
         automaticLayout: true,
-        fontSize: 16
+        fontSize: 14
       });
       this.editor.onDidChangeModelContent((event) => {
         let code = this.editor.getValue();
@@ -35,10 +42,14 @@
       theme: function() {
         monaco.editor.setTheme(this.theme);
       },
+      codeFontSize: function (size) {
+        this.editor.updateOptions({'fontSize' : parseInt(size)})
+      }
     },
     methods: {
       changeEditor(fileName, code) {
         this.editorFile = fileName;
+        this.code = code
         this.editor.setValue(code);
         this.changeLang(defaultLang);
       },
