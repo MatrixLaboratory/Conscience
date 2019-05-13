@@ -200,7 +200,7 @@ export default {
           this.$notify.success({
             title: "编译成功",
             message: '"' + this.compileFile + '"编译成功!',
-            duration: 2000
+            duration: 1000
           });
           this.$emit("compileResult", this.compileFile, result);
           for (let index in this.compiledContracts) {

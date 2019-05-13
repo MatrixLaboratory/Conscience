@@ -56,7 +56,16 @@
                           :key="file.filename"
                           @click="openABI(file.filename, index)"
             >
-              {{file.filename}}
+              <el-row :gutter="20">
+                <el-col :span="16">
+                  <div class="grid-content bg-purple file-name-style">{{ file.filename }}</div>
+                </el-col>
+                <el-col :span="8">
+                  <div class="grid-content bg-purple">
+                    <i class="el-icon-download" :id="file" @click="downloadABI(file.filename, index)"></i>
+                  </div>
+                </el-col>
+              </el-row>
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -474,6 +483,15 @@
         let a = document.createElement('a')
         let blob = new Blob([code])
         a.download = fileName
+        a.href = URL.createObjectURL(blob)
+        a.click()
+        URL.revokeObjectURL(blob)
+      },
+      downloadABI(filename, index) {
+        let code = this.compileABI[index].abi
+        let a = document.createElement('a')
+        let blob = new Blob([code])
+        a.download = filename
         a.href = URL.createObjectURL(blob)
         a.click()
         URL.revokeObjectURL(blob)
