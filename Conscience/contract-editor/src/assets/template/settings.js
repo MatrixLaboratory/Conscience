@@ -81,6 +81,7 @@ export function menuLang(lang) {
   let menuLang = {
     contract: '智能合约',
     template: '案例模板',
+    abi: 'ABI',
     topPlaceholder: '新增文件',
     compile: {
       topTitle: '编译',
@@ -102,6 +103,7 @@ export function menuLang(lang) {
     menuLang = {
       contract: 'Smart Contract',
       template: 'Case Template',
+      abi: 'ABI',
       topPlaceholder: 'add file',
       compile: {
         topTitle: 'Compile',

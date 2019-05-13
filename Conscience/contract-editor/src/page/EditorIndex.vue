@@ -12,7 +12,7 @@
         :background-color="backgroundColor"
         text-color="#fff"
         active-text-color="#409EFF"
-        :default-openeds="['1','2']"
+        :default-openeds="['1','2','3']"
         v-show="!showSettingsOnWindow"
       >
         <el-submenu index="1">
@@ -63,6 +63,20 @@
                   <div class="grid-content bg-purple">{{ name }}</div>
                 </el-col>
               </el-row>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title">
+            <i class="el-icon-orange"></i>
+            <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item :style="{fontSize : fontSize}"
+                          :index="compileABI.filename" @click="openFile"
+                          :key="compileABI.filename"
+            >
+              {{compileABI.filename}}
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -269,7 +283,11 @@
         menuLang: menuLang(),
         backgroundColor: "#333333",
         fontSizeName: "Base",
-        fontSize: "14px"
+        fontSize: "14px",
+        compileABI: {
+          filename: '',
+          abi: ''
+        }
       };
     },
     components: {
@@ -348,6 +366,8 @@
           }
         } else {
           const formattedAbi = `${JSON.stringify(result.abi, null, 4)}`;
+          this.compileABI.filename = file + '.abi'
+          this.compileABI.abi = formattedAbi
           this.compileLoggers.push({
             title: `[${file}]: Compiling succeeded!`,
             subtitle: 'ABI:',
@@ -478,6 +498,7 @@
         }
         this.editorTab = fileName;
         let code = localStorage.getItem(fileName);
+        code = code == null ? this.compileABI.abi : code
         this.$refs.codeEditor.changeEditor(fileName, code == null ? "" : code);
       },
       removeValue(arr, value) {
