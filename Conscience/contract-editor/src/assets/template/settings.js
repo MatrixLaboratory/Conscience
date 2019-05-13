@@ -91,6 +91,7 @@ export function menuLang(lang) {
     deploy: {
       topTitle: '部署',
       placeholder: '请选择已编译的合约',
+      abiPlaceholder: '请选择ABI文件',
       button: '部署'
     },
     run: {
@@ -113,6 +114,7 @@ export function menuLang(lang) {
       deploy: {
         topTitle: 'Deploy',
         placeholder: 'select the compiled contract to deploy',
+        abiPlaceholder: 'select the abi file',
         button: 'Deploy'
       },
       run: {

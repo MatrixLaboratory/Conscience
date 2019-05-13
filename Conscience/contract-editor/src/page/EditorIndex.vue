@@ -46,6 +46,22 @@
         </el-submenu>
         <el-submenu index="2">
           <template slot="title">
+            <i class="el-icon-orange"></i>
+            <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
+          </template>
+          <el-menu-item-group>
+            <el-menu-item v-for="(file, index) in compileABI"
+                          :style="{fontSize : fontSize}"
+                          :index="file.filename"
+                          :key="file.filename"
+                          @click="openABI(file.filename, index)"
+            >
+              {{file.filename}}
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+        <el-submenu index="3">
+          <template slot="title">
             <i class="el-icon-more"></i>
             <span :style="{fontSize : fontSize}">{{menuLang.template}}</span>
           </template>
@@ -63,22 +79,6 @@
                   <div class="grid-content bg-purple">{{ name }}</div>
                 </el-col>
               </el-row>
-            </el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-        <el-submenu index="3">
-          <template slot="title">
-            <i class="el-icon-orange"></i>
-            <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item v-for="file in compileABI"
-                          :style="{fontSize : fontSize}"
-                          :index="file.filename"
-                          :key="file.filename"
-                          @click="openFile"
-            >
-              {{file.filename}}
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -256,8 +256,7 @@
   import {defaultCode} from "../assets/template/case.eg";
   import {
     settingLang,
-    menuLang,
-    compiledFiles
+    menuLang
   } from "../assets/template/settings";
 
   const suffix = ".js";
@@ -372,9 +371,16 @@
             description: formattedAbi,
             style: "success"
           });
+          let filename = file + '.abi'
           let data = {
-            filename: file + '.abi',
+            filename: filename,
             abi: formattedAbi
+          }
+          for (let index in this.compileABI) {
+            if (this.compileABI[index].filename == filename) {
+              this.compileABI[index].abi = formattedAbi
+              return
+            }
           }
           this.compileABI.push(data)
         }
@@ -475,6 +481,14 @@
       openFile(index) {
         this.editorFileChange(index.index);
       },
+      openABI(filename, index) {
+        if (this.fileTabs.indexOf(filename) < 0) {
+          this.fileTabs.push(filename);
+        }
+        this.editorTab = filename;
+        let code = this.compileABI[index].abi
+        this.$refs.codeEditor.changeEditor(filename, code == null ? "" : code);
+      },
       tabClick(tab) {
         this.editorFileChange(tab.name);
       },
@@ -501,7 +515,6 @@
         }
         this.editorTab = fileName;
         let code = localStorage.getItem(fileName);
-        code = code == null ? this.compileABI.abi : code
         this.$refs.codeEditor.changeEditor(fileName, code == null ? "" : code);
       },
       removeValue(arr, value) {

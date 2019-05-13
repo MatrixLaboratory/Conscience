@@ -43,6 +43,11 @@
               :value="index"
             ></el-option>
           </el-select>
+          <!--<el-select v-model="abiIndex" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>-->
+            <!--<el-option v-for="">-->
+
+            <!--</el-option>-->
+          <!--</el-select>-->
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
@@ -139,7 +144,7 @@ export default {
       compiledContracts: [],
       deployIndex: "",
       openIndex: [],
-      result: null,
+      abiIndex: '',
       runMethodList: [],
       runIndex: null,
       argList: [],
@@ -151,26 +156,7 @@ export default {
       type: Array
     },
     menuLang: {
-      type: Object,
-      default: function () {
-        return {
-          compile: {
-            topTitle: '编译',
-            placeholder: '请选择文件',
-            button: '编译'
-          },
-          deploy: {
-            topTitle: '部署',
-            placeholder: '请选择已编译的合约',
-            button: '部署'
-          },
-          run: {
-            topTitle: '运行',
-            placeholder: '请选择要执行的方法',
-            button: '运行'
-          }
-        }
-      }
+      type: Object
     },
     backgroundColor: {
       type: String,
@@ -201,7 +187,6 @@ export default {
             return;
           }
           this.treeData = [];
-          this.compiledContracts = [];
           let index = 0;
           this.treeData.push({
             id: index,
@@ -214,14 +199,20 @@ export default {
           // TODO: 解析contracts，渲染到页面
           this.$notify.success({
             title: "编译成功",
-            message: '"' + this.compileFile + '"编译成功!'
+            message: '"' + this.compileFile + '"编译成功!',
+            duration: 2000
           });
+          this.$emit("compileResult", this.compileFile, result);
+          for (let index in this.compiledContracts) {
+            if (this.compileFile == this.compiledContracts[index].name) {
+              return
+            }
+          }
           this.compiledContracts.push({
             name: this.compileFile,
             contractCode: code,
             contractAbi: JSON.stringify(result)
-          });
-          this.$emit("compileResult", this.compileFile, result);
+          })
         }, (result) => this.reportError(result));
       }
       this.compiling = false;
