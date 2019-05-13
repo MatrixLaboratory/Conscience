@@ -33,7 +33,7 @@
     </div>
 
     <div v-show="activeMenu === '2'">
-      <el-form :inline="true" class="compile-form">
+      <el-form class="compile-form">
         <el-form-item>
           <el-select v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
             <el-option
@@ -43,11 +43,16 @@
               :value="index"
             ></el-option>
           </el-select>
-          <!--<el-select v-model="abiIndex" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>-->
-            <!--<el-option v-for="">-->
-
-            <!--</el-option>-->
-          <!--</el-select>-->
+        </el-form-item>
+        <el-form-item>
+          <el-select v-model="abiFilename" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
+            <el-option v-for="item in abiList"
+                       :key="item.filename"
+                       :label="item.filename"
+                       :value="item.filename"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
@@ -144,7 +149,7 @@ export default {
       compiledContracts: [],
       deployIndex: "",
       openIndex: [],
-      abiIndex: '',
+      abiFilename: '',
       runMethodList: [],
       runIndex: null,
       argList: [],
@@ -165,6 +170,9 @@ export default {
     fontSize: {
       type: String,
       default: '14px'
+    },
+    abiList: {
+      type: Array
     }
   },
   methods: {

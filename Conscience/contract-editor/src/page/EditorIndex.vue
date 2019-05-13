@@ -252,6 +252,7 @@
         :files="compileNames"
         :backgroundColor="backgroundColor"
         :fontSize="fontSize"
+        :abiList="compileABI"
         v-on:compileResult="compileResult"
       ></contract-action>
     </el-aside>
