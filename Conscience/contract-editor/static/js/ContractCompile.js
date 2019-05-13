@@ -21,7 +21,7 @@ export async function compileIostContract(code, fileName = 'test.js') {
   try {
     const response = await axios.post('/api/iost/compile', {
       input: JSON.stringify(input)
-    });  
+    });
     return response.data;
   } catch (error) {
     console.error("Errored at compileIostContract()", error);
@@ -69,11 +69,12 @@ export function generateIostContractHierachy(index, compileFile, abi) {
   return hierachy;
 }
 
-export function deployIostContract(contract) {
+export function deployIostContract(contract, abi) {
+  console.log(abi)
 
   const info = "\"info\"";
   const code = "\"code\"";
-  const request = ["{" + info + ":" + contract.contractAbi + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
+  const request = ["{" + info + ":" + abi + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
 
   window.IWalletJS.enable().then((account) => {
     if (!account) return; // not login
