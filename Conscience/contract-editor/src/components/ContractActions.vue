@@ -28,7 +28,8 @@
 
       <!--渲染ABI列表-->
 
-      <el-tree v-show="treeData.length != null" :style="{backgroundColor : backgroundColor, fontSize : fontSize}" node-key="id" default-expand-all :data="treeData"></el-tree>
+      <el-tree v-show="treeData.length != null" :style="{backgroundColor : backgroundColor, fontSize : fontSize, color : 'white'}"
+               node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
     <div v-show="activeMenu === '2'">
