@@ -136,12 +136,12 @@ export function caseTemplate() {
 
 export function defaultCode() {
     let code = 'class HelloWorld {\n' +
-      'init () {\n' +
-
-      '}\n' +
-      'hello(someone) {\n' +
-        'return "hello, "+ someone\n' +
-      '}\n' +
+      '    init () {\n' +
+      '\n' +
+      '    }\n' +
+      '    hello(someone) {\n' +
+      '        return "hello, "+ someone\n' +
+      '    }\n' +
     '}\n' +
 
   'module.exports = HelloWorld;'
