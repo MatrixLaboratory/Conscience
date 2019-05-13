@@ -30,11 +30,12 @@
               @click="openFile"
             >
               <el-row :gutter="20">
-                <el-col :span="16">
+                <el-col :span="14">
                   <div class="grid-content bg-purple">{{ file }}</div>
                 </el-col>
                 <el-col :span="8">
                   <div class="grid-content bg-purple">
+                    <i class="el-icon-download" :id="file" @click="downloadFile"></i>
                     <i class="el-icon-edit" :id="file" @click="editFileName"></i>
                     <i class="el-icon-delete" :id="file" @click="deleteFile"></i>
                   </div>
@@ -436,6 +437,16 @@ export default {
           });
         });
     },
+    downloadFile(index) {
+      let fileName = index.target.id
+      let code = localStorage.getItem(fileName)
+      let a = document.createElement('a')
+      let blob = new Blob([code])
+      a.download = fileName
+      a.href = URL.createObjectURL(blob)
+      a.click()
+      URL.revokeObjectURL(blob)
+    },
     openFile(index) {
       this.editorFileChange(index.index);
     },
@@ -646,9 +657,9 @@ export default {
     margin-bottom: 10px;
   }
 
-  xmp { 
-    white-space:pre-wrap; 
-    word-wrap:break-word; 
+  xmp {
+    white-space:pre-wrap;
+    word-wrap:break-word;
   }
 
 </style>
