@@ -298,6 +298,7 @@
       files: {
         handler: function (newValue) {
           localStorage.setItem("files", JSON.stringify(newValue));
+          this.compileNames = this.files.concat(this.caseTemplate);
         },
         deep: true
       },
