@@ -137,7 +137,7 @@ export function caseTemplate() {
 export function defaultCode() {
     let code = 'class HelloWorld {\n' +
       '    init () {\n' +
-      '\n' +
+      '        \n' +
       '    }\n' +
       '    hello(someone) {\n' +
       '        return "hello, "+ someone\n' +

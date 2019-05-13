@@ -18,8 +18,7 @@
     },
     props: {
       codeFontSize: {
-        type: String,
-        // default: '14px'
+        type: String
       },
       theme: {
         type: String
