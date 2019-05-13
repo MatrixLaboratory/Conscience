@@ -72,11 +72,13 @@
             <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item :style="{fontSize : fontSize}"
-                          :index="compileABI.filename" @click="openFile"
-                          :key="compileABI.filename"
+            <el-menu-item v-for="file in compileABI"
+                          :style="{fontSize : fontSize}"
+                          :index="file.filename"
+                          :key="file.filename"
+                          @click="openFile"
             >
-              {{compileABI.filename}}
+              {{file.filename}}
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -255,7 +257,7 @@
   import {
     settingLang,
     menuLang,
-    defaultSettingSelect
+    compiledFiles
   } from "../assets/template/settings";
 
   const suffix = ".js";
@@ -284,10 +286,7 @@
         backgroundColor: "#333333",
         fontSizeName: "Base",
         fontSize: "14px",
-        compileABI: {
-          filename: '',
-          abi: ''
-        }
+        compileABI: []
       };
     },
     components: {
@@ -367,14 +366,17 @@
           }
         } else {
           const formattedAbi = `${JSON.stringify(result.abi, null, 4)}`;
-          this.compileABI.filename = file + '.abi'
-          this.compileABI.abi = formattedAbi
           this.compileLoggers.push({
             title: `[${file}]: Compiling succeeded!`,
             subtitle: 'ABI:',
             description: formattedAbi,
             style: "success"
           });
+          let data = {
+            filename: file + '.abi',
+            abi: formattedAbi
+          }
+          this.compileABI.push(data)
         }
       },
       addFile() {
