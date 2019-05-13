@@ -45,11 +45,11 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-select v-model="abiIndex" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
-            <el-option v-for="(item, index) in abiList"
-                       :key="item.filename"
-                       :label="item.filename"
-                       :value="index"
+          <el-select v-model="abiFilename" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
+            <el-option v-for="item in abiList"
+                       :key="item"
+                       :label="item"
+                       :value="item"
             >
             </el-option>
           </el-select>
@@ -149,7 +149,7 @@ export default {
       compiledContracts: [],
       deployIndex: "",
       openIndex: [],
-      abiIndex: '',
+      abiFilename: '',
       runMethodList: [],
       runIndex: null,
       argList: [],
@@ -226,7 +226,7 @@ export default {
       this.compiling = false;
     },
     deploy: function() {
-      deployIostContract(this.compiledContracts[this.deployIndex], this.abiList[this.abiIndex].abi);
+      deployIostContract(this.compiledContracts[this.deployIndex], localStorage.getItem(this.abiFilename));
     },
     reportError: function(result) {
       // if (error !== undefined) {

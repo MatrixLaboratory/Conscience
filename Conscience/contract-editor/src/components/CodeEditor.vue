@@ -52,7 +52,7 @@
       changeEditor(fileName, code) {
         this.editorFile = fileName;
         this.code = code
-        this.editor.setValue(code);
+        this.editor.setValue(this.code);
         this.changeLang(defaultLang);
       },
       changeLang(lang) {

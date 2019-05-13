@@ -50,19 +50,20 @@
             <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item v-for="(file, index) in compileABI"
+            <el-menu-item v-for="file in compileABI"
                           :style="{fontSize : fontSize}"
-                          :index="file.filename"
-                          :key="file.filename"
-                          @click="openABI(file.filename, index)"
+                          :index="file"
+                          :key="file"
+                          :name="file"
+                          @click="openFile"
             >
               <el-row :gutter="20">
                 <el-col :span="16">
-                  <div class="grid-content bg-purple file-name-style">{{ file.filename }}</div>
+                  <div class="grid-content bg-purple file-name-style">{{ file }}</div>
                 </el-col>
                 <el-col :span="8">
                   <div class="grid-content bg-purple">
-                    <i class="el-icon-download" :id="file" @click="downloadABI(file.filename, index)"></i>
+                    <i class="el-icon-download" :id="file" @click="downloadFile"></i>
                   </div>
                 </el-col>
               </el-row>
@@ -382,17 +383,13 @@
             style: "success"
           });
           let filename = file + '.abi'
-          let data = {
-            filename: filename,
-            abi: formattedAbi
-          }
+          localStorage.setItem(filename, formattedAbi)
           for (let index in this.compileABI) {
-            if (this.compileABI[index].filename == filename) {
-              this.compileABI[index].abi = formattedAbi
+            if (this.compileABI[index] == filename) {
               return
             }
           }
-          this.compileABI.push(data)
+          this.compileABI.push(filename)
         }
       },
       addFile() {
@@ -488,25 +485,8 @@
         a.click()
         URL.revokeObjectURL(blob)
       },
-      downloadABI(filename, index) {
-        let code = this.compileABI[index].abi
-        let a = document.createElement('a')
-        let blob = new Blob([code])
-        a.download = filename
-        a.href = URL.createObjectURL(blob)
-        a.click()
-        URL.revokeObjectURL(blob)
-      },
       openFile(index) {
         this.editorFileChange(index.index);
-      },
-      openABI(filename, index) {
-        if (this.fileTabs.indexOf(filename) < 0) {
-          this.fileTabs.push(filename);
-        }
-        this.editorTab = filename;
-        let code = this.compileABI[index].abi
-        this.$refs.codeEditor.changeEditor(filename, code == null ? "" : code);
       },
       tabClick(tab) {
         this.editorFileChange(tab.name);
