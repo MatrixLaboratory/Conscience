@@ -12,8 +12,7 @@
     data () {
       return {
         editor: null,
-        editorFile: '',
-        code: ''
+        editorFile: ''
       }
     },
     props: {
@@ -51,8 +50,7 @@
     methods: {
       changeEditor(fileName, code) {
         this.editorFile = fileName;
-        this.code = code
-        this.editor.setValue(this.code);
+        this.editor.setValue(code);
         this.changeLang(defaultLang);
       },
       changeLang(lang) {
