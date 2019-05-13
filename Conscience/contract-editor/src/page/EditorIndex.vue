@@ -31,7 +31,7 @@
             >
               <el-row :gutter="20">
                 <el-col :span="14">
-                  <div class="grid-content bg-purple">{{ file }}</div>
+                  <div class="grid-content bg-purple file-name-style">{{ file }}</div>
                 </el-col>
                 <el-col :span="8">
                   <div class="grid-content bg-purple">
@@ -147,8 +147,9 @@
             </el-header>
             <el-main class="logger-main" v-show="showLoggers">
               <el-card class="box-card"
-                v-for="(logger, index) in compileLoggers" :key="index">
-                <div slot="header" v-bind:class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error')}">
+                       v-for="(logger, index) in compileLoggers" :key="index">
+                <div slot="header"
+                     v-bind:class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error')}">
                   {{logger.title}}
                 </div>
                 <div class="text item">
@@ -233,406 +234,415 @@
 </template>
 
 <script>
-import CodeEditor from "../components/CodeEditor";
-import ContractAction from "../components/ContractActions";
-import { caseTemplate } from "../assets/template/case.eg";
-import { defaultCode } from "../assets/template/case.eg";
-import {
-  settingLang,
-  menuLang,
-  defaultSettingSelect
-} from "../assets/template/settings";
+  import CodeEditor from "../components/CodeEditor";
+  import ContractAction from "../components/ContractActions";
+  import {caseTemplate} from "../assets/template/case.eg";
+  import {defaultCode} from "../assets/template/case.eg";
+  import {
+    settingLang,
+    menuLang,
+    defaultSettingSelect
+  } from "../assets/template/settings";
 
-const suffix = ".js";
+  const suffix = ".js";
 
-export default {
-  name: "EditorIndex",
-  data() {
-    return {
-      leftAside: true,
-      rightAside: true,
-      showLoggers: true,
-      footerH: "40%",
-      files: [],
-      fileTabs: [],
-      editorTab: "",
-      compileLoggers: [],
-      caseTemplate: caseTemplate(),
-      compileNames: [],
-      showSettingsOnWindow: false,
-      langMode: "简体中文",
-      themeMode: "Dark",
-      codeThemeMode: "vs-dark",
-      settingSelect: settingLang(),
-      settingTitle: "通用",
-      menuLang: menuLang(),
-      backgroundColor: "#333333",
-      fontSizeName: "Base",
-      fontSize: "14px"
-    };
-  },
-  components: {
-    codeEditor: CodeEditor,
-    contractAction: ContractAction
-  },
-  watch: {
-    files: {
-      handler: function(newValue) {
-        localStorage.setItem("files", JSON.stringify(newValue));
+  export default {
+    name: "EditorIndex",
+    data() {
+      return {
+        leftAside: true,
+        rightAside: true,
+        showLoggers: true,
+        footerH: "40%",
+        files: [],
+        fileTabs: [],
+        editorTab: "",
+        compileLoggers: [],
+        caseTemplate: caseTemplate(),
+        compileNames: [],
+        showSettingsOnWindow: false,
+        langMode: "简体中文",
+        themeMode: "Dark",
+        codeThemeMode: "vs-dark",
+        settingSelect: settingLang(),
+        settingTitle: "通用",
+        menuLang: menuLang(),
+        backgroundColor: "#333333",
+        fontSizeName: "Base",
+        fontSize: "14px"
+      };
+    },
+    components: {
+      codeEditor: CodeEditor,
+      contractAction: ContractAction
+    },
+    watch: {
+      files: {
+        handler: function (newValue) {
+          localStorage.setItem("files", JSON.stringify(newValue));
+        },
+        deep: true
       },
-      deep: true
-    },
-    langMode: {
-      handler: function(newValue) {
-        this.settingSelect = settingLang(newValue);
-        this.openOption({
-          index: newValue == "简体中文" ? "设置" : "Settings"
-        });
-        this.settingTitle = newValue == "简体中文" ? "通用" : "Commons";
-        this.menuLang = menuLang(newValue);
-      }
-    },
-    themeMode: {
-      handler: function(color) {
-        if (color == "Dark") {
-          this.backgroundColor = "#333333";
-          return;
+      langMode: {
+        handler: function (newValue) {
+          this.settingSelect = settingLang(newValue);
+          this.openOption({
+            index: newValue == "简体中文" ? "设置" : "Settings"
+          });
+          this.settingTitle = newValue == "简体中文" ? "通用" : "Commons";
+          this.menuLang = menuLang(newValue);
         }
-        if (color == "Blue") {
-          this.backgroundColor = "darkcyan";
+      },
+      themeMode: {
+        handler: function (color) {
+          if (color == "Dark") {
+            this.backgroundColor = "#333333";
+            return;
+          }
+          if (color == "Blue") {
+            this.backgroundColor = "darkcyan";
+          }
         }
+      },
+      fontSizeName: {
+        handler: function (name) {
+          this.fontSize = this.settingSelect[0].data.fontSize.map[name];
+        }
+      },
+      codeThemeMode: function (codeTheme) {
       }
     },
-    fontSizeName: {
-      handler: function(name) {
-        this.fontSize = this.settingSelect[0].data.fontSize.map[name];
+    mounted() {
+      let fileStr = localStorage.getItem("files");
+      this.files = JSON.parse(fileStr);
+      if (this.files == null || this.files.length === 0) {
+        this.files = ["contract" + suffix];
       }
+      let defaultFile = this.files[0];
+      localStorage.setItem(this.files[0], defaultCode());
+      this.editorFileChange(defaultFile);
+      const _this = this;
+      window.onresize = function () {
+        let width = document.body.clientWidth;
+        _this.leftAside = width > 800;
+        _this.rightAside = width > 600;
+      };
+      this.compileNames = this.files.concat(this.caseTemplate);
     },
-    codeThemeMode: function(codeTheme) {}
-  },
-  mounted() {
-    let fileStr = localStorage.getItem("files");
-    this.files = JSON.parse(fileStr);
-    if (this.files == null || this.files.length === 0) {
-      this.files = ["contract" + suffix];
-    }
-    let defaultFile = this.files[0];
-    localStorage.setItem(this.files[0], defaultCode());
-    this.editorFileChange(defaultFile);
-    const _this = this;
-    window.onresize = function() {
-      let width = document.body.clientWidth;
-      _this.leftAside = width > 800;
-      _this.rightAside = width > 600;
-    };
-    this.compileNames = this.files.concat(this.caseTemplate);
-  },
-  methods: {
-    compileResult: function(file, result) {
-      if (result.errors !== undefined) {
-        console.log("errors:", result.errors);
-        for (let i = 0; i < result.errors.length; i++) {
-          let error = result.errors[i];
-          if (error.response !== undefined) {
-            const errorMessage = `${JSON.stringify(error.response, null, 4)}`;
-            console.error(errorMessage);
-            this.compileLoggers.push({
-              title: `[${file}]: Compiling failed!`,
-              subtitle: 'Error Message:',
-              description: errorMessage,
-              style: "error"
+    methods: {
+      compileResult: function (file, result) {
+        if (result.errors !== undefined) {
+          console.log("errors:", result.errors);
+          for (let i = 0; i < result.errors.length; i++) {
+            let error = result.errors[i];
+            if (error.response !== undefined) {
+              const errorMessage = `${JSON.stringify(error.response, null, 4)}`;
+              console.error(errorMessage);
+              this.compileLoggers.push({
+                title: `[${file}]: Compiling failed!`,
+                subtitle: 'Error Message:',
+                description: errorMessage,
+                style: "error"
+              });
+            }
+          }
+        } else {
+          const formattedAbi = `${JSON.stringify(result.abi, null, 4)}`;
+          this.compileLoggers.push({
+            title: `[${file}]: Compiling succeeded!`,
+            subtitle: 'ABI:',
+            description: formattedAbi,
+            style: "success"
+          });
+        }
+      },
+      addFile() {
+        this.$prompt(`请输入文件名（默认为${suffix}文件)`, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          inputPattern: "",
+          inputErrorMessage: "请输入正确的文件名！"
+        })
+          .then(({value}) => {
+            let newFile = value + suffix;
+            for (let index in this.files) {
+              if (this.files[index] === newFile) {
+                this.$message({
+                  type: "info",
+                  message: newFile + "已存在！"
+                });
+                return;
+              }
+            }
+            this.files.push(newFile);
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "取消输入"
             });
+          });
+      },
+      editFileName(index) {
+        let fileName = index.target.id;
+        this.$prompt(`请输入文件名（默认为${suffix}文件)`, "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          inputValue: fileName.split(".")[0],
+          inputPattern: "",
+          inputErrorMessage: "请输入正确的文件名！"
+        })
+          .then(({value}) => {
+            let newFile = value + suffix;
+            for (let index in this.files) {
+              if (this.files[index] === newFile) {
+                this.$message({
+                  type: "info",
+                  message: newFile + "已存在！"
+                });
+                return;
+              }
+            }
+            this.$set(this.files, this.files.indexOf(fileName), newFile);
+            this.$set(this.fileTabs, this.fileTabs.indexOf(fileName), newFile);
+            this.editorTab = newFile;
+            localStorage.setItem(newFile, localStorage.getItem(fileName));
+            localStorage.removeItem(fileName);
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "取消修改"
+            });
+          });
+      },
+      deleteFile(index) {
+        let fileName = index.target.id;
+        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
+        })
+          .then(() => {
+            this.removeValue(this.files, fileName);
+            localStorage.removeItem(fileName);
+            this.removeTab(fileName);
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
+          })
+          .catch(() => {
+            this.$message({
+              type: "info",
+              message: "已取消删除"
+            });
+          });
+      },
+      downloadFile(index) {
+        let fileName = index.target.id
+        let code = localStorage.getItem(fileName)
+        let a = document.createElement('a')
+        let blob = new Blob([code])
+        a.download = fileName
+        a.href = URL.createObjectURL(blob)
+        a.click()
+        URL.revokeObjectURL(blob)
+      },
+      openFile(index) {
+        this.editorFileChange(index.index);
+      },
+      tabClick(tab) {
+        this.editorFileChange(tab.name);
+      },
+      removeTab(targetName) {
+        let tabs = this.fileTabs;
+        let activeName = this.editorTab;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab === targetName) {
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab;
+              }
+            }
+          });
+        }
+        this.editorTab = activeName;
+        this.fileTabs = tabs.filter(tab => tab !== targetName);
+        this.editorFileChange(activeName);
+      },
+      editorFileChange(fileName) {
+        if (this.fileTabs.indexOf(fileName) < 0) {
+          this.fileTabs.push(fileName);
+        }
+        this.editorTab = fileName;
+        let code = localStorage.getItem(fileName);
+        this.$refs.codeEditor.changeEditor(fileName, code == null ? "" : code);
+      },
+      removeValue(arr, value) {
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i] === value) {
+            arr.splice(i, 1);
+            break;
           }
         }
-      } else {
-        const formattedAbi = `${JSON.stringify(result.abi, null, 4)}`;
-        this.compileLoggers.push({
-          title: `[${file}]: Compiling succeeded!`,
-          subtitle: 'ABI:',
-          description: formattedAbi,
-          style: "success"
+      },
+      showCode() {
+        this.openOption({index: "index"});
+        this.showSettingsOnWindow = false;
+      },
+      showSettings() {
+        this.showSettingsOnWindow = true;
+        this.openOption({
+          index: this.langMode == "简体中文" ? "设置" : "Settings"
         });
-      }
-    },
-    addFile() {
-      this.$prompt(`请输入文件名（默认为${suffix}文件)`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        inputPattern: "",
-        inputErrorMessage: "请输入正确的文件名！"
-      })
-        .then(({ value }) => {
-          let newFile = value + suffix;
-          for (let index in this.files) {
-            if (this.files[index] === newFile) {
-              this.$message({
-                type: "info",
-                message: newFile + "已存在！"
-              });
-              return;
-            }
+      },
+      openOption(index) {
+        for (let i = 0; i < this.settingSelect.length; i++) {
+          this.settingSelect[i].show = false;
+          if (this.settingSelect[i].name === index.index) {
+            this.settingSelect[i].show = true;
           }
-          this.files.push(newFile);
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消输入"
-          });
-        });
-    },
-    editFileName(index) {
-      let fileName = index.target.id;
-      this.$prompt(`请输入文件名（默认为${suffix}文件)`, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        inputValue: fileName.split(".")[0],
-        inputPattern: "",
-        inputErrorMessage: "请输入正确的文件名！"
-      })
-        .then(({ value }) => {
-          let newFile = value + suffix;
-          for (let index in this.files) {
-            if (this.files[index] === newFile) {
-              this.$message({
-                type: "info",
-                message: newFile + "已存在！"
-              });
-              return;
-            }
-          }
-          this.$set(this.files, this.files.indexOf(fileName), newFile);
-          this.$set(this.fileTabs, this.fileTabs.indexOf(fileName), newFile);
-          this.editorTab = newFile;
-          localStorage.setItem(newFile, localStorage.getItem(fileName));
-          localStorage.removeItem(fileName);
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消修改"
-          });
-        });
-    },
-    deleteFile(index) {
-      let fileName = index.target.id;
-      this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      })
-        .then(() => {
-          this.removeValue(this.files, fileName);
-          localStorage.removeItem(fileName);
-          this.removeTab(fileName);
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除"
-          });
-        });
-    },
-    downloadFile(index) {
-      let fileName = index.target.id
-      let code = localStorage.getItem(fileName)
-      let a = document.createElement('a')
-      let blob = new Blob([code])
-      a.download = fileName
-      a.href = URL.createObjectURL(blob)
-      a.click()
-      URL.revokeObjectURL(blob)
-    },
-    openFile(index) {
-      this.editorFileChange(index.index);
-    },
-    tabClick(tab) {
-      this.editorFileChange(tab.name);
-    },
-    removeTab(targetName) {
-      let tabs = this.fileTabs;
-      let activeName = this.editorTab;
-      if (activeName === targetName) {
-        tabs.forEach((tab, index) => {
-          if (tab === targetName) {
-            let nextTab = tabs[index + 1] || tabs[index - 1];
-            if (nextTab) {
-              activeName = nextTab;
-            }
-          }
-        });
-      }
-      this.editorTab = activeName;
-      this.fileTabs = tabs.filter(tab => tab !== targetName);
-      this.editorFileChange(activeName);
-    },
-    editorFileChange(fileName) {
-      if (this.fileTabs.indexOf(fileName) < 0) {
-        this.fileTabs.push(fileName);
-      }
-      this.editorTab = fileName;
-      let code = localStorage.getItem(fileName);
-      this.$refs.codeEditor.changeEditor(fileName, code == null ? "" : code);
-    },
-    removeValue(arr, value) {
-      for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === value) {
-          arr.splice(i, 1);
-          break;
-        }
-      }
-    },
-    showCode() {
-      this.openOption({ index: "index" });
-      this.showSettingsOnWindow = false;
-    },
-    showSettings() {
-      this.showSettingsOnWindow = true;
-      this.openOption({
-        index: this.langMode == "简体中文" ? "设置" : "Settings"
-      });
-    },
-    openOption(index) {
-      for (let i = 0; i < this.settingSelect.length; i++) {
-        this.settingSelect[i].show = false;
-        if (this.settingSelect[i].name === index.index) {
-          this.settingSelect[i].show = true;
         }
       }
     }
-  }
-};
+  };
 </script>
 
 <style lang="less" scoped>
-@import "../styles/variable.less";
+  @import "../styles/variable.less";
 
-.el-container,
-.el-aside,
-.el-main {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.el-aside {
-  background-color: @base-color;
-}
-
-.el-menu {
-  border-right-width: 0;
-}
-
-.el-main {
-  background-color: #162a3c;
-}
-
-.el-footer {
-  padding: 0;
-}
-
-.logger-header {
-  background-color: #3c3c3c;
-  color: white;
-  line-height: 40px;
-}
-
-.logger-main {
-  padding: 10px;
-  overflow: auto;
-}
-
-.el-alert {
-  margin: 0 0 10px 0;
-}
-
-.el-tabs {
-  margin-top: 19px;
-}
-
-.left-header {
-  height: 40px;
-  width: 40px;
-  margin: 10px auto;
-}
-
-.compile-form {
-  text-align: center;
-  margin-top: 120px;
-}
-
-/*控制整个滚动条*/
-::-webkit-scrollbar {
-  background-color: #333333;
-  width: 10px;
-  height: 10px;
-  background-clip: padding-box;
-}
-
-/*滚动条中间滑动部分*/
-::-webkit-scrollbar-thumb {
-  background-color: #1e1e1e;
-  border-radius: 5px;
-}
-
-/*.el-button--info {*/
-/*background-color: #454545;*/
-/*border-color: #4e5052;*/
-/*margin-top: 10px;*/
-/*}*/
-
-#btn-footer {
-  width: 240px;
-  position: fixed;
-  bottom: 0;
-}
-
-.el-menu-vertical-demo {
-  width: 100%;
-}
-
-#setting {
-  margin-top: 3%;
-  margin-left: 5%;
-}
-
-#about {
-  margin-top: 4%;
-  margin-left: 5%;
-}
-</style>
-
-<style>
-.el-dropdown {
-  color: white;
-}
-
-.el-menu-item-group__title {
-  display: none;
-}
-
-.el-tabs__item {
-  color: white;
-}
-</style>
-
-<style>
-
-  .success{
-      color: #67c23a;
+  .el-container,
+  .el-aside,
+  .el-main {
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
-  .error{
-      color: #f56c6c;
+  .el-aside {
+    background-color: @base-color;
+  }
+
+  .el-menu {
+    border-right-width: 0;
+  }
+
+  .el-main {
+    background-color: #162a3c;
+  }
+
+  .el-footer {
+    padding: 0;
+  }
+
+  .logger-header {
+    background-color: #3c3c3c;
+    color: white;
+    line-height: 40px;
+  }
+
+  .logger-main {
+    padding: 10px;
+    overflow: auto;
+  }
+
+  .el-alert {
+    margin: 0 0 10px 0;
+  }
+
+  .el-tabs {
+    margin-top: 19px;
+  }
+
+  .left-header {
+    height: 40px;
+    width: 40px;
+    margin: 10px auto;
+  }
+
+  .compile-form {
+    text-align: center;
+    margin-top: 120px;
+  }
+
+  /*控制整个滚动条*/
+  ::-webkit-scrollbar {
+    background-color: #333333;
+    width: 10px;
+    height: 10px;
+    background-clip: padding-box;
+  }
+
+  /*滚动条中间滑动部分*/
+  ::-webkit-scrollbar-thumb {
+    background-color: #1e1e1e;
+    border-radius: 5px;
+  }
+
+  /*.el-button--info {*/
+  /*background-color: #454545;*/
+  /*border-color: #4e5052;*/
+  /*margin-top: 10px;*/
+  /*}*/
+
+  #btn-footer {
+    width: 240px;
+    position: fixed;
+    bottom: 0;
+  }
+
+  .el-menu-vertical-demo {
+    width: 100%;
+  }
+
+  #setting {
+    margin-top: 3%;
+    margin-left: 5%;
+  }
+
+  #about {
+    margin-top: 4%;
+    margin-left: 5%;
+  }
+
+  .file-name-style {
+    max-width: 103px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+</style>
+
+<style>
+  .el-dropdown {
+    color: white;
+  }
+
+  .el-menu-item-group__title {
+    display: none;
+  }
+
+  .el-tabs__item {
+    color: white;
+  }
+</style>
+
+<style>
+
+  .success {
+    color: #67c23a;
+  }
+
+  .error {
+    color: #f56c6c;
   }
 
   .el-card__body {
-      padding-top: 0;
-      padding-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .text {
@@ -648,6 +658,7 @@ export default {
     display: table;
     content: "";
   }
+
   .clearfix:after {
     clear: both
   }
@@ -658,8 +669,8 @@ export default {
   }
 
   xmp {
-    white-space:pre-wrap;
-    word-wrap:break-word;
+    white-space: pre-wrap;
+    word-wrap: break-word;
   }
 
 </style>
