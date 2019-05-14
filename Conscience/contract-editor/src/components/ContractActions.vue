@@ -1,36 +1,57 @@
 <template>
   <div>
     <div>
-      <el-form :inline="true" class="compile-form">
-        <el-form-item>
-          <el-select style="width: 217px" v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
-            <el-option v-for="file in files" :key="file" :label="file" :value="file"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="compile" :loading="compiling">{{menuLang.compile.button}}</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-select style="width: 100px;" v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
-            <el-option
-              v-for="(contract, index) in compiledContracts"
-              :key="index"
-              :label="contract.name"
-              :value="index"
-            ></el-option>
-          </el-select>
-          <div style="width: 10px"></div>
-          <el-select style="width: 110px" v-model="abiFilename" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
-            <el-option v-for="item in abiList"
-                       :key="item"
-                       :label="item"
-                       :value="item"
-            >
-            </el-option>
-          </el-select>
-          <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
-        </el-form-item>
-      </el-form>
+      <div style="margin-top: 40px; margin-left: 50px;">
+        <el-row :gutter="40">
+          <el-col :span="14">
+            <div class="grid-content bg-purple">
+              <el-select style="width: 217px" v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
+                <el-option v-for="file in files" :key="file" :label="file" :value="file"></el-option>
+              </el-select>
+            </div>
+          </el-col>
+          <el-col :span="2">
+            <div class="grid-content bg-purple">
+              <el-button type="primary" @click="compile" :loading="compiling">{{menuLang.compile.button}}</el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <div style="margin-top: 40px; margin-left: 50px;">
+        <el-row :gutter="10">
+          <el-col :span="8">
+            <div class="grid-content bg-purple">
+              <el-select v-model="deployIndex" value="deploy"
+                         :placeholder="menuLang.deploy.placeholder" clearable>
+                <el-option
+                  v-for="(contract, index) in compiledContracts"
+                  :key="index"
+                  :label="contract.name"
+                  :value="index"
+                ></el-option>
+              </el-select>
+            </div>
+          </el-col>
+          <el-col :span="7">
+            <div class="grid-content bg-purple">
+              <el-select v-model="abiFilename" value="deployABI"
+                         :placeholder="menuLang.deploy.abiPlaceholder" clearable>
+                <el-option v-for="item in abiList"
+                           :key="item"
+                           :label="item"
+                           :value="item"
+                >
+                </el-option>
+              </el-select>
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <div class="grid-content bg-purple">
+              <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
 
       <!--渲染ABI列表-->
 
@@ -39,7 +60,7 @@
     </div>
 
     <div style="text-align: center; margin-top: 40px">
-      <el-form style="margin-right: 50px" class="compile-form" :label-position="labelPosition" label-width="50px">
+      <el-form style="margin-right: 50px" class="compile-form" :label-position="labelPosition" label-width="45px">
         <el-form-item>
           <el-select class="el-select-run" v-model="runIndex" :placeholder="menuLang.run.placeholder" clearable>
             <el-option v-for="(item, index) in runMethodList" :key="index" :value="index"
