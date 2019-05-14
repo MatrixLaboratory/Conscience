@@ -28,7 +28,7 @@
 
       <!--渲染ABI列表-->
 
-      <el-tree v-show="treeData.length != null" :style="{backgroundColor : backgroundColor, fontSize : fontSize, color : 'white'}"
+      <el-tree v-show="treeData.length != 0" :style="{backgroundColor : backgroundColor, fontSize : fontSize, color : 'white'}"
                node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
