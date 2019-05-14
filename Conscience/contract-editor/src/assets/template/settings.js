@@ -26,13 +26,6 @@ export function settingLang(lang) {
           list: ['vs', 'vs-dark', 'hc-black']
         }
       }
-    },
-    {
-      name: '关于',
-      show: false,
-      data: {
-        content: 'hello'
-      }
     }
   ]
 
@@ -63,13 +56,6 @@ export function settingLang(lang) {
             label: 'Code Theme',
             list: ['vs', 'vs-dark', 'hc-black']
           }
-        }
-      },
-      {
-        name: 'About',
-        show: false,
-        data: {
-          content: 'hello'
         }
       }
     ]

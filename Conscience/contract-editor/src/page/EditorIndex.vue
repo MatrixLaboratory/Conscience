@@ -17,6 +17,9 @@
                 <el-menu-item index="2" class="icon-hover">
                   <i class="el-icon-setting" @click="showSettings"></i>
                 </el-menu-item>
+                <el-menu-item index="3" class="icon-hover">
+                  <i class="el-icon-info" @click="about"></i>
+                </el-menu-item>
               </el-menu>
             </el-aside>
             <el-main :style="{backgroundColor : backgroundColor}">
@@ -212,11 +215,6 @@
               </el-select>
             </el-form-item>
             <el-button style="margin-left: 140px" type="info" icon="el-icon-back" round @click="showCode">return</el-button>
-          </el-form>
-        </el-main>
-        <el-main v-show="settingSelect[1].show">
-          <el-form id="about" ref="aboutForm" :model="settingSelect[1].data" label-width="80px">
-            <el-form-item :style="{fontSize : fontSize}">{{ settingSelect[1].data.content }}</el-form-item>
           </el-form>
         </el-main>
         <!--setting menu main end-->
@@ -579,6 +577,9 @@
         if (func == 'delete') {
           this.deleteFile({target: {id: filename}})
         }
+      },
+      about() {
+        window.location.href = 'http://matrixdapp.com'
       }
     }
   };
