@@ -20,11 +20,6 @@
               </el-menu>
             </el-aside>
             <el-main :style="{backgroundColor : backgroundColor}">
-              <div class="left-header" v-show="!showSettingsOnWindow">
-                <el-tooltip class="item" effect="dark" :content="menuLang.topPlaceholder" placement="right">
-                  <el-button class="plus-file" type="primary" icon="el-icon-plus" circle @click="addFile"></el-button>
-                </el-tooltip>
-              </div>
               <el-menu
                 :default-active="editorTab"
                 class="el-menu-vertical-demo"

@@ -1,20 +1,6 @@
 <template>
   <div>
-    <el-menu
-      :default-active="activeMenu"
-      class="el-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-      :background-color="backgroundColor"
-      text-color="#fff"
-      active-text-color="#409EFF"
-    >
-      <el-menu-item index="1" :style="{fontSize : fontSize}">{{menuLang.compile.topTitle}}</el-menu-item>
-      <el-menu-item index="2" :style="{fontSize : fontSize}">{{menuLang.deploy.topTitle}}</el-menu-item>
-      <el-menu-item index="3" :style="{fontSize : fontSize}">{{menuLang.run.topTitle}}</el-menu-item>
-    </el-menu>
-
-    <div v-show="activeMenu === '1'">
+    <div>
       <el-form :inline="true" class="compile-form">
         <el-form-item>
           <el-select v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
@@ -24,6 +10,25 @@
         <el-form-item>
           <el-button type="primary" @click="compile" :loading="compiling">{{menuLang.compile.button}}</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-select style="width: 110px;" v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
+            <el-option
+              v-for="(contract, index) in compiledContracts"
+              :key="index"
+              :label="contract.name"
+              :value="index"
+            ></el-option>
+          </el-select>
+          <el-select style="width: 110px" v-model="abiFilename" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
+            <el-option v-for="item in abiList"
+                       :key="item"
+                       :label="item"
+                       :value="item"
+            >
+            </el-option>
+          </el-select>
+          <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
+        </el-form-item>
       </el-form>
 
       <!--渲染ABI列表-->
@@ -32,41 +37,16 @@
                node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
-    <div v-show="activeMenu === '2'">
-      <el-form class="compile-form">
-        <el-form-item>
-          <el-select v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
-            <el-option
-              v-for="(contract, index) in compiledContracts"
-              :key="index"
-              :label="contract.name"
-              :value="index"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-select v-model="abiFilename" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
-            <el-option v-for="item in abiList"
-                       :key="item"
-                       :label="item"
-                       :value="item"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="deploy">{{menuLang.deploy.button}}</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-
-    <div v-show="activeMenu === '3'" style="text-align: center; margin-top: 40px">
-      <el-form class="compile-form" :label-position="labelPosition" label-width="50px">
+    <div style="text-align: center; margin-top: 40px">
+      <el-form style="margin-right: 50px" class="compile-form" :label-position="labelPosition" label-width="50px">
         <el-form-item>
           <el-select class="el-select-run" v-model="runIndex" :placeholder="menuLang.run.placeholder" clearable>
             <el-option v-for="(item, index) in runMethodList" :key="index" :value="index"
                        :label="item.label"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary">{{menuLang.run.button}}</el-button>
         </el-form-item>
         <div v-if="runIndex !== null">
           <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg:" class="el-form-item-run">
@@ -76,9 +56,6 @@
             <div style="margin: 20px;"></div>
           </el-form-item>
         </div>
-        <el-form-item>
-          <el-button type="primary">{{menuLang.run.button}}</el-button>
-        </el-form-item>
       </el-form>
     </div>
   </div>
