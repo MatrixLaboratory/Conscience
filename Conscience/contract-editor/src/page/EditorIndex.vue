@@ -2,8 +2,23 @@
   <el-container>
     <el-main>
       <el-container>
-        <el-aside v-show="leftAside" width="260px" :style="{backgroundColor : backgroundColor}">
+        <el-aside v-show="leftAside" width="300px" :style="{backgroundColor : backgroundColor}">
           <el-container>
+            <el-aside width="50px">
+              <el-menu
+                class="el-menu-vertical-demo"
+                text-color="white"
+                active-text-color="#409EFF"
+                style="text-align: center; background-color: #333333;"
+              >
+                <el-menu-item index="1" class="icon-hover">
+                  <i class="el-icon-circle-plus" @click="addFile"></i>
+                </el-menu-item>
+                <el-menu-item index="2" class="icon-hover">
+                  <i class="el-icon-setting" @click="showSettings"></i>
+                </el-menu-item>
+              </el-menu>
+            </el-aside>
             <el-main :style="{backgroundColor : backgroundColor}">
               <div class="left-header" v-show="!showSettingsOnWindow">
                 <el-tooltip class="item" effect="dark" :content="menuLang.topPlaceholder" placement="right">
@@ -42,7 +57,8 @@
                             <span class="el-icon-more">
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                              <el-dropdown-item icon="el-icon-download" :id="file" @click="downloadFile"></el-dropdown-item>
+                              <el-dropdown-item icon="el-icon-download" :id="file"
+                                                @click="downloadFile"></el-dropdown-item>
                               <el-dropdown-item icon="el-icon-edit" :id="file" @click="editFileName"></el-dropdown-item>
                               <el-dropdown-item icon="el-icon-delete" :id="file" @click="deleteFile"></el-dropdown-item>
                             </el-dropdown-menu>
@@ -80,7 +96,7 @@
                 </el-submenu>
                 <el-submenu index="3">
                   <template slot="title">
-                    <i class="el-icon-more"></i>
+                    <i class="el-icon-s-flag"></i>
                     <span :style="{fontSize : fontSize}">{{menuLang.template}}</span>
                   </template>
                   <el-menu-item-group>
@@ -134,12 +150,6 @@
               </el-menu>
               <!--setting menu aside end-->
             </el-main>
-            <el-footer>
-              <div class="btn-setting" style="height: 100%; text-align: center;">
-                <el-button type="info" icon="el-icon-edit" round @click="showCode">code</el-button>
-                <el-button type="info" icon="el-icon-setting" round @click="showSettings">settings</el-button>
-              </div>
-            </el-footer>
           </el-container>
         </el-aside>
         <el-main v-show="!showSettingsOnWindow">
@@ -204,6 +214,7 @@
                 ></el-option>
               </el-select>
             </el-form-item>
+            <el-button style="margin-left: 140px" type="info" icon="el-icon-back" round @click="showCode">return</el-button>
           </el-form>
         </el-main>
         <el-main v-show="settingSelect[1].show">
@@ -567,6 +578,14 @@
     height: 100%;
     margin: 0;
     padding: 0;
+  }
+
+  .icon-hover:hover {
+    background-color: #333333;
+  }
+
+  .icon-hover:focus {
+    background-color: #333333;
   }
 
   .el-aside {
