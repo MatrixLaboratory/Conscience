@@ -4,12 +4,12 @@
       <el-container>
         <el-aside v-show="leftAside" width="300px" :style="{backgroundColor : backgroundColor}">
           <el-container>
-            <el-aside width="50px">
+            <el-aside width="50px" style="background-color: #414141">
               <el-menu
                 class="el-menu-vertical-demo"
                 text-color="white"
                 active-text-color="#409EFF"
-                style="text-align: center; background-color: #333333;"
+                style="background-color: #414141;"
               >
                 <el-menu-item index="1" class="icon-hover">
                   <i class="el-icon-circle-plus" @click="addFile"></i>
@@ -264,12 +264,14 @@
         </el-header>
         <el-main class="logger-main" v-show="showLoggers" style="background-color: black">
           <el-card class="box-card"
-                   v-for="(logger, index) in compileLoggers" :key="index">
+                   v-for="(logger, index) in compileLoggers" :key="index"
+                   style="background-color: #414141; border: #414141"
+          >
             <div slot="header"
                  v-bind:class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error')}">
               {{logger.title}}
             </div>
-            <div class="text item">
+            <div class="text item" style="color: white;">
               <h4>{{logger.subtitle}}</h4>
               <xmp><code>{{logger.description}}</code></xmp>
             </div>
