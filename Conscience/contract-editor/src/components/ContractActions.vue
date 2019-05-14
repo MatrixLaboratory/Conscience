@@ -3,7 +3,7 @@
     <div>
       <el-form :inline="true" class="compile-form">
         <el-form-item>
-          <el-select v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
+          <el-select style="width: 217px" v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
             <el-option v-for="file in files" :key="file" :label="file" :value="file"></el-option>
           </el-select>
         </el-form-item>
@@ -11,7 +11,7 @@
           <el-button type="primary" @click="compile" :loading="compiling">{{menuLang.compile.button}}</el-button>
         </el-form-item>
         <el-form-item>
-          <el-select style="width: 110px;" v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
+          <el-select style="width: 100px;" v-model="deployIndex" value="deploy" :placeholder="menuLang.deploy.placeholder" clearable>
             <el-option
               v-for="(contract, index) in compiledContracts"
               :key="index"
@@ -19,6 +19,7 @@
               :value="index"
             ></el-option>
           </el-select>
+          <div style="width: 10px"></div>
           <el-select style="width: 110px" v-model="abiFilename" value="deployABI" :placeholder="menuLang.deploy.abiPlaceholder" clearable>
             <el-option v-for="item in abiList"
                        :key="item"

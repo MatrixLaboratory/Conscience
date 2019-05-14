@@ -83,6 +83,11 @@ export function menuLang(lang) {
     template: '案例模板',
     abi: 'ABI',
     topPlaceholder: '新增文件',
+    fileFunc: {
+      download: '下载',
+      edit: '重命名',
+      delete: '删除'
+    },
     compile: {
       topTitle: '编译',
       placeholder: '请选择文件',
@@ -106,6 +111,11 @@ export function menuLang(lang) {
       template: 'Case Template',
       abi: 'ABI',
       topPlaceholder: 'add file',
+      fileFunc: {
+        download: 'download',
+        edit: 'rename',
+        delete: 'delete'
+      },
       compile: {
         topTitle: 'Compile',
         placeholder: 'select file to compile',

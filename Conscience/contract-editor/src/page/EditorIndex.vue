@@ -48,14 +48,16 @@
                           <div class="grid-content bg-purple file-name-style">{{ file }}</div>
                         </el-col>
                         <el-col :span="4">
-                          <el-dropdown trigger="click">
+                          <el-dropdown @command="handleCommand" trigger="click">
                             <span class="el-icon-more">
                             </span>
                             <el-dropdown-menu slot="dropdown">
-                              <el-dropdown-item icon="el-icon-download" :id="file"
-                                                @click="downloadFile"></el-dropdown-item>
-                              <el-dropdown-item icon="el-icon-edit" :id="file" @click="editFileName"></el-dropdown-item>
-                              <el-dropdown-item icon="el-icon-delete" :id="file" @click="deleteFile"></el-dropdown-item>
+                              <el-dropdown-item icon="el-icon-download"
+                                                :command="file + '-download'">{{menuLang.fileFunc.download}}</el-dropdown-item>
+                              <el-dropdown-item icon="el-icon-edit"
+                                                :command="file + '-edit'">{{menuLang.fileFunc.edit}}</el-dropdown-item>
+                              <el-dropdown-item icon="el-icon-delete"
+                                                :command="file + '-delete'">{{menuLang.fileFunc.delete}}</el-dropdown-item>
                             </el-dropdown-menu>
                           </el-dropdown>
                         </el-col>
@@ -168,7 +170,7 @@
 
         <!--setting menu main start-->
         <el-main v-show="settingSelect[0].show">
-          <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px">
+          <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px" label-position="left">
             <el-form-item :label="settingSelect[0].data.lang.label">
               <el-select v-model="langMode">
                 <el-option
@@ -559,6 +561,22 @@
             this.settingSelect[i].show = true;
           }
         }
+      },
+      handleCommand(command) {
+        let list = command.split('-')
+        let filename = list[0]
+        let func = list[1]
+        if (func == 'download') {
+          this.downloadFile({target: {id: filename}})
+          return
+        }
+        if (func == 'edit') {
+          this.editFileName({target: {id: filename}})
+          return
+        }
+        if (func == 'delete') {
+          this.deleteFile({target: {id: filename}})
+        }
       }
     }
   };
@@ -659,13 +677,13 @@
   }
 
   #setting {
-    margin-top: 3%;
-    margin-left: 5%;
+    margin-top: 23px;
+    margin-left: 37px;
   }
 
   #about {
-    margin-top: 4%;
-    margin-left: 5%;
+    margin-top: 29px;
+    margin-left: 37px;
   }
 
   .file-name-style {
