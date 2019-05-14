@@ -11,14 +11,14 @@
                 active-text-color="#409EFF"
                 style="background-color: #414141;"
               >
-                <el-menu-item index="1" class="icon-hover">
-                  <i class="el-icon-circle-plus" @click="addFile"></i>
+                <el-menu-item index="1" class="icon-hover" @click="addFile">
+                  <i class="el-icon-circle-plus"></i>
                 </el-menu-item>
-                <el-menu-item index="2" class="icon-hover">
-                  <i class="el-icon-setting" @click="showSettings"></i>
+                <el-menu-item index="2" class="icon-hover" @click="showSettings">
+                  <i class="el-icon-setting"></i>
                 </el-menu-item>
-                <el-menu-item index="3" class="icon-hover">
-                  <i class="el-icon-info" @click="about"></i>
+                <el-menu-item index="3" class="icon-hover" @click="about">
+                  <i class="el-icon-info"></i>
                 </el-menu-item>
               </el-menu>
             </el-aside>
@@ -56,11 +56,14 @@
                             </span>
                             <el-dropdown-menu slot="dropdown">
                               <el-dropdown-item icon="el-icon-download"
-                                                :command="file + '-download'">{{menuLang.fileFunc.download}}</el-dropdown-item>
+                                                :command="file + '-download'">{{menuLang.fileFunc.download}}
+                              </el-dropdown-item>
                               <el-dropdown-item icon="el-icon-edit"
-                                                :command="file + '-edit'">{{menuLang.fileFunc.edit}}</el-dropdown-item>
+                                                :command="file + '-edit'">{{menuLang.fileFunc.edit}}
+                              </el-dropdown-item>
                               <el-dropdown-item icon="el-icon-delete"
-                                                :command="file + '-delete'">{{menuLang.fileFunc.delete}}</el-dropdown-item>
+                                                :command="file + '-delete'">{{menuLang.fileFunc.delete}}
+                              </el-dropdown-item>
                             </el-dropdown-menu>
                           </el-dropdown>
                         </el-col>
@@ -154,7 +157,7 @@
         </el-aside>
         <el-main v-show="!showSettingsOnWindow">
           <el-container>
-            <el-header>
+            <el-header style="background-color: #414141">
               <el-tabs
                 v-model="editorTab"
                 type="card"
@@ -173,7 +176,8 @@
 
         <!--setting menu main start-->
         <el-main v-show="settingSelect[0].show">
-          <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px" label-position="left">
+          <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px"
+                   label-position="left">
             <el-form-item :label="settingSelect[0].data.lang.label">
               <el-select v-model="langMode">
                 <el-option
@@ -663,12 +667,6 @@
     border-radius: 5px;
   }
 
-  /*.el-button--info {*/
-  /*background-color: #454545;*/
-  /*border-color: #4e5052;*/
-  /*margin-top: 10px;*/
-  /*}*/
-
   #btn-footer {
     width: 240px;
     position: fixed;
@@ -694,6 +692,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .tab-click-class {
+    background-color: #333333;
+  }
+
+  .tab-class {
+    background-color: #414141;
   }
 
 </style>
