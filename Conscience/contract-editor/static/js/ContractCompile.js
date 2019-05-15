@@ -83,7 +83,7 @@ export function deployIostContract(contract, data) {
     const ctx1 = iost.callABI(contractAddress, "setCode", request);
 
     //TODO: write thest into configs
-    ctx1.setGas(100, 4000000);
+    ctx1.setGas(1, 4000000);
 
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
