@@ -238,7 +238,8 @@ export default {
         version: this.result.version,
         abi: localStorage.getItem(this.abiFilename)
       }
-      this.showRunArea = deployIostContract(this.compiledContracts[this.deployIndex], data);
+      deployIostContract(this.compiledContracts[this.deployIndex], data);
+      this.showRunArea = localStorage.getItem('showRunArea')
     },
     runtest:function(){
       runtestIostContract(this.runMethodList[this.runIndex].label, this.argList);

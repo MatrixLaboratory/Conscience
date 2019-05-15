@@ -379,6 +379,7 @@
         _this.rightAside = width > 600;
       };
       this.compileNames = this.files.concat(this.caseTemplate);
+      localStorage.setItem('showRunArea', 'false')
     },
     methods: {
       compileResult: function (file, result) {

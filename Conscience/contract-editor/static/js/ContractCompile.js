@@ -88,12 +88,13 @@ export function deployIostContract(contract, data) {
 
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
-      return true
+      localStorage.setItem('trx', trx + ' contract is deploying')
     }).on('success', (result) => {
       console.log('result:', result)
+      localStorage.setItem('showRunArea', 'true')
     }).on('failed', (failed) => {
       console.error('failed to deploy IOST contract:', failed)
-      return false
+      localStorage.setItem('showRunArea', 'false')
     })
   })
 
