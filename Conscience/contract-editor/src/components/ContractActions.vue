@@ -2,22 +2,22 @@
   <div>
     <div>
       <div style="margin-top: 40px; margin-left: 50px;">
-        <el-row :gutter="40">
-          <el-col :span="14">
+        <el-row :gutter="10">
+          <el-col :span="16">
             <div class="grid-content bg-purple">
-              <el-select style="width: 217px" v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
+              <el-select v-model="compileFile" value="compiler" :placeholder="menuLang.compile.placeholder" clearable>
                 <el-option v-for="file in files" :key="file" :label="file" :value="file"></el-option>
               </el-select>
             </div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="4">
             <div class="grid-content bg-purple">
               <el-button type="primary" @click="compile" :loading="compiling">{{menuLang.compile.button}}</el-button>
             </div>
           </el-col>
         </el-row>
       </div>
-      <div style="margin-top: 40px; margin-left: 50px;">
+      <div style="margin-top: 20px; margin-left: 50px;">
         <el-row :gutter="10">
           <el-col :span="8">
             <div class="grid-content bg-purple">
@@ -32,7 +32,7 @@
               </el-select>
             </div>
           </el-col>
-          <el-col :span="7">
+          <el-col :span="8">
             <div class="grid-content bg-purple">
               <el-select v-model="abiFilename" value="deployABI"
                          :placeholder="menuLang.deploy.abiPlaceholder" clearable>
