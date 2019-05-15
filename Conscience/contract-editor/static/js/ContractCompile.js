@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 const IOST = require('iost')
-export let trx = ''
+
 export async function compileIostContract(code, fileName = 'test.js') {
   let source = {};
   source[fileName] = {
@@ -74,7 +74,7 @@ export function deployIostContract(contract, data) {
 
   const info = "\"info\"";
   const code = "\"code\"";
-  const request = ["{" + info + ":" + contract.contractAbi + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
+  const request = ["{" + info + ":" + data.abi + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
 
   window.IWalletJS.enable().then((account) => {
     if (!account) return; // not login
@@ -117,14 +117,14 @@ export function runtestIostContract(method, value) {
     ctx1.setGas(1, 4000000);
 
     iost.signAndSend(ctx1).on('pending', (trx) => {
-      console.log(trx, 'contract is deploying');
-      localStorage.setItem('trx', trx + ' contract is deploying')
+      console.log(trx, 'contract is calling');
+      localStorage.setItem('tx generating', trx + ' tx is generating')
     }).on('success', (result) => {
       console.log('result:', result)
-      localStorage.setItem('showRunArea', 'true')
+      localStorage.setItem('run-success', 'method run success')
     }).on('failed', (failed) => {
       console.error('failed to deploy IOST contract:', failed)
-      localStorage.setItem('showRunArea', 'false')
+      localStorage.setItem('run-fail', 'method run failed')
     })
   })
 

@@ -234,12 +234,13 @@ export default {
       this.compiling = false;
     },
     deploy: function() {
+      let data1 =localStorage.getItem(this.abiFilename).slice(1,localStorage.getItem(this.abiFilename).length-1);
+      let change = new Array(data1)
       let data = {
         'lang': this.result.lang,
-        version: this.result.version,
-        abi: localStorage.getItem(this.abiFilename)
+        'version': this.result.version,
+        'abi': change
       }
-      console.log(data)
       deployIostContract(this.compiledContracts[this.deployIndex], data);
       this.showRunArea = localStorage.getItem('showRunArea')
     },
