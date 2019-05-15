@@ -164,6 +164,7 @@
                 closable
                 @tab-remove="removeTab"
                 @tab-click="tabClick"
+                class="tab-class"
               >
                 <el-tab-pane v-for="file in fileTabs" :label="file" :key="file" :name="file"></el-tab-pane>
               </el-tabs>
@@ -360,8 +361,6 @@
         handler: function (name) {
           this.fontSize = this.settingSelect[0].data.fontSize.map[name];
         }
-      },
-      codeThemeMode: function (codeTheme) {
       }
     },
     mounted() {
