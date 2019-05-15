@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 const IOST = require('iost')
+export let trx = ''
 export async function compileIostContract(code, fileName = 'test.js') {
   let source = {};
   source[fileName] = {
@@ -87,10 +88,9 @@ export function deployIostContract(contract, data) {
 
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
-      return trx
+      return true
     }).on('success', (result) => {
       console.log('result:', result)
-      return true
     }).on('failed', (failed) => {
       console.error('failed to deploy IOST contract:', failed)
       return false
