@@ -158,7 +158,8 @@ export default {
       runIndex: null,
       argList: [],
       labelPosition: 'left',
-      showRunArea: false
+      showRunArea: false,
+      result: ''
     };
   },
   props: {
@@ -199,6 +200,7 @@ export default {
             this.reportError(result);
             return;
           }
+          this.result = result
           this.treeData = [];
           let index = 0;
           this.treeData.push({
@@ -231,7 +233,12 @@ export default {
       this.compiling = false;
     },
     deploy: function() {
-      this.showRunArea = deployIostContract(this.compiledContracts[this.deployIndex], localStorage.getItem(this.abiFilename));
+      let data = {
+        lang: this.result.lang,
+        version: this.result.version,
+        abi: localStorage.getItem(this.abiFilename)
+      }
+      this.showRunArea = deployIostContract(this.compiledContracts[this.deployIndex], data);
     },
     runtest:function(){
       runtestIostContract(this.runMethodList[this.runIndex].label, this.argList);
