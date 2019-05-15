@@ -157,10 +157,10 @@
         </el-aside>
         <el-main v-show="!showSettingsOnWindow">
           <el-container>
-            <el-header style="background-color: #414141">
+            <el-header style="background-color: #414141; height: 40px">
               <el-tabs
                 v-model="editorTab"
-                type="card"
+                type="border-card"
                 closable
                 @tab-remove="removeTab"
                 @tab-click="tabClick"
@@ -228,7 +228,7 @@
           v-show="!showSettingsOnWindow"
           class="right"
           width="400px"
-          :style="{backgroundColor : backgroundColor}"
+          :style="{backgroundColor : backgroundColor, overflow: 'hidden'}"
         >
           <contract-action
             v-show="rightAside"
@@ -265,7 +265,7 @@
             style="float: right"
           ></el-button>
         </el-header>
-        <el-main class="logger-main" v-show="showLoggers" style="background-color: black">
+        <el-main class="logger-main" v-show="showLoggers" style="background-color: #1e1e1e">
           <el-card class="box-card"
                    v-for="(logger, index) in compileLoggers" :key="index"
                    style="background-color: #414141; border: #414141"
@@ -600,6 +600,10 @@
     padding: 0;
   }
 
+  .icon-hover {
+    padding-left: 13px !important;
+  }
+
   .icon-hover:hover {
     background-color: #333333;
   }
@@ -628,6 +632,7 @@
     background-color: #3c3c3c;
     color: white;
     line-height: 40px;
+    padding-left: 20px;
   }
 
   .logger-main {
@@ -640,7 +645,7 @@
   }
 
   .el-tabs {
-    margin-top: 19px;
+    margin-top: 1px;
   }
 
   .left-header {
@@ -759,6 +764,23 @@
   xmp {
     white-space: pre-wrap;
     word-wrap: break-word;
+  }
+
+  .el-header {
+    padding: 0;
+  }
+
+  .el-tabs__nav-scroll {
+    background: #414141;
+  }
+
+  .el-tabs--border-card {
+    border: 0;
+  }
+
+  .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+    background-color: #333333;
+    border: 0;
   }
 
 </style>
