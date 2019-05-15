@@ -73,7 +73,7 @@ export function deployIostContract(contract, data) {
 
   const info = "\"info\"";
   const code = "\"code\"";
-  const request = ["{" + info + ":" + data.abi + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
+  const request = ["{" + info + ":" + contract.contractAbi + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
 
   window.IWalletJS.enable().then((account) => {
     if (!account) return; // not login
