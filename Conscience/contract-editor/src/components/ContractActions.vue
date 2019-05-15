@@ -138,7 +138,7 @@ import {
   compileSolContract,
   deployContract,
   deployIostContract,
-  runtestIostContract,
+  runIostContract,
   generateIostContractHierachy
 } from "../../static/js/ContractCompile";
 
@@ -183,9 +183,6 @@ export default {
     }
   },
   methods: {
-    handleSelect: function(key) {
-      this.activeMenu = key;
-    },
     compile: function() {
       this.compiling = true;
       if (this.compileFile === "") {
@@ -242,7 +239,7 @@ export default {
       this.showRunArea = localStorage.getItem('showRunArea')
     },
     run: function() {
-      runtestIostContract(this.runMethodList[this.runIndex].label, this.argList);
+      runIostContract(this.runMethodList[this.runIndex].label, this.argList);
     },
     reportError: function(result) {
       // if (error !== undefined) {

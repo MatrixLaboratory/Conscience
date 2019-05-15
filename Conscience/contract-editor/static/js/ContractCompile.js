@@ -101,7 +101,7 @@ export function deployIostContract(contract, data) {
 }
 
 
-export function runtestIostContract(method, value) {
+export function runIostContract(method, value) {
 
   let methodArr = method.split(' ');
 

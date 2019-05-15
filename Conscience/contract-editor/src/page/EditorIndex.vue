@@ -271,7 +271,7 @@
                    style="background-color: #414141; border: #414141"
           >
             <div slot="header"
-                 v-bind:class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error')}">
+                 :class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error')}">
               {{logger.title}}
             </div>
             <div class="text item" style="color: white;">
@@ -279,6 +279,12 @@
               <xmp><code>{{logger.description}}</code></xmp>
             </div>
           </el-card>
+          <!--<el-card class="box-card"-->
+                   <!---->
+          <!--&gt;-->
+            <!---->
+          <!--</el-card>-->
+
         </el-main>
       </el-container>
     </el-footer>
