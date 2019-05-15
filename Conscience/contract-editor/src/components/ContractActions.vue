@@ -236,12 +236,8 @@ export default {
     deploy: function() {
       let data1 =localStorage.getItem(this.abiFilename).slice(1,localStorage.getItem(this.abiFilename).length-1);
       let change = new Array(data1)
-      let data = {
-        'lang': this.result.lang,
-        'version': this.result.version,
-        'abi': change
-      }
-      deployIostContract(this.compiledContracts[this.deployIndex], data);
+      let combine = '{\"lang\":\"'+this.result.lang+'\",\"version\":\"'+this.result.version+'\",\"abi\":['+change+"]}";
+      deployIostContract(this.compiledContracts[this.deployIndex], combine);
       this.showRunArea = localStorage.getItem('showRunArea')
     },
     run: function() {
