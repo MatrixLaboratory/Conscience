@@ -71,12 +71,10 @@ export function generateIostContractHierachy(index, compileFile, abi) {
 }
 
 export function deployIostContract(contract, data) {
-  console.log('-------------------')
-  console.log(data)
+
   const info = "\"info\"";
   const code = "\"code\"";
   const request = ["{" + info + ":" + data + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
-  console.log(request)
 
   window.IWalletJS.enable().then((account) => {
     if (!account) return; // not login
