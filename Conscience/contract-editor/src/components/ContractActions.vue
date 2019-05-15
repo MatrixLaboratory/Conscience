@@ -53,7 +53,10 @@
         </el-row>
       </div>
 
-      <el-divider></el-divider>
+      <div v-show="treeData.length != 0">
+        <el-divider></el-divider>
+      </div>
+
 
       <!--渲染ABI列表-->
 
@@ -61,7 +64,7 @@
                node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
 
-    <div style="text-align: center; margin-top: 40px">
+    <div v-show="showRunArea" style="text-align: center; margin-top: 40px">
       <el-form style="margin-right: 50px" class="compile-form" :label-position="labelPosition" label-width="45px">
         <el-form-item>
           <el-select class="el-select-run" v-model="runIndex" :placeholder="menuLang.run.placeholder" clearable>
@@ -70,11 +73,11 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">{{menuLang.run.button}}</el-button>
+          <el-button type="primary" @click="runtest">{{menuLang.run.button}}</el-button>
         </el-form-item>
         <div v-if="runIndex !== null">
           <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg:" class="el-form-item-run">
-            <el-input v-model="argList[runIndex]" prefix-icon="el-icon-edit">
+            <el-input v-model="argList[index]" prefix-icon="el-icon-edit">
               <template slot="prepend">({{arg}})</template>
             </el-input>
             <div style="margin: 20px;"></div>
@@ -154,7 +157,8 @@ export default {
       runMethodList: [],
       runIndex: null,
       argList: [],
-      labelPosition: 'left'
+      labelPosition: 'left',
+      showRunArea: false
     };
   },
   props: {
@@ -227,7 +231,10 @@ export default {
       this.compiling = false;
     },
     deploy: function() {
-      deployIostContract(this.compiledContracts[this.deployIndex], localStorage.getItem(this.abiFilename));
+      this.showRunArea = deployIostContract(this.compiledContracts[this.deployIndex], localStorage.getItem(this.abiFilename));
+    },
+    runtest:function(){
+      runtestIostContract(this.runMethodList[this.runIndex].label, this.argList);
     },
     reportError: function(result) {
       // if (error !== undefined) {

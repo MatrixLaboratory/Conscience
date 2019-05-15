@@ -70,7 +70,6 @@ export function generateIostContractHierachy(index, compileFile, abi) {
 }
 
 export function deployIostContract(contract, abi) {
-  console.log(abi)
 
   const info = "\"info\"";
   const code = "\"code\"";
@@ -88,10 +87,13 @@ export function deployIostContract(contract, abi) {
 
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
+      return trx
     }).on('success', (result) => {
       console.log('result:', result)
+      return true
     }).on('failed', (failed) => {
       console.error('failed to deploy IOST contract:', failed)
+      return false
     })
   })
 
