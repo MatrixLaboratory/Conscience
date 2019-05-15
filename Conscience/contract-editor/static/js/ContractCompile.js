@@ -103,13 +103,15 @@ export function deployIostContract(contract, data) {
 
 export function runtestIostContract(method, value) {
 
+  let methodArr = method.split(' ');
+
   window.IWalletJS.enable().then((account) => {
     if (!account) return; // not login
 
     const iost = window.IWalletJS.newIOST(IOST);
     let trx = localStorage.getItem('trx')
     let contractAddress = 'Contract'+trx;
-    const ctx1 = iost.callABI(contractAddress, method, value);
+    const ctx1 = iost.callABI(contractAddress, methodArr[1], value);
 
     //TODO: write thest into configs
     ctx1.setGas(1, 4000000);
