@@ -73,7 +73,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="runtest">{{menuLang.run.button}}</el-button>
+          <el-button type="primary" @click="run">{{menuLang.run.button}}</el-button>
         </el-form-item>
         <div v-if="runIndex !== null">
           <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg:" class="el-form-item-run">
@@ -138,6 +138,7 @@ import {
   compileSolContract,
   deployContract,
   deployIostContract,
+  runtestIostContract,
   generateIostContractHierachy
 } from "../../static/js/ContractCompile";
 
@@ -234,14 +235,15 @@ export default {
     },
     deploy: function() {
       let data = {
-        lang: this.result.lang,
+        'lang': this.result.lang,
         version: this.result.version,
         abi: localStorage.getItem(this.abiFilename)
       }
+      console.log(data)
       deployIostContract(this.compiledContracts[this.deployIndex], data);
       this.showRunArea = localStorage.getItem('showRunArea')
     },
-    runtest:function(){
+    run: function() {
       runtestIostContract(this.runMethodList[this.runIndex].label, this.argList);
     },
     reportError: function(result) {

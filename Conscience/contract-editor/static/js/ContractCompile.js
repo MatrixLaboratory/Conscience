@@ -88,6 +88,34 @@ export function deployIostContract(contract, data) {
 
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
+      localStorage.setItem('trx', trx)
+    }).on('success', (result) => {
+      console.log('result:', result)
+      localStorage.setItem('showRunArea', 'true')
+    }).on('failed', (failed) => {
+      console.error('failed to deploy IOST contract:', failed)
+      localStorage.setItem('showRunArea', 'false')
+    })
+  })
+
+}
+
+
+export function runtestIostContract(method, value) {
+
+  window.IWalletJS.enable().then((account) => {
+    if (!account) return; // not login
+
+    const iost = window.IWalletJS.newIOST(IOST);
+    let trx = localStorage.getItem('trx')
+    let contractAddress = 'Contract'+trx;
+    const ctx1 = iost.callABI(contractAddress, method, value);
+
+    //TODO: write thest into configs
+    ctx1.setGas(1, 4000000);
+
+    iost.signAndSend(ctx1).on('pending', (trx) => {
+      console.log(trx, 'contract is deploying');
       localStorage.setItem('trx', trx + ' contract is deploying')
     }).on('success', (result) => {
       console.log('result:', result)
