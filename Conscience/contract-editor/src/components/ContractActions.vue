@@ -72,9 +72,6 @@
                        :label="item.label"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="run">{{menuLang.run.button}}</el-button>
-        </el-form-item>
         <div v-if="runIndex !== null">
           <el-form-item v-for="(arg,index) in runMethodList[runIndex].args" :key="index" label="arg:" class="el-form-item-run">
             <el-input v-model="argList[index]" prefix-icon="el-icon-edit">
@@ -83,6 +80,9 @@
             <div style="margin: 20px;"></div>
           </el-form-item>
         </div>
+        <el-form-item v-if="runIndex !== null">
+          <el-button type="primary" @click="run">{{menuLang.run.button}}</el-button>
+        </el-form-item>
       </el-form>
     </div>
   </div>
