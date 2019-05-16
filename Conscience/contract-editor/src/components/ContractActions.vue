@@ -235,9 +235,32 @@ export default {
       let str = data.replace(/[\r\n]/g,"");
       str = str.replace(/\ +/g,"");
       let combine = '{\"lang\":\"'+this.result.lang+'\",\"version\":\"'+this.result.version+'\",\"abi\":['+str.trim()+"]}";
-      let result = deployIostContract(this.compiledContracts[this.deployIndex], combine);
-      this.showRunArea = result.showRunArea
-      this.$emit('deployResult', result)
+      deployIostContract(this.compiledContracts[this.deployIndex], combine);
+      this.showRunArea = localStorage.getItem('showRunArea')
+      while (true) {
+        let trx = sessionStorage.getItem('trx')
+        let pending = sessionStorage.getItem('deploy-pending')
+        if (pending != null) {
+          this.$emit('deployResult', pending, trx)
+          break
+        }
+      }
+      let trx = sessionStorage.getItem('trx')
+      while (true) {
+        let success = sessionStorage.getItem('deploy-success')
+        if (success != null) {
+          this.$emit('deployResult', success, trx)
+          break
+        }
+      }
+      while (true) {
+        let failed = sessionStorage.getItem('deploy-failed')
+        if (failed != null) {
+          this.$emit('deployResult', failed, trx)
+          break
+        }
+      }
+
     },
     run: function() {
       runIostContract(this.runMethodList[this.runIndex].label, this.argList);
