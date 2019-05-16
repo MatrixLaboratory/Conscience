@@ -132,6 +132,12 @@
 
 </style>
 
+<style>
+  .el-tree-node__content:hover {
+    background-color: #1e1e1e;
+  }
+</style>
+
 <script>
 import {
   compileIostContract,
