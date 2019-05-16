@@ -235,32 +235,7 @@ export default {
       let str = data.replace(/[\r\n]/g,"");
       str = str.replace(/\ +/g,"");
       let combine = '{\"lang\":\"'+this.result.lang+'\",\"version\":\"'+this.result.version+'\",\"abi\":['+str.trim()+"]}";
-      deployIostContract(this.compiledContracts[this.deployIndex], combine);
-      this.showRunArea = localStorage.getItem('showRunArea')
-      while (true) {
-        let trx = sessionStorage.getItem('trx')
-        let pending = sessionStorage.getItem('deploy-pending')
-        if (pending != null) {
-          this.$emit('deployResult', pending, trx)
-          break
-        }
-      }
-      let trx = sessionStorage.getItem('trx')
-      while (true) {
-        let success = sessionStorage.getItem('deploy-success')
-        if (success != null) {
-          this.$emit('deployResult', success, trx)
-          break
-        }
-      }
-      while (true) {
-        let failed = sessionStorage.getItem('deploy-failed')
-        if (failed != null) {
-          this.$emit('deployResult', failed, trx)
-          break
-        }
-      }
-
+      this.deployIostContract(this.compiledContracts[this.deployIndex], combine);
     },
     run: function() {
       runIostContract(this.runMethodList[this.runIndex].label, this.argList);
@@ -274,6 +249,36 @@ export default {
         message: '"' + this.compileFile + '"编译失败!'
       })
       this.$emit("compileResult", this.compileFile, result);
+    },
+    deployIostContract(contract, data) {
+      const IOST = require('iost')
+      const info = "\"info\"";
+      const code = "\"code\"";
+      const request = ["{" + info + ":" + data + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
+
+      window.IWalletJS.enable().then((account) => {
+        if (!account) return; // not login
+
+        const iost = window.IWalletJS.newIOST(IOST);
+        let contractAddress = "system.iost";
+        const ctx1 = iost.callABI(contractAddress, "setCode", request);
+
+        //TODO: write thest into configs
+        ctx1.setGas(1, 4000000);
+        let trxStr = ''
+        iost.signAndSend(ctx1).on('pending', (trx) => {
+          console.log(trx, 'contract is deploying');
+          trxStr = trx
+          this.$emit('deployResult', 'pending', trxStr)
+        }).on('success', (result) => {
+          console.log('result:', result)
+          this.showRunArea = true
+          this.$emit('deployResult', 'success', trxStr)
+        }).on('failed', (failed) => {
+          console.error('failed to deploy IOST contract:', failed)
+          this.$emit('deployResult', 'failed', trxStr)
+        })
+      })
     }
   }
 };
