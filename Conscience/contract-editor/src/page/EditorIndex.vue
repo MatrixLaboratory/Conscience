@@ -298,7 +298,17 @@
             <div class="text item" style="color: white;">
               <xmp>{{item}}</xmp>
             </div>
-
+          </el-card>
+          <el-card class="box-card" v-show="runResultData.length != 0"
+                   v-for="(item, index) in runResultData" :key="index"
+                   style="background-color: #414141; border: #414141"
+          >
+            <div slot="header" style="color: white;">
+              {{'run'}}
+            </div>
+            <div class="text item" style="color: white;">
+              <xmp>{{item}}</xmp>
+            </div>
           </el-card>
 
         </el-main>
@@ -346,7 +356,8 @@
         fontSizeName: "Base",
         fontSize: "14px",
         compileABI: [],
-        deployResultData: []
+        deployResultData: [],
+        runResultData: []
       };
     },
     components: {
@@ -394,6 +405,12 @@
         })
       },
       deployResultData() {
+        this.$nextTick(function(){
+          let div = document.getElementById('logger');
+          div.scrollTop = div.scrollHeight;
+        })
+      },
+      runResultData() {
         this.$nextTick(function(){
           let div = document.getElementById('logger');
           div.scrollTop = div.scrollHeight;
@@ -462,6 +479,17 @@
         }
         if (status === 'failed') {
           this.deployResultData.push(trx + ': deployment failed!')
+        }
+      },
+      runResult(status, trx) {
+        if (status === 'pending') {
+          this.runResultData.push(trx + ': is generating')
+        }
+        if (status === 'success') {
+          this.runResultData.push(trx + ': method run success!')
+        }
+        if (status === 'failed') {
+          this.runResultData.push(trx + ': method run failed!')
         }
       },
       addFile() {

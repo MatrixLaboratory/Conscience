@@ -250,7 +250,7 @@ export default {
       this.deployIostContract(this.compiledContracts[this.deployIndex], combine);
     },
     run: function() {
-      runIostContract(this.runMethodList[this.runIndex].label, this.argList);
+      this.runIostContract(this.runMethodList[this.runIndex].label, this.argList);
     },
     reportError: function(result) {
       // if (error !== undefined) {
@@ -291,6 +291,35 @@ export default {
         }).on('failed', (failed) => {
           console.error('failed to deploy IOST contract:', failed)
           this.$emit('deployResult', 'failed', trxStr)
+        })
+      })
+    },
+    runIostContract(method, value) {
+      const IOST = require('iost')
+      let methodArr = method.split(' ');
+
+      window.IWalletJS.enable().then((account) => {
+        if (!account) return; // not login
+
+        const iost = window.IWalletJS.newIOST(IOST);
+        let trx = localStorage.getItem('trx')
+        let contractAddress = 'Contract'+trx;
+        const ctx1 = iost.callABI(contractAddress, methodArr[1], value);
+
+        //TODO: write thest into configs
+        ctx1.setGas(1, 4000000);
+
+        let trxStr = ''
+        iost.signAndSend(ctx1).on('pending', (trx) => {
+          console.log(trx, 'contract is calling');
+          trxStr = trx
+          this.$emit('runResult', 'pending', trxStr)
+        }).on('success', (result) => {
+          console.log('result:', result)
+          this.$emit('runResult', 'success', trxStr)
+        }).on('failed', (failed) => {
+          console.error('failed to deploy IOST contract:', failed)
+          this.$emit('runResult', 'failed', trxStr)
         })
       })
     }
