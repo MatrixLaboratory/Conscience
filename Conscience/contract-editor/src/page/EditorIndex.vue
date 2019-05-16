@@ -271,7 +271,7 @@
             v-show="showLoggers"
             type="primary"
             icon="el-icon-delete"
-            @click="compileLoggers = []"
+            @click="compileLoggers = [], deployResultData = [], runResultData = []"
             style="float: right"
           ></el-button>
         </el-header>
