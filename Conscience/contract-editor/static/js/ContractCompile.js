@@ -75,6 +75,7 @@ export function deployIostContract(contract, data) {
   const info = "\"info\"";
   const code = "\"code\"";
   const request = ["{" + info + ":" + data + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
+  let deployResult = {showRunArea: false}
 
   window.IWalletJS.enable().then((account) => {
     if (!account) return; // not login
@@ -86,21 +87,20 @@ export function deployIostContract(contract, data) {
     //TODO: write thest into configs
     ctx1.setGas(1, 4000000);
 
-    let trxStr = ''
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
-      trxStr = trx
-      this.$emit('deployResult', 'pending', trxStr)
+      deployResult.trx = trx
+      deployResult.pending = 'pending'
     }).on('success', (result) => {
       console.log('result:', result)
-      localStorage.setItem('showRunArea', 'true')
-      this.$emit('deployResult', 'success', trxStr)
+      deployResult.showRunArea = true
+      deployResult.success = 'success'
     }).on('failed', (failed) => {
       console.error('failed to deploy IOST contract:', failed)
-      this.$emit('deployResult', 'failed', trxStr)
+      deployResult.failed = 'failed'
     })
   })
-
+  return deployResult
 }
 
 

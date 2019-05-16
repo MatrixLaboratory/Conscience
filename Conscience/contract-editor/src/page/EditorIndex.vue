@@ -431,15 +431,15 @@
           this.compileABI.push(filename)
         }
       },
-      deployResult(status, trx) {
-        if (status == 'pending') {
-          this.deployResultData.push(trx + ': is pending to deploy')
+      deployResult(result) {
+        if (result.pending === 'pending') {
+          this.deployResultData.push(result.trx + ': is pending to deploy')
         }
-        if (status == 'success') {
-          this.deployResultData.push(trx + ': deployment successful!')
+        if (result.success === 'success') {
+          this.deployResultData.push(result.trx + ': deployment successful!')
         }
-        if (status == 'failed') {
-          this.deployResultData.push(trx + ': deployment failed!')
+        if (result.failed === 'failed') {
+          this.deployResultData.push(result.trx + ': deployment failed!')
         }
       },
       addFile() {
