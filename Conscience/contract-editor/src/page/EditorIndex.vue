@@ -247,6 +247,7 @@
             :langMode="langMode"
             v-on:compileResult="compileResult"
             @deployResult="deployResult"
+            @runResult="runResult"
           ></contract-action>
         </el-aside>
       </el-container>
