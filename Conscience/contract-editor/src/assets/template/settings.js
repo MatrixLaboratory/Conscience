@@ -122,3 +122,51 @@ export function menuLang(lang) {
   }
   return menuLang
 }
+
+export function addFileMenuLang(lang) {
+  let menuLang = {
+    title: `请输入文件名（默认为`,
+    titleSuffix: '文件）',
+    remind: '提示',
+    confirmButton: '确定',
+    cancelButton: '取消',
+    errorMessage: '请输入正确的文件名！',
+    alreadyExist: '已存在！',
+    cancelMessage: '取消输入'
+  }
+  if (lang === 'English') {
+    menuLang = {
+      title: 'enter filename（default file suffix is: ',
+      titleSuffix: ')',
+      remind: 'tips',
+      confirmButton: 'confirm',
+      cancelButton: 'cancel',
+      errorMessage: 'enter the correct filename！',
+      alreadyExist: 'file already exist！',
+      cancelMessage: 'cancel input'
+    }
+  }
+  return menuLang
+}
+
+export function deleteFileMenuLang(lang) {
+  let menuLang = {
+    title: '此操作将永久删除该文件, 是否继续?',
+    remind: '提示',
+    confirmButton: '确定',
+    cancelButton: '取消',
+    deleteSuccess: '删除成功！',
+    deleteCancel: '已取消删除！'
+  }
+  if (lang === 'English') {
+    menuLang = {
+      title: 'This operation will permanently delete the file. continue?',
+      remind: 'tips',
+      confirmButton: 'confirm',
+      cancelButton: 'cancel',
+      deleteSuccess: 'delete success！',
+      deleteCancel: 'cancel delete！'
+    }
+  }
+  return menuLang
+}

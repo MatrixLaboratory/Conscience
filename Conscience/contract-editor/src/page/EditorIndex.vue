@@ -306,7 +306,9 @@
   import {defaultCode} from "../assets/template/case.eg";
   import {
     settingLang,
-    menuLang
+    menuLang,
+    addFileMenuLang,
+    deleteFileMenuLang
   } from "../assets/template/settings";
 
   const suffix = ".js";
@@ -443,11 +445,12 @@
         }
       },
       addFile() {
-        this.$prompt(`请输入文件名（默认为${suffix}文件)`, "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+        let data = addFileMenuLang(this.langMode)
+        this.$prompt(data.title + suffix + data.titleSuffix, data.remind, {
+          confirmButtonText: data.confirmButton,
+          cancelButtonText: data.cancelButton,
           inputPattern: "",
-          inputErrorMessage: "请输入正确的文件名！"
+          inputErrorMessage: data.errorMessage
         })
           .then(({value}) => {
             let newFile = value + suffix;
@@ -455,7 +458,7 @@
               if (this.files[index] === newFile) {
                 this.$message({
                   type: "info",
-                  message: newFile + "已存在！"
+                  message: newFile + data.alreadyExist
                 });
                 return;
               }
@@ -465,18 +468,20 @@
           .catch(() => {
             this.$message({
               type: "info",
-              message: "取消输入"
+              message: data.cancelMessage,
+              duration: 2000
             });
           });
       },
       editFileName(index) {
+        let data = addFileMenuLang(this.langMode)
         let fileName = index.target.id;
-        this.$prompt(`请输入文件名（默认为${suffix}文件)`, "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+        this.$prompt(data.title + suffix + data.titleSuffix, data.remind, {
+          confirmButtonText: data.confirmButton,
+          cancelButtonText: data.cancelButton,
           inputValue: fileName.split(".")[0],
           inputPattern: "",
-          inputErrorMessage: "请输入正确的文件名！"
+          inputErrorMessage: data.errorMessage
         })
           .then(({value}) => {
             let newFile = value + suffix;
@@ -484,7 +489,7 @@
               if (this.files[index] === newFile) {
                 this.$message({
                   type: "info",
-                  message: newFile + "已存在！"
+                  message: newFile + data.alreadyExist
                 });
                 return;
               }
@@ -498,15 +503,16 @@
           .catch(() => {
             this.$message({
               type: "info",
-              message: "取消修改"
+              message: data.cancelMessage
             });
           });
       },
       deleteFile(index) {
+        let data = deleteFileMenuLang(this.langMode)
         let fileName = index.target.id;
-        this.$confirm("此操作将永久删除该文件, 是否继续?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
+        this.$confirm(data.title, data.remind, {
+          confirmButtonText: data.confirmButton,
+          cancelButtonText: data.cancelButton,
           type: "warning"
         })
           .then(() => {
@@ -515,13 +521,15 @@
             this.removeTab(fileName);
             this.$message({
               type: "success",
-              message: "删除成功!"
+              message: data.deleteSuccess,
+              duration: 2000
             });
           })
           .catch(() => {
             this.$message({
               type: "info",
-              message: "已取消删除"
+              message: data.deleteCancel,
+              duration: 2000
             });
           });
       },
