@@ -391,6 +391,12 @@
           let div = document.getElementById('logger');
           div.scrollTop = div.scrollHeight;
         })
+      },
+      deployResultData() {
+        this.$nextTick(function(){
+          let div = document.getElementById('logger');
+          div.scrollTop = div.scrollHeight;
+        })
       }
     },
     mounted() {
