@@ -86,15 +86,18 @@ export function deployIostContract(contract, data) {
     //TODO: write thest into configs
     ctx1.setGas(1, 4000000);
 
+    let trxStr = ''
     iost.signAndSend(ctx1).on('pending', (trx) => {
       console.log(trx, 'contract is deploying');
-      localStorage.setItem('trx', trx)
+      trxStr = trx
+      this.$emit('deployResult', 'pending', trxStr)
     }).on('success', (result) => {
       console.log('result:', result)
       localStorage.setItem('showRunArea', 'true')
+      this.$emit('deployResult', 'success', trxStr)
     }).on('failed', (failed) => {
       console.error('failed to deploy IOST contract:', failed)
-      localStorage.setItem('showRunArea', 'false')
+      this.$emit('deployResult', 'failed', trxStr)
     })
   })
 

@@ -238,6 +238,7 @@
             :fontSize="fontSize"
             :abiList="compileABI"
             v-on:compileResult="compileResult"
+            @deployResult="deployResult"
           ></contract-action>
         </el-aside>
       </el-container>
@@ -279,11 +280,18 @@
               <xmp><code>{{logger.description}}</code></xmp>
             </div>
           </el-card>
-          <!--<el-card class="box-card"-->
-                   <!---->
-          <!--&gt;-->
-            <!---->
-          <!--</el-card>-->
+          <el-card class="box-card" v-show="deployResultData.length != 0"
+                   v-for="(item, index) in deployResultData" :key="index"
+                   style="background-color: #414141; border: #414141"
+          >
+            <div slot="header" style="color: white;">
+              {{'deploy'}}
+            </div>
+            <div class="text item" style="color: white;">
+              <xmp>{{item}}</xmp>
+            </div>
+
+          </el-card>
 
         </el-main>
       </el-container>
@@ -327,7 +335,8 @@
         backgroundColor: "#333333",
         fontSizeName: "Base",
         fontSize: "14px",
-        compileABI: []
+        compileABI: [],
+        deployResultData: []
       };
     },
     components: {
@@ -420,6 +429,17 @@
             }
           }
           this.compileABI.push(filename)
+        }
+      },
+      deployResult(status, trx) {
+        if (status == 'pending') {
+          this.deployResultData.push(trx + ': is pending to deploy')
+        }
+        if (status == 'success') {
+          this.deployResultData.push(trx + ': deployment successful!')
+        }
+        if (status == 'failed') {
+          this.deployResultData.push(trx + ': deployment failed!')
         }
       },
       addFile() {
@@ -785,7 +805,7 @@
   }
 
   .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
-    background-color: #333333;
+    background-color: #242424;
     border: 0;
   }
 
