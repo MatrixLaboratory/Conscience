@@ -273,7 +273,7 @@
             style="float: right"
           ></el-button>
         </el-header>
-        <el-main class="logger-main" v-show="showLoggers" style="background-color: #1e1e1e">
+        <el-main id="logger" class="logger-main" v-show="showLoggers" style="background-color: #1e1e1e">
           <el-card class="box-card"
                    v-for="(logger, index) in compileLoggers" :key="index"
                    style="background-color: #414141; border: #414141"
@@ -385,6 +385,12 @@
         handler: function (name) {
           this.fontSize = this.settingSelect[0].data.fontSize.map[name];
         }
+      },
+      compileLoggers() {
+        this.$nextTick(function(){
+          let div = document.getElementById('logger');
+          div.scrollTop = div.scrollHeight;
+        })
       }
     },
     mounted() {
