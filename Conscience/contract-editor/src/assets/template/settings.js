@@ -68,7 +68,9 @@ export function menuLang(lang) {
     contract: '智能合约',
     template: '案例模板',
     abi: 'ABI',
-    topPlaceholder: '新增文件',
+    addFiles: '新增文件',
+    setting: '设置',
+    aboutUs: '关于我们',
     fileFunc: {
       download: '下载',
       edit: '重命名',
@@ -96,6 +98,9 @@ export function menuLang(lang) {
       contract: 'Smart Contract',
       template: 'Case Template',
       abi: 'ABI',
+      addFiles: 'add file',
+      setting: 'settings',
+      aboutUs: 'about us',
       topPlaceholder: 'add file',
       fileFunc: {
         download: 'download',

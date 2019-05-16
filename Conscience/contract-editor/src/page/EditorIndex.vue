@@ -11,15 +11,21 @@
                 active-text-color="#409EFF"
                 style="background-color: #414141;"
               >
-                <el-menu-item index="1" class="icon-hover" @click="addFile">
-                  <i class="el-icon-circle-plus"></i>
-                </el-menu-item>
-                <el-menu-item index="2" class="icon-hover" @click="showSettings">
-                  <i class="el-icon-setting"></i>
-                </el-menu-item>
-                <el-menu-item index="3" class="icon-hover" @click="about">
-                  <i class="el-icon-info"></i>
-                </el-menu-item>
+                <el-tooltip class="item" effect="light" :content="menuLang.addFiles" placement="right">
+                  <el-menu-item index="1" class="icon-hover" @click="addFile">
+                    <i class="el-icon-circle-plus"></i>
+                  </el-menu-item>
+                </el-tooltip>
+                <el-tooltip class="item" effect="light" :content="menuLang.setting" placement="right">
+                  <el-menu-item index="2" class="icon-hover" @click="showSettings">
+                    <i class="el-icon-setting"></i>
+                  </el-menu-item>
+                </el-tooltip>
+                <el-tooltip class="item" effect="light" :content="menuLang.aboutUs" placement="right">
+                  <el-menu-item index="3" class="icon-hover" @click="about">
+                    <i class="el-icon-info"></i>
+                  </el-menu-item>
+                </el-tooltip>
               </el-menu>
             </el-aside>
             <el-main :style="{backgroundColor : backgroundColor}">
@@ -219,7 +225,8 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-button style="margin-left: 140px" type="info" icon="el-icon-back" round @click="showCode">return</el-button>
+            <el-button style="margin-left: 140px" type="info" icon="el-icon-back" round @click="showCode">return
+            </el-button>
           </el-form>
         </el-main>
         <!--setting menu main end-->
@@ -812,7 +819,7 @@
     border: 0;
   }
 
-  .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+  .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
     background-color: #242424;
     border: 0;
   }
