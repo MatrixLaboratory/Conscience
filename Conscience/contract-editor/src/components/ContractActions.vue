@@ -147,6 +147,7 @@ import {
   runIostContract,
   generateIostContractHierachy
 } from "../../static/js/ContractCompile";
+import {compileNotifyLang} from "../assets/template/settings";
 
 export default {
   name: "ContractActions",
@@ -186,15 +187,20 @@ export default {
     },
     abiList: {
       type: Array
+    },
+    langMode: {
+      type: String
     }
   },
   methods: {
     compile: function() {
+      let data = compileNotifyLang(this.langMode)
       this.compiling = true;
       if (this.compileFile === "") {
         this.$notify.error({
-          title: "操作失败",
-          message: "请选择正确的合约文件进行编译！"
+          title: data.title,
+          message: data.message,
+          duration: 2000
         });
       } else {
         let code = localStorage.getItem(this.compileFile);
@@ -217,8 +223,8 @@ export default {
           this.runMethodList = this.treeData[0].children
           // TODO: 解析contracts，渲染到页面
           this.$notify.success({
-            title: "编译成功",
-            message: '"' + this.compileFile + '"编译成功!',
+            title: data.compileSuccess.title,
+            message: this.compileFile + data.compileSuccess.message,
             duration: 1000
           });
           this.$emit("compileResult", this.compileFile, result);
@@ -250,9 +256,11 @@ export default {
       // if (error !== undefined) {
       //   errorMemssage = `Error Message: <pre><code> ${JSON.stringify(error.response, null, 4)}</code></pre>`
       // }
+      let data = compileNotifyLang(this.langMode)
       this.$notify({
-        title: '编译失败',
-        message: '"' + this.compileFile + '"编译失败!'
+        title: data.compileFailed.title,
+        message: this.compileFile + data.compileFailed.message,
+        duration: 2000
       })
       this.$emit("compileResult", this.compileFile, result);
     },

@@ -244,6 +244,7 @@
             :backgroundColor="backgroundColor"
             :fontSize="fontSize"
             :abiList="compileABI"
+            :langMode="langMode"
             v-on:compileResult="compileResult"
             @deployResult="deployResult"
           ></contract-action>

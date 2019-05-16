@@ -175,3 +175,33 @@ export function deleteFileMenuLang(lang) {
   }
   return menuLang
 }
+
+export function compileNotifyLang(lang) {
+  let notifyLang = {
+    title: '操作失败',
+    message: '请选择正确的合约文件进行编译',
+    compileSuccess: {
+      title: '编译成功',
+      message: '编译成功！'
+    },
+    compileFailed: {
+      title: '编译失败',
+      message: '编译失败！'
+    }
+  }
+  if (lang === 'English') {
+    notifyLang = {
+      title: 'operation failed',
+      message: 'select the correct contract file to compile',
+      compileSuccess: {
+        title: 'compile success',
+        message: 'compile success！'
+      },
+      compileFailed: {
+        title: 'compile failed',
+        message: 'compile success！'
+      }
+    }
+  }
+  return notifyLang
+}
