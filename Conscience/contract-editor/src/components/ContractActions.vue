@@ -136,6 +136,10 @@
   .el-tree-node__content:hover {
     background-color: #1e1e1e;
   }
+
+  .el-tree-node:focus > .el-tree-node__content {
+    background-color: #494949;
+  }
 </style>
 
 <script>

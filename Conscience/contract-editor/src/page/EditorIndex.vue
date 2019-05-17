@@ -222,7 +222,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="info" icon="el-icon-check" round @click="saveSettings">apply</el-button>
-              <el-button type="info" icon="el-icon-close" round @click="showCode">return</el-button>
+              <el-button type="info" icon="el-icon-back" round @click="showCode">return</el-button>
             </el-form-item>
 
           </el-form>
