@@ -956,7 +956,7 @@
 
   .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
     background-color: #242424;
-    border: none;
+    border: #242424;
   }
 
   .card-style > .el-card__header {
