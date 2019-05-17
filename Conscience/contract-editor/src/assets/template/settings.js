@@ -26,6 +26,32 @@ export function settingLang(lang) {
           list: ['vs', 'vs-dark', 'hc-black']
         }
       }
+    },
+    {
+      name: '关于',
+      show: false,
+      data: [
+        {
+          name: '名称',
+          content: 'Chain IDE'
+        },
+        {
+          name: '描述',
+          content: '跨平台的智能合约 IDE'
+        },
+        {
+          name: '版本',
+          content: '1.0.0'
+        },
+        {
+          name: '作者',
+          content: 'WhiteMatrix'
+        },
+        {
+          name: '联系方式',
+          content: 'http://matrixdapp.com'
+        }
+      ]
     }
   ]
 
@@ -57,6 +83,32 @@ export function settingLang(lang) {
             list: ['vs', 'vs-dark', 'hc-black']
           }
         }
+      },
+      {
+        name: 'about',
+        show: false,
+        data: [
+          {
+            name: 'name',
+            content: 'Chain IDE'
+          },
+          {
+            name: 'description',
+            content: 'Cross-platform smart contract IDE'
+          },
+          {
+            name: 'version',
+            content: '1.0.0'
+          },
+          {
+            name: 'author',
+            content: 'WhiteMatrix'
+          },
+          {
+            name: 'concat',
+            content: 'http://matrixdapp.com'
+          }
+        ]
       }
     ]
   }
@@ -70,7 +122,6 @@ export function menuLang(lang) {
     abi: 'ABI',
     addFiles: '新增文件',
     setting: '设置',
-    aboutUs: '关于我们',
     fileFunc: {
       download: '下载',
       edit: '重命名',
@@ -100,7 +151,6 @@ export function menuLang(lang) {
       abi: 'ABI',
       addFiles: 'add file',
       setting: 'settings',
-      aboutUs: 'about us',
       topPlaceholder: 'add file',
       fileFunc: {
         download: 'download',

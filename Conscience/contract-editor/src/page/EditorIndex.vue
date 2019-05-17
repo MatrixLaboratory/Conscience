@@ -21,11 +21,6 @@
                     <i class="el-icon-setting"></i>
                   </el-menu-item>
                 </el-tooltip>
-                <el-tooltip class="item" effect="light" :content="menuLang.aboutUs" placement="right">
-                  <el-menu-item index="3" class="icon-hover" @click="about">
-                    <i class="el-icon-info"></i>
-                  </el-menu-item>
-                </el-tooltip>
               </el-menu>
             </el-aside>
             <el-main :style="{backgroundColor : backgroundColor}">
@@ -229,6 +224,54 @@
             </el-button>
           </el-form>
         </el-main>
+        <el-main v-show="settingSelect[1].show">
+          <div id="about-card">
+            <el-row :gutter="20">
+              <el-card class="card-style">
+                <div slot="header" class="card-header">
+                  <span>{{settingSelect[1].name}}</span>
+                  <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text" @click="showCode">返回</el-button>
+                </div>
+                <div style="text-align: center">
+                  <div style="text-align: left">
+                    <el-col :span="10" style="width: 400px; height: 280px;">
+                      <div style="height: 30px"></div>
+                      <div key="1" class="about-item">
+                        <span class="el-icon-eleme"></span>{{' ' + settingSelect[1].data[0].name + ': ' +
+                        settingSelect[1].data[0].content}}
+                      </div>
+                      <div style="height: 30px"></div>
+                      <div key="2" class="about-item">
+                        <span class="el-icon-s-order"></span>{{' ' + settingSelect[1].data[1].name + ': ' +
+                        settingSelect[1].data[1].content}}
+                      </div>
+                      <div style="height: 30px"></div>
+                      <div key="3" class="about-item">
+                        <span class="el-icon-s-fold"></span>{{' ' + settingSelect[1].data[2].name + ': ' +
+                        settingSelect[1].data[2].content}}
+                      </div>
+                      <div style="height: 30px"></div>
+                      <div key="4" class="about-item">
+                        <span class="el-icon-user-solid"></span>{{' ' + settingSelect[1].data[3].name + ': ' +
+                        settingSelect[1].data[3].content}}
+                      </div>
+                      <div style="height: 30px"></div>
+                      <div key="5" class="about-item">
+                        <span class="el-icon-s-home"></span>{{' ' + settingSelect[1].data[4].name + ': '}}<a
+                        :href="settingSelect[1].data[4].content">{{settingSelect[1].data[4].content}}</a>
+                      </div>
+                    </el-col>
+                  </div>
+                  <el-col :span="10">
+                    <div>
+                      <img src="../../static/img/chain-ide-icon.png" class="card-img-class">
+                    </div>
+                  </el-col>
+                </div>
+              </el-card>
+            </el-row>
+          </div>
+        </el-main>
         <!--setting menu main end-->
 
         <el-aside
@@ -390,7 +433,7 @@
             return;
           }
           if (color == "Blue") {
-            this.backgroundColor = "darkcyan";
+            this.backgroundColor = "#2d323e";
           }
         }
       },
@@ -400,19 +443,19 @@
         }
       },
       compileLoggers() {
-        this.$nextTick(function(){
+        this.$nextTick(function () {
           let div = document.getElementById('logger');
           div.scrollTop = div.scrollHeight;
         })
       },
       deployResultData() {
-        this.$nextTick(function(){
+        this.$nextTick(function () {
           let div = document.getElementById('logger');
           div.scrollTop = div.scrollHeight;
         })
       },
       runResultData() {
-        this.$nextTick(function(){
+        this.$nextTick(function () {
           let div = document.getElementById('logger');
           div.scrollTop = div.scrollHeight;
         })
@@ -664,9 +707,6 @@
         if (func == 'delete') {
           this.deleteFile({target: {id: filename}})
         }
-      },
-      about() {
-        window.location.href = 'http://matrixdapp.com'
       }
     }
   };
@@ -790,6 +830,30 @@
     background-color: #414141;
   }
 
+  #about-card {
+    margin-left: 150px;
+    margin-top: 70px;
+    margin-right: 100px;
+  }
+
+  .card-img-class {
+    margin-top: 50px;
+    height: 240px
+  }
+
+  .card-header {
+    color: white;
+    font-size: 30px;
+    margin-left: 20px;
+  }
+
+  .card-style {
+    height: 600px;
+    background-color: #333333;
+    border: 0
+  }
+
+
 </style>
 
 <style>
@@ -823,6 +887,12 @@
 
   .text {
     font-size: 14px;
+  }
+
+  .about-item {
+    font-size: 20px;
+    margin-left: 20px;
+    color: white;
   }
 
   .item {
@@ -863,7 +933,11 @@
 
   .el-tabs--border-card > .el-tabs__header .el-tabs__item.is-active {
     background-color: #242424;
-    border: 0;
+    border: none;
+  }
+
+  .card-style > .el-card__header {
+    background-color: #28619e;
   }
 
 </style>
