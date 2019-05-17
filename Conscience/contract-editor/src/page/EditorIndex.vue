@@ -866,7 +866,7 @@
 
   .card-header {
     color: white;
-    font-size: 30px;
+    font-size: 23px;
     margin-left: 20px;
   }
 
