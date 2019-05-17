@@ -196,7 +196,7 @@ export default {
     compile: function() {
       let data = compileNotifyLang(this.langMode)
       this.compiling = true;
-      if (this.compileFile === "") {
+      if (this.compileFile === "" || this.compileFile === null) {
         this.$notify.error({
           title: data.title,
           message: data.message,
