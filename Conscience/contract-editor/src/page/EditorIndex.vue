@@ -235,7 +235,7 @@
           v-show="!showSettingsOnWindow"
           class="right"
           width="400px"
-          :style="{backgroundColor : backgroundColor, overflow: 'hidden'}"
+          :style="{backgroundColor : backgroundColor}"
         >
           <contract-action
             v-show="rightAside"
