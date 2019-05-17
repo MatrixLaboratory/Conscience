@@ -181,7 +181,7 @@
           <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px"
                    label-position="left">
             <el-form-item :label="settingSelect[0].data.lang.label">
-              <el-select v-model="langMode">
+              <el-select v-model="saveSetting.langMode">
                 <el-option
                   v-for="item in settingSelect[0].data.lang.list"
                   :key="item"
@@ -191,7 +191,7 @@
               </el-select>
             </el-form-item>
             <el-form-item :label="settingSelect[0].data.theme.label">
-              <el-select v-model="themeMode">
+              <el-select v-model="saveSetting.themeMode">
                 <el-option
                   v-for="item in settingSelect[0].data.theme.list"
                   :key="item"
@@ -201,7 +201,7 @@
               </el-select>
             </el-form-item>
             <el-form-item :label="settingSelect[0].data.fontSize.label">
-              <el-select v-model="fontSize">
+              <el-select v-model="saveSetting.fontSize">
                 <el-option
                   v-for="(val, key) in settingSelect[0].data.fontSize.map"
                   :key="key"
@@ -211,7 +211,7 @@
               </el-select>
             </el-form-item>
             <el-form-item :label="settingSelect[0].data.codeTheme.label">
-              <el-select v-model="codeThemeMode">
+              <el-select v-model="saveSetting.codeThemeMode">
                 <el-option
                   v-for="item in settingSelect[0].data.codeTheme.list"
                   :key="item"
@@ -220,8 +220,11 @@
                 ></el-option>
               </el-select>
             </el-form-item>
-            <el-button style="margin-left: 140px" type="info" icon="el-icon-back" round @click="showCode">return
-            </el-button>
+            <el-form-item>
+              <el-button type="info" icon="el-icon-check" round @click="saveSettings">apply</el-button>
+              <el-button type="info" icon="el-icon-close" round @click="showCode">return</el-button>
+            </el-form-item>
+
           </el-form>
         </el-main>
         <el-main v-show="settingSelect[1].show">
@@ -401,7 +404,13 @@
         fontSize: "14px",
         compileABI: [],
         deployResultData: [],
-        runResultData: []
+        runResultData: [],
+        saveSetting: {
+          langMode: '简体中文',
+          themeMode: 'Dark',
+          fontSize: '14px',
+          codeThemeMode: 'vs-dark'
+        }
       };
     },
     components: {
@@ -706,6 +715,20 @@
         }
         if (func == 'delete') {
           this.deleteFile({target: {id: filename}})
+        }
+      },
+      saveSettings() {
+        if (this.saveSetting.langMode != '' && this.saveSetting.langMode !== null) {
+          this.langMode = this.saveSetting.langMode;
+        }
+        if (this.saveSetting.themeMode != '' && this.saveSetting.themeMode !== null) {
+          this.themeMode = this.saveSetting.themeMode;
+        }
+        if (this.saveSetting.fontSize != '' && this.saveSetting.fontSize !== null) {
+          this.fontSize = this.saveSetting.fontSize;
+        }
+        if (this.saveSetting.codeThemeMode !== '' && this.saveSetting.codeThemeMode !== null) {
+          this.codeThemeMode = this.saveSetting.codeThemeMode;
         }
       }
     }
