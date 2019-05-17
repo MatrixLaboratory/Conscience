@@ -134,7 +134,7 @@
 
 <style>
   .el-tree-node__content:hover {
-    background-color: #1e1e1e;
+    background-color: #494949;
   }
 
   .el-tree-node:focus > .el-tree-node__content {
