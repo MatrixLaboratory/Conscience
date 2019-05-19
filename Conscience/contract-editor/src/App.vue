@@ -20,13 +20,12 @@
   }
 
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'Consolas', 'Menlo', 'Ubuntu', 'Monaco', 'Droid Sans Mono', 'Courier New', 'monospace', monospace, 'Droid Sans Fallback';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     height: 100%;
     margin: 0 auto;
-    font-family: "Helvetica Neue";
   }
 
 

@@ -942,6 +942,16 @@
     word-wrap: break-word;
   }
 
+  .el-menu-item {
+    height: 40px !important;
+    line-height: 40px !important;
+  }
+
+  .el-submenu__title {
+    height: 50px !important;
+    line-height: 50px !important;
+  }
+
   .el-header {
     padding: 0;
   }
