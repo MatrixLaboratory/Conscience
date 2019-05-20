@@ -178,58 +178,59 @@
 
         <!--setting menu main start-->
         <el-main v-show="settingSelect[0].show">
-          <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px"
-                   label-position="left">
-            <el-form-item :label="settingSelect[0].data.lang.label">
-              <el-select v-model="saveSetting.langMode">
-                <el-option
-                  v-for="item in settingSelect[0].data.lang.list"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item :label="settingSelect[0].data.theme.label">
-              <el-select v-model="saveSetting.themeMode">
-                <el-option
-                  v-for="item in settingSelect[0].data.theme.list"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item :label="settingSelect[0].data.fontSize.label">
-              <el-select v-model="saveSetting.fontSize">
-                <el-option
-                  v-for="(val, key) in settingSelect[0].data.fontSize.map"
-                  :key="key"
-                  :label="key"
-                  :value="val"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item :label="settingSelect[0].data.codeTheme.label">
-              <el-select v-model="saveSetting.codeThemeMode">
-                <el-option
-                  v-for="item in settingSelect[0].data.codeTheme.list"
-                  :key="item"
-                  :label="item"
-                  :value="item"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button type="info" icon="el-icon-check" round @click="saveSettings">apply</el-button>
-              <el-button type="info" icon="el-icon-back" round @click="showCode">return</el-button>
-            </el-form-item>
-
-          </el-form>
+          <el-row :gutter="20" class="setting-about-card-row">
+            <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px"
+                    label-position="left">
+              <el-form-item :label="settingSelect[0].data.lang.label">
+                <el-select v-model="saveSetting.langMode">
+                  <el-option
+                    v-for="item in settingSelect[0].data.lang.list"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item :label="settingSelect[0].data.theme.label">
+                <el-select v-model="saveSetting.themeMode">
+                  <el-option
+                    v-for="item in settingSelect[0].data.theme.list"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item :label="settingSelect[0].data.fontSize.label">
+                <el-select v-model="saveSetting.fontSize">
+                  <el-option
+                    v-for="(val, key) in settingSelect[0].data.fontSize.map"
+                    :key="key"
+                    :label="key"
+                    :value="val"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item :label="settingSelect[0].data.codeTheme.label">
+                <el-select v-model="saveSetting.codeThemeMode">
+                  <el-option
+                    v-for="item in settingSelect[0].data.codeTheme.list"
+                    :key="item"
+                    :label="item"
+                    :value="item"
+                  ></el-option>
+                </el-select>
+              </el-form-item>
+              <el-row style="padding: 10px 20px 0 20px;">
+                <el-button type="info" icon="el-icon-back" @click="showCode">Return</el-button>
+                <el-button type="info" icon="el-icon-check" @click="saveSettings" style="float: right">Apply</el-button>
+              </el-row>
+            </el-form>
+          </el-row>
         </el-main>
         <el-main v-show="settingSelect[1].show">
           <div id="about-card">
-            <el-row :gutter="20">
+            <el-row :gutter="20" class="setting-about-card-row">
               <el-card class="card-style">
                 <div slot="header" class="card-header">
                   <span>{{settingSelect[1].name}}</span>
@@ -829,8 +830,8 @@
   }
 
   #setting {
-    margin-top: 23px;
-    margin-left: 37px;
+    width: 300px;
+    margin: 0 auto;
   }
 
   #about {
@@ -854,9 +855,13 @@
   }
 
   #about-card {
-    margin-left: 150px;
-    margin-top: 70px;
-    margin-right: 100px;
+    height: 100%;
+  }
+
+  .setting-about-card-row {
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 500px;
   }
 
   .card-img-class {
@@ -871,9 +876,11 @@
   }
 
   .card-style {
-    height: 600px;
     background-color: #333333;
-    border: 0
+    padding-bottom: 60px;
+    border: 0;
+    width: 50%;
+    margin: 0 auto;
   }
 
 
