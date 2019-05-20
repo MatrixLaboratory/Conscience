@@ -879,7 +879,7 @@
     background-color: #333333;
     padding-bottom: 60px;
     border: 0;
-    width: 50%;
+    width: 800px;
     margin: 0 auto;
   }
 
