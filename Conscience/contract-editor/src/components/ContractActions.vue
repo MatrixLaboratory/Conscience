@@ -295,6 +295,8 @@ export default {
         }).on('failed', (failed) => {
           console.error('failed to deploy IOST contract:', failed.message)
           this.$emit('deployResult', 'failed', trxStr)
+            this.$emit('deployResult', 'detail', failed.message)
+
         })
       })
     },

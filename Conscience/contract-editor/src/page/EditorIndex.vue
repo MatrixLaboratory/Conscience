@@ -534,6 +534,10 @@
         if (status === 'failed') {
           this.deployResultData.push(trx + ': deployment failed!')
         }
+        if (status === 'detail'){
+            this.deployResultData.push('Detail: '+ trx )
+
+        }
       },
       runResult(status, trx) {
         if (status === 'pending') {
