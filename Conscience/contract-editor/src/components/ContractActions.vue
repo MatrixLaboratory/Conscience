@@ -293,7 +293,7 @@ export default {
           this.showRunArea = true
           this.$emit('deployResult', 'success', trxStr)
         }).on('failed', (failed) => {
-          console.error('failed to deploy IOST contract:', failed)
+          console.error('failed to deploy IOST contract:', failed.message)
           this.$emit('deployResult', 'failed', trxStr)
         })
       })
