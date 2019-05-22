@@ -61,6 +61,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
+
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
@@ -72,9 +73,15 @@ const webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-        chunks: ['manifest', 'vendor', 'app'],
+
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      // chunksSortMode: 'dependency'
+        chunksSortMode: function (chunk1, chunk2) {
+            var order = ['polyfills', 'vendor', 'images', 'app'];
+            var order1 = order.indexOf(chunk1.names[0]);
+            var order2 = order.indexOf(chunk2.names[0]);
+            return order1 - order2;
+        }
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
@@ -100,10 +107,6 @@ const webpackConfig = merge(baseWebpackConfig, {
       name: 'manifest',
       minChunks: Infinity
     }),
-      new webpack.optimize.CommonsChunkPlugin({
-          names: ['vendor', 'mainifest'],
-          minChunks: 1
-      }),
     // This instance extracts shared chunks from code splitted chunks and bundles them
     // in a separate chunk, similar to the vendor chunk
     // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk

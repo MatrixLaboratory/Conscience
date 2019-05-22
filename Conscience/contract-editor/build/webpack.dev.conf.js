@@ -57,7 +57,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+        chunksSortMode: function (chunk1, chunk2) {
+            var order = ['polyfills', 'vendor', 'images', 'app'];
+            var order1 = order.indexOf(chunk1.names[0]);
+            var order2 = order.indexOf(chunk2.names[0]);
+            return order1 - order2;
+        }
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
