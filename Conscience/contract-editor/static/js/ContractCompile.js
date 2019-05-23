@@ -3,6 +3,9 @@
 import axios from 'axios'
 const IOST = require('iost')
 
+const isProduction = process.env.NODE_ENV === 'production'
+const endPoint = isProduction ? 'http://39.106.38.77:9600' : ''
+
 export async function compileIostContract(code, fileName = 'test.js') {
   let source = {};
   source[fileName] = {
@@ -20,7 +23,7 @@ export async function compileIostContract(code, fileName = 'test.js') {
     }
   };
   try {
-    const response = await axios.post('/api/iost/compile', {
+    const response = await axios.post(endPoint + '/api/iost/compile', {
       input: JSON.stringify(input)
     });
     return response.data;
@@ -49,7 +52,7 @@ export async function compileSolContract(code, fileName = 'test.sol') {
       }
     }
   };
-  const response = await axios.post('/api/solidity/compile', {
+  const response = await axios.post(endPoint + '/api/solidity/compile', {
     input: JSON.stringify(input)
   });
   return response.data;
