@@ -53,6 +53,17 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 
+    proxyTable: {
+      '/api': {
+        target: 'http://39.106.38.77:9600',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    },
+    host: '0.0.0.0',
+
     /**
      * Source Maps
      */
