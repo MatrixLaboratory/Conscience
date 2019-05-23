@@ -2,7 +2,7 @@
   "name": "contract-editor",
   "version": "1.0.0",
   "description": "Online Smart Contract Editor.",
-  "author": "Morse <1185585454@qq.com>",
+  "author": "WhiteMatrix <542166431@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
