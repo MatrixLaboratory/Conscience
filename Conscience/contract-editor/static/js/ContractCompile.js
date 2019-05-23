@@ -24,6 +24,9 @@ export async function compileIostContract(code, fileName = 'test.js') {
   };
   try {
     const response = await axios.post(endPoint + '/api/iost/compile', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       input: JSON.stringify(input)
     });
     return response.data;
@@ -53,6 +56,9 @@ export async function compileSolContract(code, fileName = 'test.sol') {
     }
   };
   const response = await axios.post(endPoint + '/api/solidity/compile', {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
     input: JSON.stringify(input)
   });
   return response.data;
