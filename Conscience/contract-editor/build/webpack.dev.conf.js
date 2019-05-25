@@ -42,7 +42,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     publicPath: config.dev.assetsPublicPath,
     proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
-      disableHostCheck:true,
     watchOptions: {
       poll: config.dev.poll,
     }
@@ -58,13 +57,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true,
-        chunksSortMode: function (chunk1, chunk2) {
-            var order = ['polyfills', 'vendor', 'images', 'app'];
-            var order1 = order.indexOf(chunk1.names[0]);
-            var order2 = order.indexOf(chunk2.names[0]);
-            return order1 - order2;
-        }
+      inject: true
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

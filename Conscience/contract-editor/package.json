@@ -2,19 +2,16 @@
   "name": "contract-editor",
   "version": "1.0.0",
   "description": "Online Smart Contract Editor.",
-  "author": "WhiteMatrix <542166431@qq.com>",
+  "author": "Morse <1185585454@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js",
-    "prod": "NODE_ENV=production webpack --progress --config build/webpack.prod.conf.js",
-    "serve": "http-server ./dist -p 9601"
+    "build": "node build/build.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.8.2",
-    "http-server": "^0.11.1",
     "iost": "^0.1.11",
     "monaco-editor": "^0.16.2",
     "monaco-editor-webpack-plugin": "^1.7.0",

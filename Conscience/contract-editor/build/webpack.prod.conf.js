@@ -61,7 +61,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
@@ -73,15 +72,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
-
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      // chunksSortMode: 'dependency'
-        chunksSortMode: function (chunk1, chunk2) {
-            var order = ['polyfills', 'vendor', 'images', 'app'];
-            var order1 = order.indexOf(chunk1.names[0]);
-            var order2 = order.indexOf(chunk2.names[0]);
-            return order1 - order2;
-        }
+      chunksSortMode: 'dependency'
     }),
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
