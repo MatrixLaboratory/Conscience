@@ -143,6 +143,7 @@
 </style>
 
 <script>
+const IOST = require('iost')
 import {
   compileIostContract,
   compileSolContract,
@@ -171,6 +172,7 @@ export default {
       argList: [],
       labelPosition: 'left',
       showRunArea: false,
+      currentTrx: null,
       result: ''
     };
   },
@@ -269,7 +271,6 @@ export default {
       this.$emit("compileResult", this.compileFile, result);
     },
     deployIostContract(contract, data) {
-      const IOST = require('iost')
       const info = "\"info\"";
       const code = "\"code\"";
       const request = ["{" + info + ":" + data + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
@@ -287,45 +288,73 @@ export default {
         iost.signAndSend(ctx1).on('pending', (trx) => {
           console.log(trx, 'contract is deploying');
           trxStr = trx
-          this.$emit('deployResult', 'pending', trxStr)
+          this.$emit('deployResult', {
+            status: 'pending',
+            trx: trxStr
+          })
         }).on('success', (result) => {
           console.log('result:', result)
           this.showRunArea = true
-          this.$emit('deployResult', 'success', trxStr)
+          this.currentTrx = trxStr
+          this.$emit('deployResult', {
+            status: 'success',
+            trx: trxStr
+          })
         }).on('failed', (failed) => {
           console.error('failed to deploy IOST contract:', failed.message)
-          this.$emit('deployResult', 'failed', trxStr)
-            this.$emit('deployResult', 'detail', failed.message)
-
+          this.$emit('deployResult', 'failed', {
+            status: 'failed',
+            trx: trxStr,
+            message: failed.message
+          })
         })
       })
     },
     runIostContract(method, value) {
-      const IOST = require('iost')
-      let methodArr = method.split(' ');
+      let methodArr = method.split(' ')
 
       window.IWalletJS.enable().then((account) => {
-        if (!account) return; // not login
+        if (!account) return // not login
 
-        const iost = window.IWalletJS.newIOST(IOST);
-        let trx = localStorage.getItem('trx')
-        let contractAddress = 'Contract'+trx;
-        const ctx1 = iost.callABI(contractAddress, methodArr[1], value);
+        if (this.currentTrx == null) {
+            console.error('currentTrx has not been intiailized!')
+        }
+
+        const iost = window.IWalletJS.newIOST(IOST)
+        let trx = this.currentTrx;
+        let contractAddress = 'Contract'+trx
+
+        console.warn(contractAddress)
+        console.warn(this.currentTrx)
+        console.warn(methodArr[1])
+        console.warn(value)
+
+        const ctx1 = iost.callABI(contractAddress, methodArr[1], value)
 
         //TODO: write thest into configs
         ctx1.setGas(1, 4000000);
 
         let trxStr = ''
         iost.signAndSend(ctx1).on('pending', (trx) => {
-          console.log(trx, 'contract is calling');
+          console.log(trx, 'contract is calling')
           trxStr = trx
-          this.$emit('runResult', 'pending', trxStr)
+          this.$emit('runResult', {
+            status: 'pending',
+            trx: trxStr
+          })
         }).on('success', (result) => {
           console.log('result:', result)
-          this.$emit('runResult', 'success', trxStr)
+          this.$emit('runResult', {
+            status: 'success',
+            trx: trxStr
+          })
         }).on('failed', (failed) => {
-          console.error('failed to deploy IOST contract:', failed)
-          this.$emit('runResult', 'failed', trxStr)
+          console.error('failed to run IOST contract:', failed)
+          this.$emit('runResult', 'failed', {
+            status: 'failed',
+            trx: trxStr,
+            message: failed.message
+          })
         })
       })
     }

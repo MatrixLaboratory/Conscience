@@ -318,7 +318,7 @@
             v-show="showLoggers"
             type="primary"
             icon="el-icon-delete"
-            @click="compileLoggers = [], deployResultData = [], runResultData = []"
+            @click="compileLoggers = []"
             style="float: right"
           ></el-button>
         </el-header>
@@ -328,7 +328,7 @@
                    style="background-color: #414141; border: #414141"
           >
             <div slot="header"
-                 :class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error')}">
+                 :class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error'), 'normal':(logger.style == 'normal')}">
               {{logger.title}}
             </div>
             <div class="text item" style="color: white;">
@@ -336,29 +336,6 @@
               <xmp><code>{{logger.description}}</code></xmp>
             </div>
           </el-card>
-          <el-card class="box-card" v-show="deployResultData.length != 0"
-                   v-for="(item, index) in deployResultData" :key="index"
-                   style="background-color: #414141; border: #414141"
-          >
-            <div slot="header" style="color: white;">
-              {{'deploy'}}
-            </div>
-            <div class="text item" style="color: white;">
-              <xmp>{{item}}</xmp>
-            </div>
-          </el-card>
-          <el-card class="box-card" v-show="runResultData.length != 0"
-                   v-for="(item, index) in runResultData" :key="index"
-                   style="background-color: #414141; border: #414141"
-          >
-            <div slot="header" style="color: white;">
-              {{'run'}}
-            </div>
-            <div class="text item" style="color: white;">
-              <xmp>{{item}}</xmp>
-            </div>
-          </el-card>
-
         </el-main>
       </el-container>
     </el-footer>
@@ -404,8 +381,8 @@
         fontSizeName: "Base",
         fontSize: "14px",
         compileABI: [],
-        deployResultData: [],
-        runResultData: [],
+        // deployResultData: [],
+        // runResultData: [],
         saveSetting: {
           langMode: '简体中文',
           themeMode: 'Dark',
@@ -458,18 +435,18 @@
           div.scrollTop = div.scrollHeight;
         })
       },
-      deployResultData() {
-        this.$nextTick(function () {
-          let div = document.getElementById('logger');
-          div.scrollTop = div.scrollHeight;
-        })
-      },
-      runResultData() {
-        this.$nextTick(function () {
-          let div = document.getElementById('logger');
-          div.scrollTop = div.scrollHeight;
-        })
-      }
+      // deployResultData() {
+      //   this.$nextTick(function () {
+      //     let div = document.getElementById('logger');
+      //     div.scrollTop = div.scrollHeight;
+      //   })
+      // },
+      // runResultData() {
+      //   this.$nextTick(function () {
+      //     let div = document.getElementById('logger');
+      //     div.scrollTop = div.scrollHeight;
+      //   })
+      // }
     },
     mounted() {
       let fileStr = localStorage.getItem("files");
@@ -524,30 +501,51 @@
           this.compileABI.push(filename)
         }
       },
-      deployResult(status, trx) {
-        if (status === 'pending') {
-          this.deployResultData.push(trx + ': is pending to deploy')
+      deployResult(deployResult) {
+        if (deployResult.status === 'pending') {
+          this.compileLoggers.push({
+            title: `[${deployResult.trx}]: Deployment in progress`,
+            description: deployResult.trx + ': contract is now deploying...',
+            style: "normal"
+          })
         }
-        if (status === 'success') {
-          this.deployResultData.push(trx + ': deployment successful!')
+        if (deployResult.status === 'success') {
+          this.compileLoggers.push({
+            title: `[${deployResult.trx}]: Deployment succeeded`,
+            description: deployResult.trx + ': deployment succeeded!',
+            style: "success"
+          })
         }
-        if (status === 'failed') {
-          this.deployResultData.push(trx + ': deployment failed!')
-        }
-        if (status === 'detail'){
-            this.deployResultData.push('Detail: '+ trx )
-
+        if (deployResult.status === 'failed') {
+          this.compileLoggers.push({
+            title: `[${deployResult.trx}]: deployment failed`,
+            subtitle: 'message:',
+            description: deployResult.message,
+            style: "error"
+          })
         }
       },
-      runResult(status, trx) {
-        if (status === 'pending') {
-          this.runResultData.push(trx + ': is generating')
+      runResult(runResult) {
+        if (runResult.status === 'pending') {
+          this.compileLoggers.push({
+            title: `[${runResult.trx}]: in Execution`,
+            description: runResult.trx + ': method is being executed...',
+            style: "normal"
+          })
         }
-        if (status === 'success') {
-          this.runResultData.push(trx + ': method run success!')
+        if (runResult.status === 'success') {
+          this.compileLoggers.push({
+            title: `[${runResult.trx}]: Method run succeeded`,
+            description: runResult.trx + ': method run succeeded!',
+            style: "success"
+          })
         }
-        if (status === 'failed') {
-          this.runResultData.push(trx + ': method run failed!')
+        if (runResult.status === 'failed') {
+          this.compileLoggers.push({
+            title: `[${runResult.trx}]: Method run failed`,
+            description: runResult.trx + ': method run failed!',
+            style: "error"
+          })
         }
       },
       addFile() {
@@ -912,6 +910,10 @@
 
   .error {
     color: #f56c6c;
+  }
+
+  .normal {
+    color: #409eff;
   }
 
   .el-card__body {
