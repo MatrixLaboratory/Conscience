@@ -322,13 +322,7 @@ export default {
 
         const iost = window.IWalletJS.newIOST(IOST)
         let trx = this.currentTrx;
-        let contractAddress = 'Contract'+trx
-
-        console.warn(contractAddress)
-        console.warn(this.currentTrx)
-        console.warn(methodArr[1])
-        console.warn(value)
-
+        let contractAddress = 'Contract' + trx
         const ctx1 = iost.callABI(contractAddress, methodArr[1], value)
 
         //TODO: write thest into configs
