@@ -1,6 +1,6 @@
 export function settingLang(lang) {
-  let langSetting = [
-    {
+  let langSetting = {
+    setting: {
       name: '设置',
       show: false,
       data: {
@@ -27,9 +27,30 @@ export function settingLang(lang) {
         }
       }
     },
-    {
+    resource: {
+      name: '资源',
+      overview: 'IOST资源',
+      show: false,
+      back: '返回',
+      data: {
+        deal: {
+          title: 'IOST内存(iRam)GAS(iGas)买卖',
+          url: 'https://www.iostabc.com/wallet/resources',
+          img: '../../static/img/iWallet.png',
+          button: '点击查看'
+        },
+        extension: {
+          title: 'iWallet Chrome 插件',
+          url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
+          img: '../../static/img/iost-deal.png',
+          button: '点击下载'
+        }
+      }
+    },
+    about: {
       name: '关于',
       show: false,
+      back: '返回',
       data: [
         {
           name: '名称',
@@ -53,11 +74,11 @@ export function settingLang(lang) {
         }
       ]
     }
-  ]
+  }
 
   if (lang === 'English') {
-    langSetting = [
-      {
+    langSetting = {
+      setting: {
         name: 'Settings',
         show: false,
         data: {
@@ -84,9 +105,30 @@ export function settingLang(lang) {
           }
         }
       },
-      {
-        name: 'about',
+      resource: {
+        name: 'Resource',
+        overview: 'IOST Resource',
         show: false,
+        back: 'back',
+        data: {
+          deal: {
+            title: 'IOST iRam iGas deal',
+            url: 'https://www.iostabc.com/wallet/resources',
+            img: '../../static/img/iWallet.png',
+            button: 'click to view'
+          },
+          extension: {
+            title: 'iWallet Chrome extension',
+            url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
+            img: '../../static/img/iost-deal.png',
+            button: 'click to download'
+          }
+        }
+      },
+      about: {
+        name: 'About',
+        show: false,
+        back: 'back',
         data: [
           {
             name: 'name',
@@ -110,7 +152,7 @@ export function settingLang(lang) {
           }
         ]
       }
-    ]
+    }
   }
   return langSetting
 }

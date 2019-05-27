@@ -177,44 +177,44 @@
         </el-main>
 
         <!--setting menu main start-->
-        <el-main v-show="settingSelect[0].show">
+        <el-main class="setting-window" v-show="settingSelect.setting.show">
           <el-row :gutter="20" class="setting-about-card-row">
-            <el-form id="setting" ref="settingForm" :model="settingSelect[0].data" label-width="100px"
+            <el-form id="setting" ref="settingForm" :model="settingSelect.setting.data" label-width="100px"
                     label-position="left">
-              <el-form-item :label="settingSelect[0].data.lang.label">
+              <el-form-item :label="settingSelect.setting.data.lang.label">
                 <el-select v-model="saveSetting.langMode">
                   <el-option
-                    v-for="item in settingSelect[0].data.lang.list"
+                    v-for="item in settingSelect.setting.data.lang.list"
                     :key="item"
                     :label="item"
                     :value="item"
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item :label="settingSelect[0].data.theme.label">
+              <el-form-item :label="settingSelect.setting.data.theme.label">
                 <el-select v-model="saveSetting.themeMode">
                   <el-option
-                    v-for="item in settingSelect[0].data.theme.list"
+                    v-for="item in settingSelect.setting.data.theme.list"
                     :key="item"
                     :label="item"
                     :value="item"
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item :label="settingSelect[0].data.fontSize.label">
+              <el-form-item :label="settingSelect.setting.data.fontSize.label">
                 <el-select v-model="saveSetting.fontSize">
                   <el-option
-                    v-for="(val, key) in settingSelect[0].data.fontSize.map"
+                    v-for="(val, key) in settingSelect.setting.data.fontSize.map"
                     :key="key"
                     :label="key"
                     :value="val"
                   ></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item :label="settingSelect[0].data.codeTheme.label">
+              <el-form-item :label="settingSelect.setting.data.codeTheme.label">
                 <el-select v-model="saveSetting.codeThemeMode">
                   <el-option
-                    v-for="item in settingSelect[0].data.codeTheme.list"
+                    v-for="item in settingSelect.setting.data.codeTheme.list"
                     :key="item"
                     :label="item"
                     :value="item"
@@ -228,41 +228,75 @@
             </el-form>
           </el-row>
         </el-main>
-        <el-main v-show="settingSelect[1].show">
+        <el-main class="setting-window" v-show="settingSelect.resource.show">
+          <div style="height: 100%">
+            <el-card class="card-style">
+              <div slot="header" class="card-header">
+                <span>{{settingSelect.resource.overview}}</span>
+                <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text" @click="showCode">{{settingSelect.resource.back}}</el-button>
+              </div>
+              <div style="text-align: center">
+                <div style="margin-top: 20px">
+                  <img style="width: 100%" :src="settingSelect.resource.data.deal.img">
+                  <div style="color: white; margin-bottom: 20px">
+                    <span>
+                      {{settingSelect.resource.data.deal.title}}
+                      <el-button type="text" @click="openTab(settingSelect.resource.data.deal.url)">
+                        {{settingSelect.resource.data.deal.button}}
+                      </el-button>
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <img style="width: 100%" :src="settingSelect.resource.data.extension.img">
+                  <div style="color: white">
+                    <span>
+                      {{settingSelect.resource.data.extension.title}}
+                      <el-button type="text" @click="openTab(settingSelect.resource.data.extension.url)">
+                        {{settingSelect.resource.data.extension.button}}
+                      </el-button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </el-card>
+          </div>
+        </el-main>
+        <el-main class="setting-window" v-show="settingSelect.about.show">
           <div id="about-card">
             <el-row :gutter="20" class="setting-about-card-row">
               <el-card class="card-style">
                 <div slot="header" class="card-header">
-                  <span>{{settingSelect[1].name}}</span>
-                  <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text" @click="showCode">返回</el-button>
+                  <span>{{settingSelect.about.name}}</span>
+                  <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text" @click="showCode">{{settingSelect.about.back}}</el-button>
                 </div>
                 <div style="text-align: center">
                   <div style="text-align: left">
                     <el-col :span="10" style="width: 400px; height: 280px;">
                       <div style="height: 30px"></div>
                       <div key="1" class="about-item">
-                        <span class="el-icon-eleme"></span>{{' ' + settingSelect[1].data[0].name + ': ' +
-                        settingSelect[1].data[0].content}}
+                        <span class="el-icon-eleme"></span>{{' ' + settingSelect.about.data[0].name + ': ' +
+                        settingSelect.about.data[0].content}}
                       </div>
                       <div style="height: 30px"></div>
                       <div key="2" class="about-item">
-                        <span class="el-icon-s-order"></span>{{' ' + settingSelect[1].data[1].name + ': ' +
-                        settingSelect[1].data[1].content}}
+                        <span class="el-icon-s-order"></span>{{' ' + settingSelect.about.data[1].name + ': ' +
+                        settingSelect.about.data[1].content}}
                       </div>
                       <div style="height: 30px"></div>
                       <div key="3" class="about-item">
-                        <span class="el-icon-s-fold"></span>{{' ' + settingSelect[1].data[2].name + ': ' +
-                        settingSelect[1].data[2].content}}
+                        <span class="el-icon-s-fold"></span>{{' ' + settingSelect.about.data[2].name + ': ' +
+                        settingSelect.about.data[2].content}}
                       </div>
                       <div style="height: 30px"></div>
                       <div key="4" class="about-item">
-                        <span class="el-icon-user-solid"></span>{{' ' + settingSelect[1].data[3].name + ': ' +
-                        settingSelect[1].data[3].content}}
+                        <span class="el-icon-user-solid"></span>{{' ' + settingSelect.about.data[3].name + ': ' +
+                        settingSelect.about.data[3].content}}
                       </div>
                       <div style="height: 30px"></div>
                       <div key="5" class="about-item">
-                        <span class="el-icon-s-home"></span>{{' ' + settingSelect[1].data[4].name + ': '}}<a
-                        :href="settingSelect[1].data[4].content">{{settingSelect[1].data[4].content}}</a>
+                        <span class="el-icon-s-home"></span>{{' ' + settingSelect.about.data[4].name + ': '}}<a
+                        :href="settingSelect.about.data[4].content">{{settingSelect.about.data[4].content}}</a>
                       </div>
                     </el-col>
                   </div>
@@ -426,7 +460,7 @@
       },
       fontSizeName: {
         handler: function (name) {
-          this.fontSize = this.settingSelect[0].data.fontSize.map[name];
+          this.fontSize = this.settingSelect.setting.data.fontSize.map[name];
         }
       },
       compileLoggers() {
@@ -697,10 +731,10 @@
         });
       },
       openOption(index) {
-        for (let i = 0; i < this.settingSelect.length; i++) {
-          this.settingSelect[i].show = false;
-          if (this.settingSelect[i].name === index.index) {
-            this.settingSelect[i].show = true;
+        for (let key in this.settingSelect) {
+          this.settingSelect[key].show = false;
+          if (this.settingSelect[key].name === index.index) {
+            this.settingSelect[key].show = true;
           }
         }
       },
@@ -733,6 +767,9 @@
         if (this.saveSetting.codeThemeMode !== '' && this.saveSetting.codeThemeMode !== null) {
           this.codeThemeMode = this.saveSetting.codeThemeMode;
         }
+      },
+      openTab(url) {
+        window.open(url)
       }
     }
   };
@@ -885,6 +922,9 @@
     margin: 0 auto;
   }
 
+  .setting-window {
+    overflow-x: hidden;
+  }
 
 </style>
 

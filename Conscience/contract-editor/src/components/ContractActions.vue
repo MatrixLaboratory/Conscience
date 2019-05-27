@@ -317,7 +317,7 @@ export default {
         if (!account) return // not login
 
         if (this.currentTrx == null) {
-            console.error('currentTrx has not been intiailized!')
+            console.error('currentTrx has not been initialized!')
         }
 
         const iost = window.IWalletJS.newIOST(IOST)
