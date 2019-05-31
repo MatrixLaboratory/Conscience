@@ -32,20 +32,20 @@ export function settingLang(lang) {
       overview: 'IOST资源',
       show: false,
       back: '返回',
-      data: {
-        deal: {
-          title: 'IOST内存(iRam)GAS(iGas)买卖',
+      data: [
+        {
+          title: 'IOST内存(iRam) GAS(iGas) 买卖',
           url: 'https://www.iostabc.com/wallet/resources',
           img: '../../static/img/iWallet.png',
           button: '点击查看'
         },
-        extension: {
+        {
           title: 'iWallet Chrome 插件',
           url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
           img: '../../static/img/iost-deal.png',
           button: '点击下载'
         }
-      }
+      ]
     },
     about: {
       name: '关于',

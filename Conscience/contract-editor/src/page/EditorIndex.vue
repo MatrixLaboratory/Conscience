@@ -229,38 +229,21 @@
           </el-row>
         </el-main>
         <el-main class="setting-window" v-show="settingSelect.resource.show">
-          <div style="height: 100%">
-            <el-card class="card-style">
-              <div slot="header" class="card-header">
-                <span>{{settingSelect.resource.overview}}</span>
-                <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text" @click="showCode">{{settingSelect.resource.back}}</el-button>
-              </div>
-              <div style="text-align: center">
-                <div style="margin-top: 20px">
-                  <img style="width: 100%" :src="settingSelect.resource.data.deal.img">
-                  <div style="color: white; margin-bottom: 20px">
-                    <span>
-                      {{settingSelect.resource.data.deal.title}}
-                      <el-button type="text" @click="openTab(settingSelect.resource.data.deal.url)">
-                        {{settingSelect.resource.data.deal.button}}
-                      </el-button>
-                    </span>
+          <el-row :gutter="20" class="setting-about-card-row">
+            <el-carousel class="carousel-style" indicator-position="outside">
+              <el-carousel-item v-for="item in settingSelect.resource.data" :key="item">
+                <div class="photo">
+                  <img :src="item.img">	
+                  <div class="photo-overlay">
+                    <h2>{{item.title}}</h2>
+                    <el-button type="primary" @click="openTab(item.url)">
+                      {{item.button}}
+                    </el-button>
                   </div>
                 </div>
-                <div>
-                  <img style="width: 100%" :src="settingSelect.resource.data.extension.img">
-                  <div style="color: white">
-                    <span>
-                      {{settingSelect.resource.data.extension.title}}
-                      <el-button type="text" @click="openTab(settingSelect.resource.data.extension.url)">
-                        {{settingSelect.resource.data.extension.button}}
-                      </el-button>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </el-card>
-          </div>
+              </el-carousel-item>
+            </el-carousel>
+          </el-row>
         </el-main>
         <el-main class="setting-window" v-show="settingSelect.about.show">
           <div id="about-card">
@@ -1026,4 +1009,59 @@
     background-color: #28619e;
   }
 
-</style>
+  .carousel-style {
+    border: 0;
+    width: 800px;
+    margin: 0 auto;
+    border-radius: 10px 10px 10px 10px;
+  }
+
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 0.75;
+    margin: 0;
+  }
+
+  .el-carousel__item:nth-child(2n) {
+    background-color: white;
+  }
+
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: white;
+  }
+
+  .el-carousel__container {
+    height: 600px;
+  }
+
+  .photo {
+    overflow: hidden;
+  }
+
+  .photo img {
+    width: 100%;
+  }
+
+  /* ---- Photo Overlay ---- */
+  .photo-overlay {
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0; 
+    left: 0;
+    padding: 5vw 10vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(0,0,0, .55);
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .photo-overlay:hover {
+    opacity: 1;
+  }
+  </style>
