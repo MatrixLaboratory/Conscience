@@ -164,6 +164,7 @@ export function menuLang(lang) {
     abi: 'ABI',
     addFiles: '新增文件',
     setting: '设置',
+    files: '文件',
     fileFunc: {
       download: '下载',
       edit: '重命名',
@@ -193,6 +194,7 @@ export function menuLang(lang) {
       abi: 'ABI',
       addFiles: 'add file',
       setting: 'settings',
+      files: 'files',
       topPlaceholder: 'add file',
       fileFunc: {
         download: 'download',
