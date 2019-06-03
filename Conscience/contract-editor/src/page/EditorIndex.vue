@@ -309,7 +309,7 @@
             :fontSize="fontSize"
             :abiList="compileABI"
             :langMode="langMode"
-            v-on:compileResult="compileResult"
+            @compileResult="compileResult"
             @deployResult="deployResult"
             @runResult="runResult"
           ></contract-action>
@@ -398,8 +398,6 @@
         fontSizeName: "Base",
         fontSize: "14px",
         compileABI: [],
-        // deployResultData: [],
-        // runResultData: [],
         saveSetting: {
           langMode: '简体中文',
           themeMode: 'Dark',
@@ -451,19 +449,7 @@
           let div = document.getElementById('logger');
           div.scrollTop = div.scrollHeight;
         })
-      },
-      // deployResultData() {
-      //   this.$nextTick(function () {
-      //     let div = document.getElementById('logger');
-      //     div.scrollTop = div.scrollHeight;
-      //   })
-      // },
-      // runResultData() {
-      //   this.$nextTick(function () {
-      //     let div = document.getElementById('logger');
-      //     div.scrollTop = div.scrollHeight;
-      //   })
-      // }
+      }
     },
     mounted() {
       let fileStr = localStorage.getItem("files");

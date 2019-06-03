@@ -85,6 +85,23 @@
         </el-form-item>
       </el-form>
     </div>
+    <el-dialog title="Please set the gas ratio and limit
+    " :visible.sync="dialogFormVisible">
+      <el-form :model="gasData">
+        <el-form-item label="Gas Ratio" :label-width="formLabelWidth">
+          <el-input v-model="gasData.ratio" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="Gas Limit
+        " :label-width="formLabelWidth">
+          <el-input v-model="gasData.limit
+          " autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleTranscationEvent">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -144,6 +161,7 @@
 
 <script>
 const IOST = require('iost')
+const iost = window.IWalletJS.newIOST(IOST);
 import {
   compileIostContract,
   compileSolContract,
@@ -158,6 +176,13 @@ export default {
   name: "ContractActions",
   data() {
     return {
+      dialogFormVisible: false,
+      currentTransactionEvent: null, 
+      gasData: {
+        ratio: 1,
+        limit: 4000000,
+      },
+      formLabelWidth: '120px',
       activeMenu: "1",
       compileFile: "",
       compiling: false,
@@ -259,9 +284,6 @@ export default {
       this.runIostContract(this.runMethodList[this.runIndex].label, this.argList);
     },
     reportError: function(result) {
-      // if (error !== undefined) {
-      //   errorMemssage = `Error Message: <pre><code> ${JSON.stringify(error.response, null, 4)}</code></pre>`
-      // }
       let data = compileNotifyLang(this.langMode)
       this.$notify({
         title: data.compileFailed.title,
@@ -270,22 +292,103 @@ export default {
       })
       this.$emit("compileResult", this.compileFile, result);
     },
+    handleTranscationEvent() {
+      this.dialogFormVisible = false
+      console.log(this.gasData.ratio)
+      console.log(this.gasData.limit
+      )
+      console.log('currentTransactionEvent:', this.currentTransactionEvent)
+      switch(this.currentTransactionEvent.evetType) {
+        case 'deploy':
+          this.doDeployContract(this.currentTransactionEvent.transaction)
+          break
+        case 'run':
+          this.doRunIostContract(this.currentTransactionEvent.transaction)
+          break
+        default:
+          console.error(`${this.currentTransactionEvent.evetType} is not a supported type`)
+          this.$emit('deployResult', {
+            status: 'failed',
+            trx: trxStr,
+            message: `Deploy Error: ${this.currentTransactionEvent.evetType} is not a supported type!`
+          })
+      }
+
+      //clean up the event to null
+      this.currentTransactionEvent = null
+    },
     deployIostContract(contract, data) {
       const info = "\"info\"";
       const code = "\"code\"";
       const request = ["{" + info + ":" + data + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
 
       window.IWalletJS.enable().then((account) => {
-        if (!account) return; // not login
+        if (!account) {
+          this.$emit('deployResult', {
+            status: 'failed',
+            trx: 'Error',
+            message: "Please login the iWallet or install the iWallet extension!"
+          })
+          return
+        }
 
-        const iost = window.IWalletJS.newIOST(IOST);
-        let contractAddress = "system.iost";
-        const ctx1 = iost.callABI(contractAddress, "setCode", request);
+        const tx = iost.callABI('system.iost', 'setCode', request);
 
-        //TODO: write thest into configs
-        ctx1.setGas(1, 4000000);
+        this.currentTransactionEvent = {
+          evetType: 'deploy',
+          transaction: tx
+        }
+        //trigger the modal
+        console.error('trigger the modal')
+        this.dialogFormVisible = true
+      })
+    },
+    doRunIostContract(transaction) {
+        try {
+          transaction.setGas(this.gasData.ratio, this.gasData.limit);
+        } catch (error) {
+          this.$emit('runResult', {
+            status: 'failed',
+            trx: 'Error',
+            message: error
+          })
+        }
         let trxStr = ''
-        iost.signAndSend(ctx1).on('pending', (trx) => {
+        iost.signAndSend(transaction).on('pending', (trx) => {
+          console.log(trx, 'contract is calling')
+          trxStr = trx
+          this.$emit('runResult', {
+            status: 'pending',
+            trx: trxStr
+          })
+        }).on('success', (result) => {
+          console.log('result:', result)
+          this.$emit('runResult', {
+            status: 'success',
+            trx: trxStr
+          })
+        }).on('failed', (failed) => {
+          console.error('failed to run IOST contract:', failed)
+          this.$emit('runResult', {
+            status: 'failed',
+            trx: trxStr,
+            message: failed.message
+          })
+        })
+    },
+    doDeployContract(transaction) {
+        try {
+          transaction.setGas(this.gasData.ratio, this.gasData.limit);
+        } catch (error) {
+          console.error(error)
+          this.$emit('deployResult', {
+            status: 'failed',
+            trx: 'Error',
+            message: error
+          })
+        }
+        let trxStr = ''
+        iost.signAndSend(transaction).on('pending', (trx) => {
           console.log(trx, 'contract is deploying');
           trxStr = trx
           this.$emit('deployResult', {
@@ -302,54 +405,45 @@ export default {
           })
         }).on('failed', (failed) => {
           console.error('failed to deploy IOST contract:', failed.message)
-          this.$emit('deployResult', 'failed', {
+          this.$emit('deployResult', {
             status: 'failed',
             trx: trxStr,
             message: failed.message
           })
         })
-      })
     },
     runIostContract(method, value) {
       let methodArr = method.split(' ')
 
       window.IWalletJS.enable().then((account) => {
-        if (!account) return // not login
+
+        if (!account) {
+          this.$emit('runResult', 'failed', {
+            status: 'failed',
+            trx: 'Error',
+            message: "Please login the iWallet or install the iWallet extension!"
+          })
+          return
+        }
 
         if (this.currentTrx == null) {
             console.error('currentTrx has not been initialized!')
+            this.$emit('runResult', {
+              status: 'failed',
+              trx: 'None',
+              message: `Run Method Error: currentTrx has not been initialized!`
+            })
         }
 
-        const iost = window.IWalletJS.newIOST(IOST)
-        let trx = this.currentTrx;
-        let contractAddress = 'Contract' + trx
-        const ctx1 = iost.callABI(contractAddress, methodArr[1], value)
+        let contractAddress = 'Contract' + this.currentTrx
+        const tx = iost.callABI(contractAddress, methodArr[1], value)
 
-        //TODO: write thest into configs
-        ctx1.setGas(1, 4000000);
-
-        let trxStr = ''
-        iost.signAndSend(ctx1).on('pending', (trx) => {
-          console.log(trx, 'contract is calling')
-          trxStr = trx
-          this.$emit('runResult', {
-            status: 'pending',
-            trx: trxStr
-          })
-        }).on('success', (result) => {
-          console.log('result:', result)
-          this.$emit('runResult', {
-            status: 'success',
-            trx: trxStr
-          })
-        }).on('failed', (failed) => {
-          console.error('failed to run IOST contract:', failed)
-          this.$emit('runResult', 'failed', {
-            status: 'failed',
-            trx: trxStr,
-            message: failed.message
-          })
-        })
+        this.currentTransactionEvent = {
+          evetType: 'run',
+          transaction: tx
+        }
+        //trigger the modal
+        this.dialogFormVisible = true
       })
     }
   }
