@@ -16,8 +16,13 @@
                     <i class="el-icon-circle-plus"></i>
                   </el-menu-item>
                 </el-tooltip>
+                <el-tooltip class="item" effect="light" :content="menuLang.files" placement="right">
+                  <el-menu-item index="2" class="icon-hover" @click="showCode">
+                    <i class="el-icon-document"></i>
+                  </el-menu-item>
+                </el-tooltip>
                 <el-tooltip class="item" effect="light" :content="menuLang.setting" placement="right">
-                  <el-menu-item index="2" class="icon-hover" @click="showSettings">
+                  <el-menu-item index="3" class="icon-hover" @click="showSettings">
                     <i class="el-icon-setting"></i>
                   </el-menu-item>
                 </el-tooltip>
@@ -233,7 +238,7 @@
             <el-carousel class="carousel-style" indicator-position="outside">
               <el-carousel-item v-for="item in settingSelect.resource.data" :key="item">
                 <div class="photo">
-                  <img :src="item.img">	
+                  <img :src="item.img">
                   <div class="photo-overlay">
                     <h2>{{item.title}}</h2>
                     <el-button type="primary" @click="openTab(item.url)">
@@ -1035,7 +1040,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 0; 
+    bottom: 0;
     left: 0;
     padding: 5vw 10vw;
     text-align: center;
