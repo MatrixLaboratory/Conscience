@@ -227,7 +227,7 @@
                 </el-select>
               </el-form-item>
               <el-row style="padding: 10px 20px 0 20px;">
-                <el-button type="primary" icon="el-icon-back" @click="showCode" round>Return</el-button>
+                <el-button type="primary" icon="el-icon-back" @click="restoreSettings" round>Restore</el-button>
                 <el-button type="primary" icon="el-icon-check" @click="saveSettings" style="float: right" round>Apply</el-button>
               </el-row>
             </el-form>
@@ -584,6 +584,7 @@
               duration: 2000
             });
           });
+          //TODO: finally change the active class to "files"
       },
       editFileName(index) {
         let data = addFileMenuLang(this.langMode)
@@ -727,6 +728,12 @@
         if (func == 'delete') {
           this.deleteFile({target: {id: filename}})
         }
+      },
+      restoreSettings() {
+        this.saveSetting.langMode = this.langMode;
+        this.saveSetting.themeMode = this.themeMode;
+        this.saveSetting.fontSize = this.fontSize;
+        this.saveSetting.codeThemeMode = this.codeThemeMode;
       },
       saveSettings() {
         if (this.saveSetting.langMode != '' && this.saveSetting.langMode !== null) {
