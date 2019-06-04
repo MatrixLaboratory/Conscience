@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -13,6 +14,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//TODO: add cors whitelist otherwise it will used by anyone
+app.use(cors())
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -24,6 +28,7 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.error('caught a 404 error');
   next(createError(404));
 });
 

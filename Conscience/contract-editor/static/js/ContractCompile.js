@@ -3,8 +3,18 @@
 import axios from 'axios'
 const IOST = require('iost')
 
+const isProduction = process.env.NODE_ENV === 'production'	
+const endPoint = isProduction ? 'http://chainide.com:9600' : '/api'	
+
+const AXIOS_CONFIG = {
+  headers: {
+      'Content-Type': 'application/json;charset=UTF-8',
+      "Access-Control-Allow-Origin": "*",
+  }
+}
+
 export async function compileIostContract(code, fileName = 'test.js') {
-  let source = {};
+  let source = {}
   source[fileName] = {
     content: code
   };
@@ -18,11 +28,13 @@ export async function compileIostContract(code, fileName = 'test.js') {
         }
       }
     }
-  };
+  }
   try {
-    const response = await axios.post('/api/iost/compile', {
+    console.log(JSON.stringify(input))
+    const response = await axios.post(endPoint + '/iost/compile', {	
       input: JSON.stringify(input)
-    });
+    }, 
+    AXIOS_CONFIG)
     return response.data;
   } catch (error) {
     console.error("Errored at compileIostContract()", error);
@@ -49,9 +61,10 @@ export async function compileSolContract(code, fileName = 'test.sol') {
       }
     }
   };
-  const response = await axios.post('/api/solidity/compile', {
+  const response = await axios.post(endPoint + '/solidity/compile', {
     input: JSON.stringify(input)
-  });
+  }, 
+  AXIOS_CONFIG);
   return response.data;
 }
 

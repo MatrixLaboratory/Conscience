@@ -50,8 +50,8 @@ router.get('/', function (req, res, next) {
     res.render('index', {title: 'Express'})
 });
 
-// example usage: localhost:4000/api/execute/compile CellNewDesignWorld.js
-router.post('/iost/compile', (req, res) => {
+// example usage: localhost:4000/api/iost/compile
+router.post('/iost/compile', (req, res, next) => {
     console.info('calling iost/compile');
 
     // local storage system
