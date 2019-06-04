@@ -227,8 +227,8 @@
                 </el-select>
               </el-form-item>
               <el-row style="padding: 10px 20px 0 20px;">
-                <el-button type="primary" icon="el-icon-back" @click="restoreSettings" round>Restore</el-button>
-                <el-button type="primary" icon="el-icon-check" @click="saveSettings" style="float: right" round>Apply</el-button>
+                <el-button type="primary" icon="el-icon-back" @click="restoreSettings" >Reset</el-button>
+                <el-button type="primary" icon="el-icon-check" @click="saveSettings" style="float: right" >Apply</el-button>
               </el-row>
             </el-form>
           </el-row>
