@@ -309,7 +309,7 @@ export default {
           console.error(`${this.currentTransactionEvent.evetType} is not a supported type`)
           this.$emit('deployResult', {
             status: 'failed',
-            trx: trxStr,
+            trx: '',
             message: `Deploy Error: ${this.currentTransactionEvent.evetType} is not a supported type!`
           })
       }
