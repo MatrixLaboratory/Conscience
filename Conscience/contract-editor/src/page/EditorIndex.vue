@@ -236,7 +236,7 @@
         <el-main class="setting-window" v-show="settingSelect.resource.show">
           <el-row :gutter="20" class="setting-about-card-row">
             <el-carousel class="carousel-style" indicator-position="outside">
-              <el-carousel-item v-for="item in settingSelect.resource.data" :key="item">
+              <el-carousel-item v-for="(item, index) in settingSelect.resource.data" :key="index">
                 <div class="photo">
                   <img :src="item.img">
                   <div class="photo-overlay">
