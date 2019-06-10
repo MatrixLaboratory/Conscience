@@ -115,13 +115,13 @@ export function settingLang(lang) {
             title: 'IOST iRam iGas deal',
             url: 'https://www.iostabc.com/wallet/resources',
             img: '../../static/img/iost-deal.png',
-            button: '点击查看'
+            button: 'click to view'
           },
           {
             title: 'iWallet Chrome extension',
             url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
             img: '../../static/img/iWallet.png',
-            button: '点击下载'
+            button: 'click to download'
           }
         ]
       },
