@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://39.106.38.77:9600',
+        target: 'https://puzzle-lt.com:9700',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

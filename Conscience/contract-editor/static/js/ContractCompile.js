@@ -1,10 +1,9 @@
 "use strict";
 
 import axios from 'axios'
-const IOST = require('iost')
 
 const isProduction = process.env.NODE_ENV === 'production'	
-const endPoint = isProduction ? 'http://39.106.38.77:9600' : '/api'	
+const endPoint = isProduction ? 'https://puzzle-lt.com:9700' : '/api'
 
 const AXIOS_CONFIG = {
   headers: {
