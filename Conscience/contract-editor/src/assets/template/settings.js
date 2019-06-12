@@ -270,6 +270,24 @@ export function deleteFileMenuLang(lang) {
   return menuLang
 }
 
+export function exceptionMessageLang(lang) {
+  if (lang === 'English') {
+    return {
+      iostInitException: {
+        title: 'Failed to initilize iWallet',
+        message: 'Please install iWallet extension or login in'
+      }
+    }
+  } else {
+    return {
+      iostInitException: {
+        title: 'iWallet初始化失败',
+        message: '请安装iWallet钱包插件或登录iWallet'
+      }
+    }
+  }
+}
+
 export function compileNotifyLang(lang) {
   let notifyLang = {
     title: '操作失败',

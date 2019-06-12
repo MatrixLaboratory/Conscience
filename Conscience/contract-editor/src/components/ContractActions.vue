@@ -161,7 +161,7 @@
 
 <script>
 const IOST = require('iost')
-const iost = window.IWalletJS.newIOST(IOST);
+let iost = null;
 import {
   compileIostContract,
   compileSolContract,
@@ -170,7 +170,7 @@ import {
   runIostContract,
   generateIostContractHierachy
 } from "../../static/js/ContractCompile";
-import {compileNotifyLang} from "../assets/template/settings";
+import {compileNotifyLang, exceptionMessageLang} from "../assets/template/settings";
 
 export default {
   name: "ContractActions",
@@ -224,6 +224,18 @@ export default {
     }
   },
   methods: {
+    initIost() {
+        try {
+          iost = window.IWalletJS.newIOST(IOST)
+        } catch (error) {
+          const errorMessage = exceptionMessageLang(this.langMode)
+          this.$notify({
+            title: errorMessage.iostInitException.title,
+            message: errorMessage.iostInitException.message,
+            type: 'warning'
+          });
+        }
+    },
     compile: function() {
       let data = compileNotifyLang(this.langMode)
       this.compiling = true;
@@ -318,6 +330,12 @@ export default {
       this.currentTransactionEvent = null
     },
     deployIostContract(contract, data) {
+
+      this.initIost()
+      if (iost == null) {
+        return
+      }
+
       const info = "\"info\"";
       const code = "\"code\"";
       const request = ["{" + info + ":" + data + "," + code + ":" + JSON.stringify(contract.contractCode) + "}"];
@@ -344,75 +362,91 @@ export default {
       })
     },
     doRunIostContract(transaction) {
-        try {
-          transaction.setGas(this.gasData.ratio, this.gasData.limit);
-        } catch (error) {
-          this.$emit('runResult', {
-            status: 'failed',
-            trx: 'Error',
-            message: error
-          })
-        }
-        let trxStr = ''
-        iost.signAndSend(transaction).on('pending', (trx) => {
-          console.log(trx, 'contract is calling')
-          trxStr = trx
-          this.$emit('runResult', {
-            status: 'pending',
-            trx: trxStr
-          })
-        }).on('success', (result) => {
-          console.log('result:', result)
-          this.$emit('runResult', {
-            status: 'success',
-            trx: trxStr
-          })
-        }).on('failed', (failed) => {
-          console.error('failed to run IOST contract:', failed)
-          this.$emit('runResult', {
-            status: 'failed',
-            trx: trxStr,
-            message: failed.message
-          })
+
+      this.initIost()
+      if (iost == null) {
+        return
+      }
+
+      try {
+        transaction.setGas(this.gasData.ratio, this.gasData.limit);
+      } catch (error) {
+        this.$emit('runResult', {
+          status: 'failed',
+          trx: 'Error',
+          message: error
         })
+      }
+      let trxStr = ''
+      iost.signAndSend(transaction).on('pending', (trx) => {
+        console.log(trx, 'contract is calling')
+        trxStr = trx
+        this.$emit('runResult', {
+          status: 'pending',
+          trx: trxStr
+        })
+      }).on('success', (result) => {
+        console.log('result:', result)
+        this.$emit('runResult', {
+          status: 'success',
+          trx: trxStr
+        })
+      }).on('failed', (failed) => {
+        console.error('failed to run IOST contract:', failed)
+        this.$emit('runResult', {
+          status: 'failed',
+          trx: trxStr,
+          message: failed.message
+        })
+      })
     },
     doDeployContract(transaction) {
-        try {
-          transaction.setGas(this.gasData.ratio, this.gasData.limit);
-        } catch (error) {
-          console.error(error)
-          this.$emit('deployResult', {
-            status: 'failed',
-            trx: 'Error',
-            message: error
-          })
-        }
-        let trxStr = ''
-        iost.signAndSend(transaction).on('pending', (trx) => {
-          console.log(trx, 'contract is deploying');
-          trxStr = trx
-          this.$emit('deployResult', {
-            status: 'pending',
-            trx: trxStr
-          })
-        }).on('success', (result) => {
-          console.log('result:', result)
-          this.showRunArea = true
-          this.currentTrx = trxStr
-          this.$emit('deployResult', {
-            status: 'success',
-            trx: trxStr
-          })
-        }).on('failed', (failed) => {
-          console.error('failed to deploy IOST contract:', failed.message)
-          this.$emit('deployResult', {
-            status: 'failed',
-            trx: trxStr,
-            message: failed.message
-          })
+      this.initIost()
+      if (iost == null) {
+        return
+      }
+
+      try {
+        transaction.setGas(this.gasData.ratio, this.gasData.limit);
+      } catch (error) {
+        console.error(error)
+        this.$emit('deployResult', {
+          status: 'failed',
+          trx: 'Error',
+          message: error
         })
+      }
+      let trxStr = ''
+      iost.signAndSend(transaction).on('pending', (trx) => {
+        console.log(trx, 'contract is deploying');
+        trxStr = trx
+        this.$emit('deployResult', {
+          status: 'pending',
+          trx: trxStr
+        })
+      }).on('success', (result) => {
+        console.log('result:', result)
+        this.showRunArea = true
+        this.currentTrx = trxStr
+        this.$emit('deployResult', {
+          status: 'success',
+          trx: trxStr
+        })
+      }).on('failed', (failed) => {
+        console.error('failed to deploy IOST contract:', failed.message)
+        this.$emit('deployResult', {
+          status: 'failed',
+          trx: trxStr,
+          message: failed.message
+        })
+      })
     },
     runIostContract(method, value) {
+
+      this.initIost()
+      if (iost == null) {
+        return
+      }
       let methodArr = method.split(' ')
 
       window.IWalletJS.enable().then((account) => {
