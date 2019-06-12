@@ -62,7 +62,7 @@ router.post('/iost/compile', (req, res, next) => {
     const filePaths = writeToLocalFiles(folderPath, req);
 
     if (filePaths.length > 1) {
-        const error = Error('Got more than 1 file, we only supporet compile 1 file now');
+        const error = Error('Got more than 1 file, we only support compile 1 file now');
         res.status(422).send({error: error});
     }
 
@@ -77,5 +77,9 @@ router.post('/solidity/compile', function (req, res, next) {
     let output = JSON.parse(solc.compile(params.input));
     res.json(output);
 });
+
+router.post('/nebulas/get/tx', function (req, res) {
+  console.log('req: ', req)
+})
 
 module.exports = router;
