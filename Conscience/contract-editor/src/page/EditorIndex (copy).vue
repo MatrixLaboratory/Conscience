@@ -163,7 +163,7 @@
         </template>
 
         <template slot="secondPane">
-          <rs-panes size=350 split-to="columns" :allow-resize="true" primary="second">
+          <rs-panes size=350 split-to="columns" :allow-resize="true" primary="second" style="background-color: #2c3e50;">
             <template slot="firstPane" >
               <el-header style="background-color: #414141; height: 40px">
                 <el-tabs

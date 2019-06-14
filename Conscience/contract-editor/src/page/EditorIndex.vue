@@ -1,5 +1,5 @@
 <template>
-  <rs-panes size=350 split-to="columns" :allow-resize="true" resizerThickness=0>
+  <rs-panes size=350 split-to="columns" :allow-resize="true" :style="{backgroundColor : backgroundColor}" resizerThickness=0 >
       <el-container slot="firstPane" v-show="leftAside" :style="{backgroundColor : backgroundColor}">
         <el-aside width="50px" style="background-color: #414141">
           <el-menu
@@ -790,7 +790,7 @@
   }
 
   .setting-window {
-    background-color: #162a3c;
+    background-color: #1e1e1e;
     display: block;
     -webkit-box-flex: 1;
     -ms-flex: 1;
