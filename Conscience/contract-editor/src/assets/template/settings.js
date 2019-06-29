@@ -27,26 +27,6 @@ export function settingLang(lang) {
         }
       }
     },
-    resource: {
-      name: '资源',
-      overview: 'IOST资源',
-      show: false,
-      back: '返回',
-      data: [
-        {
-          title: 'IOST内存(iRam) GAS(iGas) 买卖',
-          url: 'https://www.iostabc.com/wallet/resources',
-          img: '../../static/img/iost-deal.png',
-          button: '点击查看'
-        },
-        {
-          title: 'iWallet Chrome 插件',
-          url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
-          img: '../../static/img/iWallet.png',
-          button: '点击下载'
-        }
-      ]
-    },
     about: {
       name: '关于',
       show: false,
@@ -105,26 +85,6 @@ export function settingLang(lang) {
           }
         }
       },
-      resource: {
-        name: 'Resource',
-        overview: 'IOST Resource',
-        show: false,
-        back: 'back',
-        data: [
-          {
-            title: 'IOST iRam iGas deal',
-            url: 'https://www.iostabc.com/wallet/resources',
-            img: '../../static/img/iost-deal.png',
-            button: 'click to view'
-          },
-          {
-            title: 'iWallet Chrome extension',
-            url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
-            img: '../../static/img/iWallet.png',
-            button: 'click to download'
-          }
-        ]
-      },
       about: {
         name: 'About',
         show: false,
@@ -165,6 +125,24 @@ export function menuLang(lang) {
     addFiles: '新增文件',
     setting: '设置',
     files: '文件',
+    resource: {
+      name: '资源',
+      show: false,
+      data: [
+        {
+          title: 'IOST内存(iRam) GAS(iGas) 买卖',
+          url: 'https://www.iostabc.com/wallet/resources',
+          img: '../../static/img/iost-deal.png',
+          button: '点击查看'
+        },
+        {
+          title: 'iWallet Chrome 插件',
+          url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
+          img: '../../static/img/iWallet.png',
+          button: '点击下载'
+        }
+      ]
+    },
     fileFunc: {
       download: '下载',
       edit: '重命名',
@@ -196,6 +174,24 @@ export function menuLang(lang) {
       setting: 'settings',
       files: 'files',
       topPlaceholder: 'add file',
+      resource: {
+        name: 'Resource',
+        show: false,
+        data: [
+          {
+            title: 'IOST iRam iGas deal',
+            url: 'https://www.iostabc.com/wallet/resources',
+            img: '../../static/img/iost-deal.png',
+            button: 'click to view'
+          },
+          {
+            title: 'iWallet Chrome extension',
+            url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
+            img: '../../static/img/iWallet.png',
+            button: 'click to download'
+          }
+        ]
+      },
       fileFunc: {
         download: 'download',
         edit: 'rename',
