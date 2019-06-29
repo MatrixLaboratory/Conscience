@@ -1,5 +1,5 @@
 <template>
-  <rs-panes size=350 split-to="columns" :allow-resize="true" :style="{backgroundColor : backgroundColor}" resizerThickness=0 >
+  <rs-panes :size=350 split-to="columns" :allow-resize="true" :style="{backgroundColor : backgroundColor}" :resizerThickness=0 >
       <el-container slot="firstPane" v-show="leftAside" :style="{backgroundColor : backgroundColor}">
         <el-aside width="50px" style="background-color: #414141">
           <el-menu
@@ -159,7 +159,7 @@
       </el-container>
     <template slot="secondPane">
       <el-container v-show="!showSettingsOnWindow">
-        <rs-panes size=400 split-to="columns" :allow-resize="true" primary="second" resizerThickness=0>
+        <rs-panes :size=400 split-to="columns" :allow-resize="true" primary="second" :resizerThickness=0>
           <template slot="firstPane">
             <el-container>
               <el-header style="background-color: #414141; height: 40px">
@@ -223,7 +223,7 @@
             slot="secondPane"
             v-show="!showSettingsOnWindow"
           >
-            <el-container 
+            <el-container
               class="right"
               :style="{backgroundColor : backgroundColor, overflowX: 'hidden'}">
               <contract-action
@@ -413,7 +413,7 @@
       };
     },
     components: {
-      'rs-panes': ResSplitPane, 
+      'rs-panes': ResSplitPane,
       codeEditor: CodeEditor,
       contractAction: ContractAction
     },
