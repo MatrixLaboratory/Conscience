@@ -1,232 +1,237 @@
 <template>
-  <el-container style="height: 100%">
-    <el-aside width="50px" style="background-color: #414141">
-      <el-menu
-        class="el-menu-vertical-demo"
-        text-color="white"
-        active-text-color="#409EFF"
-        style="background-color: #414141;"
-      >
-        <el-tooltip class="item" effect="light" :content="menuLang.addFiles" placement="right">
-          <el-menu-item index="1" class="icon-hover" @click="addFile">
-            <i class="el-icon-circle-plus"></i>
-          </el-menu-item>
-        </el-tooltip>
-        <el-tooltip class="item" effect="light" :content="menuLang.files" placement="right">
-          <el-menu-item index="2" class="icon-hover" @click="showCode">
-            <i class="el-icon-document"></i>
-          </el-menu-item>
-        </el-tooltip>
-        <el-tooltip class="item" effect="light" :content="menuLang.setting" placement="right">
-          <el-menu-item index="3" class="icon-hover" @click="showSettings">
-            <i class="el-icon-setting"></i>
-          </el-menu-item>
-        </el-tooltip>
-        <el-tooltip class="item" effect="light" :content="menuLang.resource.name" placement="right">
-          <el-menu-item index="4" class="icon-hover" @click="showResource">
-            <i class="el-icon-coin"></i>
-          </el-menu-item>
-        </el-tooltip>
-      </el-menu>
-    </el-aside>
-    <el-main v-show="showRight">
-      <el-container style="height: 100%">
-        <rs-panes style="position: relative" :size="300" :min-size="240" split-to="columns" :allow-resize="true"
-                  :resizerThickness=0 :style="{backgroundColor : backgroundColor}">
-          <el-main slot="firstPane" :style="{backgroundColor : backgroundColor}">
-            <el-menu
-              :default-active="editorTab"
-              class="el-menu-vertical-demo"
-              :background-color="backgroundColor"
-              text-color="#fff"
-              active-text-color="#409EFF"
-              :default-openeds="['1','2','3']"
-              v-show="!showSettingsOnWindow"
-            >
-              <el-submenu index="1">
-                <template slot="title">
-                  <i class="el-icon-menu"></i>
-                  <span :style="{fontSize : fontSize}">{{menuLang.contract}}</span>
-                </template>
-                <el-menu-item-group>
-                  <el-menu-item
-                    v-for="file in files"
-                    :style="{fontSize : fontSize}"
-                    :index="file"
-                    :key="file"
-                    :name="file"
-                    @click="openFile"
-                  >
-                    <el-row :gutter="20">
-                      <el-col :span="18">
-                        <div class="grid-content bg-purple file-name-style">{{ file }}</div>
-                      </el-col>
-                      <el-col :span="4">
-                        <el-dropdown @command="handleCommand" trigger="click">
+  <rs-panes :size=350 split-to="columns" :allow-resize="true" :style="{backgroundColor : backgroundColor}"
+            :resizerThickness=0>
+    <el-container slot="firstPane" :style="{backgroundColor : backgroundColor}">
+      <el-aside width="50px" style="background-color: #414141">
+        <el-menu
+          class="el-menu-vertical-demo"
+          text-color="white"
+          active-text-color="#409EFF"
+          style="background-color: #414141;"
+        >
+          <el-tooltip class="item" effect="light" :content="menuLang.addFiles" placement="right">
+            <el-menu-item index="1" class="icon-hover" @click="addFile">
+              <i class="el-icon-circle-plus"></i>
+            </el-menu-item>
+          </el-tooltip>
+          <el-tooltip class="item" effect="light" :content="menuLang.files" placement="right">
+            <el-menu-item index="2" class="icon-hover" @click="showCode">
+              <i class="el-icon-document"></i>
+            </el-menu-item>
+          </el-tooltip>
+          <el-tooltip class="item" effect="light" :content="menuLang.setting" placement="right">
+            <el-menu-item index="3" class="icon-hover" @click="showSettings">
+              <i class="el-icon-setting"></i>
+            </el-menu-item>
+          </el-tooltip>
+          <el-tooltip class="item" effect="light" :content="menuLang.resource.name" placement="right">
+            <el-menu-item index="4" class="icon-hover" @click="showResource">
+              <i class="el-icon-coin"></i>
+            </el-menu-item>
+          </el-tooltip>
+        </el-menu>
+      </el-aside>
+      <el-main :style="{backgroundColor : backgroundColor}">
+        <el-menu
+          :default-active="editorTab"
+          class="el-menu-vertical-demo"
+          :background-color="backgroundColor"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          :default-openeds="['1','2','3']"
+          v-show="showMenu"
+        >
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-menu"></i>
+              <span :style="{fontSize : fontSize}">{{menuLang.contract}}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item
+                v-for="file in files"
+                :style="{fontSize : fontSize}"
+                :index="file"
+                :key="file"
+                :name="file"
+                @click="openFile"
+              >
+                <el-row :gutter="20">
+                  <el-col :span="18">
+                    <div class="grid-content bg-purple file-name-style">{{ file }}</div>
+                  </el-col>
+                  <el-col :span="4">
+                    <el-dropdown @command="handleCommand" trigger="click">
                         <span class="el-icon-more">
                         </span>
-                          <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item icon="el-icon-download"
-                                              :command="file + '-download'">{{menuLang.fileFunc.download}}
-                            </el-dropdown-item>
-                            <el-dropdown-item icon="el-icon-edit"
-                                              :command="file + '-edit'">{{menuLang.fileFunc.edit}}
-                            </el-dropdown-item>
-                            <el-dropdown-item icon="el-icon-delete"
-                                              :command="file + '-delete'">{{menuLang.fileFunc.delete}}
-                            </el-dropdown-item>
-                          </el-dropdown-menu>
-                        </el-dropdown>
-                      </el-col>
-                    </el-row>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-submenu>
-              <el-submenu index="2">
-                <template slot="title">
-                  <i class="el-icon-orange"></i>
-                  <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
-                </template>
-                <el-menu-item-group>
-                  <el-menu-item v-for="file in compileABI"
-                                :style="{fontSize : fontSize}"
-                                :index="file"
-                                :key="file"
-                                :name="file"
-                                @click="openFile"
-                  >
-                    <el-row :gutter="20">
-                      <el-col :span="16">
-                        <div class="grid-content bg-purple file-name-style">{{ file }}</div>
-                      </el-col>
-                      <el-col :span="8">
-                        <div class="grid-content bg-purple">
-                          <i class="el-icon-download" :id="file" @click="downloadFile"></i>
-                        </div>
-                      </el-col>
-                    </el-row>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-submenu>
-              <el-submenu index="3">
-                <template slot="title">
-                  <i class="el-icon-s-flag"></i>
-                  <span :style="{fontSize : fontSize}">{{menuLang.template}}</span>
-                </template>
-                <el-menu-item-group>
-                  <el-menu-item
-                    v-for="name in caseTemplate"
-                    :style="{fontSize : fontSize}"
-                    :index="name"
-                    :key="name"
-                    :name="name"
-                    @click="openFile"
-                  >
-                    <el-row :gutter="20">
-                      <el-col :span="16">
-                        <div class="grid-content bg-purple">{{ name }}</div>
-                      </el-col>
-                    </el-row>
-                  </el-menu-item>
-                </el-menu-item-group>
-              </el-submenu>
-            </el-menu>
-            <!--setting menu aside start-->
-            <el-menu
-              v-show="showSettingsOnWindow"
-              default-active="1"
-              class="el-menu-vertical-demo"
-              :background-color="backgroundColor"
-              text-color="#fff"
-              active-text-color="#409EFF"
-              :default-openeds="['1']"
+                      <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item icon="el-icon-download"
+                                          :command="file + '-download'">{{menuLang.fileFunc.download}}
+                        </el-dropdown-item>
+                        <el-dropdown-item icon="el-icon-edit"
+                                          :command="file + '-edit'">{{menuLang.fileFunc.edit}}
+                        </el-dropdown-item>
+                        <el-dropdown-item icon="el-icon-delete"
+                                          :command="file + '-delete'">{{menuLang.fileFunc.delete}}
+                        </el-dropdown-item>
+                      </el-dropdown-menu>
+                    </el-dropdown>
+                  </el-col>
+                </el-row>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-orange"></i>
+              <span :style="{fontSize : fontSize}">{{menuLang.abi}}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item v-for="file in compileABI"
+                            :style="{fontSize : fontSize}"
+                            :index="file"
+                            :key="file"
+                            :name="file"
+                            @click="openFile"
+              >
+                <el-row :gutter="20">
+                  <el-col :span="16">
+                    <div class="grid-content bg-purple file-name-style">{{ file }}</div>
+                  </el-col>
+                  <el-col :span="8">
+                    <div class="grid-content bg-purple">
+                      <i class="el-icon-download" :id="file" @click="downloadFile"></i>
+                    </div>
+                  </el-col>
+                </el-row>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-s-flag"></i>
+              <span :style="{fontSize : fontSize}">{{menuLang.template}}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item
+                v-for="name in caseTemplate"
+                :style="{fontSize : fontSize}"
+                :index="name"
+                :key="name"
+                :name="name"
+                @click="openFile"
+              >
+                <el-row :gutter="20">
+                  <el-col :span="16">
+                    <div class="grid-content bg-purple">{{ name }}</div>
+                  </el-col>
+                </el-row>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+        <!--setting menu aside start-->
+        <el-menu
+          v-show="showSettingsOnWindow"
+          default-active="1"
+          class="el-menu-vertical-demo"
+          :background-color="backgroundColor"
+          text-color="#fff"
+          active-text-color="#409EFF"
+          :default-openeds="['1']"
+        >
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-menu"></i>
+              <span :style="{fontSize : fontSize}">{{settingTitle}}</span>
+            </template>
+            <el-menu-item
+              v-for="item in settingSelect"
+              :index="item.name"
+              :key="item.name"
+              :name="item.name"
+              @click="openOption"
+              :style="{fontSize : fontSize}"
             >
-              <el-submenu index="1">
-                <template slot="title">
-                  <i class="el-icon-menu"></i>
-                  <span :style="{fontSize : fontSize}">{{settingTitle}}</span>
-                </template>
-                <el-menu-item
-                  v-for="item in settingSelect"
-                  :index="item.name"
-                  :key="item.name"
-                  :name="item.name"
-                  @click="openOption"
-                  :style="{fontSize : fontSize}"
+              <el-row :gutter="20">
+                <el-col :span="16">
+                  <div class="grid-content bg-purple">{{ item.name }}</div>
+                </el-col>
+              </el-row>
+            </el-menu-item>
+          </el-submenu>
+        </el-menu>
+        <!--setting menu aside end-->
+      </el-main>
+    </el-container>
+    <el-container slot="secondPane">
+      <el-container v-show="showCodeArea">
+        <rs-panes :size=400 split-to="columns" :allow-resize="true" primary="second" :resizerThickness=0>
+          <template slot="firstPane">
+            <el-container>
+              <el-header style="background-color: #414141; height: 40px">
+                <el-tabs
+                  v-model="editorTab"
+                  type="border-card"
+                  closable
+                  @tab-remove="removeTab"
+                  @tab-click="tabClick"
+                  class="tab-class"
                 >
-                  <el-row :gutter="20">
-                    <el-col :span="16">
-                      <div class="grid-content bg-purple">{{ item.name }}</div>
-                    </el-col>
-                  </el-row>
-                </el-menu-item>
-              </el-submenu>
-            </el-menu>
-            <!--setting menu aside end-->
-          </el-main>
-          <rs-panes v-show="!showSettingsOnWindow" :size="380" :min-size="380" :allow-resize="true" split-to="columns" slot="secondPane"
-                    primary="second"
-                    :resizerThickness=0>
-            <el-main slot="firstPane">
-              <el-container style="height: 100%">
-                <el-header style="background-color: #414141; height: 40px">
-                  <el-tabs
-                    v-model="editorTab"
-                    type="border-card"
-                    closable
-                    @tab-remove="removeTab"
-                    @tab-click="tabClick"
-                    class="tab-class"
-                  >
-                    <el-tab-pane v-for="file in fileTabs" :label="file" :key="file" :name="file"></el-tab-pane>
-                  </el-tabs>
-                </el-header>
-                <el-main>
-                  <code-editor ref="codeEditor" :codeFontSize="fontSize" :theme="codeThemeMode"></code-editor>
-                </el-main>
-                <el-footer :height="footerH">
-                  <el-container>
-                    <el-header class="logger-header" height="40px">
-                      <div style="float: left">
-                        <i
-                          class="el-icon-download"
-                          v-show="showLoggers"
-                          @click="showLoggers = false, footerH='40px'"
-                        ></i>
-                        <i
-                          class="el-icon-upload2"
-                          v-show="!showLoggers"
-                          @click="showLoggers = true, footerH='30%'"
-                        ></i>
-                      </div>
-                      <el-button
+                  <el-tab-pane v-for="file in fileTabs" :label="file" :key="file" :name="file"></el-tab-pane>
+                </el-tabs>
+              </el-header>
+              <el-main>
+                <code-editor ref="codeEditor" :codeFontSize="fontSize" :theme="codeThemeMode"></code-editor>
+              </el-main>
+              <el-footer :height="footerH">
+                <el-container>
+                  <el-header class="logger-header" height="40px">
+                    <div style="float: left">
+                      <i
+                        class="el-icon-download"
                         v-show="showLoggers"
-                        type="primary"
-                        icon="el-icon-delete"
-                        @click="compileLoggers = []"
-                        style="float: right"
-                      ></el-button>
-                    </el-header>
-                    <el-main id="logger" class="logger-main" v-show="showLoggers" style="background-color: #1e1e1e">
-                      <el-card class="box-card"
-                               v-for="(logger, index) in compileLoggers" :key="index"
-                               style="background-color: #414141; border: #414141"
-                      >
-                        <div slot="header"
-                             :class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error'), 'normal':(logger.style == 'normal')}">
-                          {{logger.title}}
-                        </div>
-                        <div class="text item" style="color: white;">
-                          <h4>{{logger.subtitle}}</h4>
-                          <xmp><code>{{logger.description}}</code></xmp>
-                        </div>
-                      </el-card>
-                    </el-main>
-                  </el-container>
-                </el-footer>
-              </el-container>
-            </el-main>
-            <el-main slot="secondPane" :style="{backgroundColor : backgroundColor, overflowX: 'hidden'}">
+                        @click="showLoggers = false, footerH='40px'"
+                      ></i>
+                      <i
+                        class="el-icon-upload2"
+                        v-show="!showLoggers"
+                        @click="showLoggers = true, footerH='30%'"
+                      ></i>
+                    </div>
+                    <el-button
+                      v-show="showLoggers"
+                      type="primary"
+                      icon="el-icon-delete"
+                      @click="compileLoggers = []"
+                      style="float: right"
+                    ></el-button>
+                  </el-header>
+                  <el-main id="logger" class="logger-main" v-show="showLoggers" style="background-color: #1e1e1e">
+                    <el-card class="box-card"
+                             v-for="(logger, index) in compileLoggers" :key="index"
+                             style="background-color: #414141; border: #414141"
+                    >
+                      <div slot="header"
+                           :class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error'), 'normal':(logger.style == 'normal')}">
+                        {{logger.title}}
+                      </div>
+                      <div class="text item" style="color: white;">
+                        <h4>{{logger.subtitle}}</h4>
+                        <xmp><code>{{logger.description}}</code></xmp>
+                      </div>
+                    </el-card>
+                  </el-main>
+                </el-container>
+              </el-footer>
+            </el-container>
+          </template>
+          <template
+            slot="secondPane"
+            v-show="!showSettingsOnWindow"
+          >
+            <el-container
+              class="right"
+              :style="{backgroundColor : backgroundColor, overflowX: 'hidden'}">
               <contract-action
                 :menuLang="menuLang"
                 :files="compileNames"
@@ -238,118 +243,116 @@
                 @deployResult="deployResult"
                 @runResult="runResult"
               ></contract-action>
-            </el-main>
-          </rs-panes>
-          <!--setting menu main start-->
-          <el-main slot="secondPane" class="setting-window" v-show="settingSelect.setting.show">
-            <el-row :gutter="20" class="setting-about-card-row">
-              <el-form id="setting" ref="settingForm" :model="settingSelect.setting.data" label-width="100px"
-                       label-position="left">
-                <el-form-item :label="settingSelect.setting.data.lang.label">
-                  <el-select v-model="saveSetting.langMode">
-                    <el-option
-                      v-for="item in settingSelect.setting.data.lang.list"
-                      :key="item"
-                      :label="item"
-                      :value="item"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item :label="settingSelect.setting.data.theme.label">
-                  <el-select v-model="saveSetting.themeMode">
-                    <el-option
-                      v-for="item in settingSelect.setting.data.theme.list"
-                      :key="item"
-                      :label="item"
-                      :value="item"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item :label="settingSelect.setting.data.fontSize.label">
-                  <el-select v-model="saveSetting.fontSize">
-                    <el-option
-                      v-for="(val, key) in settingSelect.setting.data.fontSize.map"
-                      :key="key"
-                      :label="key"
-                      :value="val"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-form-item :label="settingSelect.setting.data.codeTheme.label">
-                  <el-select v-model="saveSetting.codeThemeMode">
-                    <el-option
-                      v-for="item in settingSelect.setting.data.codeTheme.list"
-                      :key="item"
-                      :label="item"
-                      :value="item"
-                    ></el-option>
-                  </el-select>
-                </el-form-item>
-                <el-row style="padding: 10px 20px 0 20px;">
-                  <el-button type="primary" icon="el-icon-back" @click="restoreSettings">Reset</el-button>
-                  <el-button type="primary" icon="el-icon-check" @click="saveSettings" style="float: right">Apply
-                  </el-button>
-                </el-row>
-              </el-form>
-            </el-row>
-          </el-main>
-          <el-main slot="secondPane" class="setting-window" v-show="settingSelect.about.show">
-            <div id="about-card">
-              <el-row :gutter="20" class="setting-about-card-row">
-                <el-card class="card-style">
-                  <div slot="header" class="card-header">
-                    <span>{{settingSelect.about.name}}</span>
-                    <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text"
-                               @click="showCode">{{settingSelect.about.back}}
-                    </el-button>
-                  </div>
-                  <div style="text-align: center">
-                    <div style="text-align: left">
-                      <el-col :span="10" style="width: 400px; height: 280px;">
-                        <div style="height: 30px"></div>
-                        <div key="1" class="about-item">
-                          <span class="el-icon-eleme"></span>{{' ' + settingSelect.about.data[0].name + ': ' +
-                          settingSelect.about.data[0].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="2" class="about-item">
-                          <span class="el-icon-s-order"></span>{{' ' + settingSelect.about.data[1].name + ': ' +
-                          settingSelect.about.data[1].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="3" class="about-item">
-                          <span class="el-icon-s-fold"></span>{{' ' + settingSelect.about.data[2].name + ': ' +
-                          settingSelect.about.data[2].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="4" class="about-item">
-                          <span class="el-icon-user-solid"></span>{{' ' + settingSelect.about.data[3].name + ': ' +
-                          settingSelect.about.data[3].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="5" class="about-item">
-                          <span class="el-icon-s-home"></span>{{' ' + settingSelect.about.data[4].name + ': '}}<a
-                          :href="settingSelect.about.data[4].content">{{settingSelect.about.data[4].content}}</a>
-                        </div>
-                      </el-col>
-                    </div>
-                    <el-col :span="10">
-                      <div>
-                        <img src="../../static/img/chain-ide-icon.png" class="card-img-class">
-                      </div>
-                    </el-col>
-                  </div>
-                </el-card>
-              </el-row>
-            </div>
-          </el-main>
-          <!--setting menu main end-->
+            </el-container>
+          </template>
         </rs-panes>
       </el-container>
-    </el-main>
-    <el-main v-show="!showRight" style="background-color: #333333">
+      <!--setting menu main start-->
+      <el-container class="setting-window" v-show="settingSelect.setting.show">
+        <el-row :gutter="20" class="setting-about-card-row">
+          <el-form id="setting" ref="settingForm" :model="settingSelect.setting.data" label-width="100px"
+                   label-position="left">
+            <el-form-item :label="settingSelect.setting.data.lang.label">
+              <el-select v-model="saveSetting.langMode">
+                <el-option
+                  v-for="item in settingSelect.setting.data.lang.list"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="settingSelect.setting.data.theme.label">
+              <el-select v-model="saveSetting.themeMode">
+                <el-option
+                  v-for="item in settingSelect.setting.data.theme.list"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="settingSelect.setting.data.fontSize.label">
+              <el-select v-model="saveSetting.fontSize">
+                <el-option
+                  v-for="(val, key) in settingSelect.setting.data.fontSize.map"
+                  :key="key"
+                  :label="key"
+                  :value="val"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="settingSelect.setting.data.codeTheme.label">
+              <el-select v-model="saveSetting.codeThemeMode">
+                <el-option
+                  v-for="item in settingSelect.setting.data.codeTheme.list"
+                  :key="item"
+                  :label="item"
+                  :value="item"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+            <el-row style="padding: 10px 20px 0 20px;">
+              <el-button type="primary" icon="el-icon-back" @click="restoreSettings">Reset</el-button>
+              <el-button type="primary" icon="el-icon-check" @click="saveSettings" style="float: right">Apply
+              </el-button>
+            </el-row>
+          </el-form>
+        </el-row>
+      </el-container>
+      <el-container class="setting-window" v-show="settingSelect.about.show">
+        <div id="about-card">
+          <el-row :gutter="20" class="setting-about-card-row">
+            <el-card class="card-style">
+              <div slot="header" class="card-header">
+                <span>{{settingSelect.about.name}}</span>
+                <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text"
+                           @click="showCode">{{settingSelect.about.back}}
+                </el-button>
+              </div>
+              <div style="text-align: center">
+                <div style="text-align: left">
+                  <el-col :span="10" style="width: 400px; height: 280px;">
+                    <div style="height: 30px"></div>
+                    <div key="1" class="about-item">
+                      <span class="el-icon-eleme"></span>{{' ' + settingSelect.about.data[0].name + ': ' +
+                      settingSelect.about.data[0].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="2" class="about-item">
+                      <span class="el-icon-s-order"></span>{{' ' + settingSelect.about.data[1].name + ': ' +
+                      settingSelect.about.data[1].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="3" class="about-item">
+                      <span class="el-icon-s-fold"></span>{{' ' + settingSelect.about.data[2].name + ': ' +
+                      settingSelect.about.data[2].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="4" class="about-item">
+                      <span class="el-icon-user-solid"></span>{{' ' + settingSelect.about.data[3].name + ': ' +
+                      settingSelect.about.data[3].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="5" class="about-item">
+                      <span class="el-icon-s-home"></span>{{' ' + settingSelect.about.data[4].name + ': '}}<a
+                      :href="settingSelect.about.data[4].content">{{settingSelect.about.data[4].content}}</a>
+                    </div>
+                  </el-col>
+                </div>
+                <el-col :span="10">
+                  <div>
+                    <img src="../../static/img/chain-ide-icon.png" class="card-img-class">
+                  </div>
+                </el-col>
+              </div>
+            </el-card>
+          </el-row>
+        </div>
+      </el-container>
+      <!--setting menu main end-->
       <!--homepage resource start-->
-      <el-container>
+      <el-container v-show="showHomepageResource">
         <el-row :gutter="20" class="homepage-resource">
           <el-carousel class="carousel-style" indicator-position="outside">
             <el-carousel-item v-for="(item, index) in menuLang.resource.data" :key="index">
@@ -367,10 +370,9 @@
         </el-row>
       </el-container>
       <!--homepage resource end-->
-    </el-main>
-  </el-container>
+    </el-container>
+  </rs-panes>
 </template>
-
 
 <script>
   import ResSplitPane from 'vue-resize-split-pane'
@@ -388,7 +390,7 @@
   const suffix = ".js";
 
   export default {
-    name: "Test",
+    name: "EditorIndex",
     data() {
       return {
         leftAside: true,
@@ -402,7 +404,9 @@
         caseTemplate: caseTemplate(),
         compileNames: [],
         showSettingsOnWindow: false,
-        showRight: true,
+        showMenu: true,
+        showCodeArea: true,
+        showHomepageResource: false,
         langMode: "简体中文",
         themeMode: "Dark",
         codeThemeMode: "vs-dark",
@@ -699,19 +703,27 @@
         }
       },
       showCode() {
-        this.showRight = true
+        this.showHomepageResource = false
+        this.showMenu = true
+        this.showCodeArea = true
         this.openOption({index: "index"})
         this.showSettingsOnWindow = false
       },
       showSettings() {
-        this.showRight = true
+        this.showHomepageResource = false
+        this.showMenu = false
+        this.showCodeArea = false
         this.showSettingsOnWindow = true
         this.openOption({
           index: this.langMode == "简体中文" ? "设置" : "Settings"
         })
       },
       showResource() {
-        this.showRight = false
+        this.showCode()
+        this.showMenu = false
+        this.showSettingsOnWindow = false
+        this.showCodeArea = false
+        this.showHomepageResource = true
       },
       openOption(index) {
         for (let key in this.settingSelect) {
@@ -904,7 +916,6 @@
   .homepage-resource {
     display: flex;
     align-items: center;
-    width: 100%;
   }
 
   .card-img-class {
@@ -1087,4 +1098,3 @@
   }
 
 </style>
-
