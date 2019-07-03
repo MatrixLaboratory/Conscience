@@ -67,7 +67,7 @@ export function settingLang(lang) {
             list: ['简体中文', 'English']
           },
           theme: {
-            label: 'theme UI',
+            label: 'Theme UI',
             list: ['Dark', 'Blue']
           },
           fontSize: {
