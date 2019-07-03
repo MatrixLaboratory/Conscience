@@ -175,7 +175,7 @@ export function menuLang(lang) {
       files: 'files',
       topPlaceholder: 'add file',
       resource: {
-        name: 'Resource',
+        name: 'resource',
         show: false,
         data: [
           {
