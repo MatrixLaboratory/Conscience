@@ -24,7 +24,7 @@
         </el-tooltip>
         <el-tooltip class="item" effect="light" :content="menuLang.resource.name" placement="right">
           <el-menu-item index="4" class="icon-hover" @click="showResource">
-            <i class="el-icon-coin"></i>
+            <i class="el-icon-s-opportunity"></i>
           </el-menu-item>
         </el-tooltip>
       </el-menu>
