@@ -26,33 +26,6 @@ export function settingLang(lang) {
           list: ['vs', 'vs-dark', 'hc-black']
         }
       }
-    },
-    about: {
-      name: '关于',
-      show: false,
-      back: '返回',
-      data: [
-        {
-          name: '名称',
-          content: 'Chain IDE'
-        },
-        {
-          name: '描述',
-          content: '跨平台的智能合约 IDE'
-        },
-        {
-          name: '版本',
-          content: '1.0.0'
-        },
-        {
-          name: '作者',
-          content: 'WhiteMatrix'
-        },
-        {
-          name: '联系方式',
-          content: 'http://matrixdapp.com'
-        }
-      ]
     }
   }
 
@@ -84,33 +57,6 @@ export function settingLang(lang) {
             list: ['vs', 'vs-dark', 'hc-black']
           }
         }
-      },
-      about: {
-        name: 'About',
-        show: false,
-        back: 'back',
-        data: [
-          {
-            name: 'name',
-            content: 'Chain IDE'
-          },
-          {
-            name: 'description',
-            content: 'Cross-platform smart contract IDE'
-          },
-          {
-            name: 'version',
-            content: '1.0.0'
-          },
-          {
-            name: 'author',
-            content: 'WhiteMatrix'
-          },
-          {
-            name: 'concat',
-            content: 'http://matrixdapp.com'
-          }
-        ]
       }
     }
   }
@@ -140,6 +86,33 @@ export function menuLang(lang) {
           url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
           img: '../../static/img/iWallet.png',
           button: '点击下载'
+        }
+      ]
+    },
+    about: {
+      name: '关于',
+      show: false,
+      back: '返回',
+      data: [
+        {
+          name: '名称',
+          content: 'Chain IDE'
+        },
+        {
+          name: '描述',
+          content: '跨平台的智能合约 IDE'
+        },
+        {
+          name: '版本',
+          content: '1.0.0'
+        },
+        {
+          name: '作者',
+          content: 'WhiteMatrix'
+        },
+        {
+          name: '联系方式',
+          content: 'http://matrixdapp.com'
         }
       ]
     },
@@ -189,6 +162,33 @@ export function menuLang(lang) {
             url: 'https://chrome.google.com/webstore/detail/iwallet/kncchdigobghenbbaddojjnnaogfppfj',
             img: '../../static/img/iWallet.png',
             button: 'click to download'
+          }
+        ]
+      },
+      about: {
+        name: 'About',
+        show: false,
+        back: 'back',
+        data: [
+          {
+            name: 'name',
+            content: 'Chain IDE'
+          },
+          {
+            name: 'description',
+            content: 'Cross-platform smart contract IDE'
+          },
+          {
+            name: 'version',
+            content: '1.0.0'
+          },
+          {
+            name: 'author',
+            content: 'WhiteMatrix'
+          },
+          {
+            name: 'concat',
+            content: 'http://matrixdapp.com'
           }
         ]
       },

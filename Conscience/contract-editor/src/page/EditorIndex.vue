@@ -27,6 +27,11 @@
             <i class="el-icon-coin"></i>
           </el-menu-item>
         </el-tooltip>
+        <el-tooltip class="item" effect="light" :content="menuLang.about.name" placement="right">
+          <el-menu-item index="5" class="icon-hover" @click="showAbout">
+            <i class="el-icon-house"></i>
+          </el-menu-item>
+        </el-tooltip>
       </el-menu>
     </el-aside>
     <el-main v-show="showRight">
@@ -293,63 +298,13 @@
               </el-form>
             </el-row>
           </el-main>
-          <el-main slot="secondPane" class="setting-window" v-show="settingSelect.about.show">
-            <div id="about-card">
-              <el-row :gutter="20" class="setting-about-card-row">
-                <el-card class="card-style">
-                  <div slot="header" class="card-header">
-                    <span>{{settingSelect.about.name}}</span>
-                    <el-button style="float: right; width: 40px; font-size: 20px; color: white" type="text"
-                               @click="showCode">{{settingSelect.about.back}}
-                    </el-button>
-                  </div>
-                  <div style="text-align: center">
-                    <div style="text-align: left">
-                      <el-col :span="10" style="width: 400px; height: 280px;">
-                        <div style="height: 30px"></div>
-                        <div key="1" class="about-item">
-                          <span class="el-icon-eleme"></span>{{' ' + settingSelect.about.data[0].name + ': ' +
-                          settingSelect.about.data[0].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="2" class="about-item">
-                          <span class="el-icon-s-order"></span>{{' ' + settingSelect.about.data[1].name + ': ' +
-                          settingSelect.about.data[1].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="3" class="about-item">
-                          <span class="el-icon-s-fold"></span>{{' ' + settingSelect.about.data[2].name + ': ' +
-                          settingSelect.about.data[2].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="4" class="about-item">
-                          <span class="el-icon-user-solid"></span>{{' ' + settingSelect.about.data[3].name + ': ' +
-                          settingSelect.about.data[3].content}}
-                        </div>
-                        <div style="height: 30px"></div>
-                        <div key="5" class="about-item">
-                          <span class="el-icon-s-home"></span>{{' ' + settingSelect.about.data[4].name + ': '}}<a
-                          :href="settingSelect.about.data[4].content">{{settingSelect.about.data[4].content}}</a>
-                        </div>
-                      </el-col>
-                    </div>
-                    <el-col :span="10">
-                      <div>
-                        <img src="../../static/img/chain-ide-icon.png" class="card-img-class">
-                      </div>
-                    </el-col>
-                  </div>
-                </el-card>
-              </el-row>
-            </div>
-          </el-main>
           <!--setting menu main end-->
         </rs-panes>
       </el-container>
     </el-main>
     <el-main v-show="!showRight" style="background-color: #333333">
       <!--homepage resource start-->
-      <el-container>
+      <el-container v-show="menuLang.resource.show">
         <el-row :gutter="20" class="homepage-resource">
           <el-carousel class="carousel-style" indicator-position="outside">
             <el-carousel-item v-for="(item, index) in menuLang.resource.data" :key="index">
@@ -367,6 +322,54 @@
         </el-row>
       </el-container>
       <!--homepage resource end-->
+      <el-container v-show="menuLang.about.show">
+        <div id="about-card">
+          <el-row :gutter="20">
+            <el-card class="card-style">
+              <div slot="header" class="card-header">
+                <span>{{menuLang.about.name}}</span>
+              </div>
+              <div style="text-align: center">
+                <div style="text-align: left">
+                  <el-col :span="10" style="width: 400px; height: 280px;">
+                    <div style="height: 30px"></div>
+                    <div key="1" class="about-item">
+                      <span class="el-icon-eleme"></span>{{' ' + menuLang.about.data[0].name + ': ' +
+                      menuLang.about.data[0].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="2" class="about-item">
+                      <span class="el-icon-s-order"></span>{{' ' + menuLang.about.data[1].name + ': ' +
+                      menuLang.about.data[1].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="3" class="about-item">
+                      <span class="el-icon-s-fold"></span>{{' ' + menuLang.about.data[2].name + ': ' +
+                      menuLang.about.data[2].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="4" class="about-item">
+                      <span class="el-icon-user-solid"></span>{{' ' + menuLang.about.data[3].name + ': ' +
+                      menuLang.about.data[3].content}}
+                    </div>
+                    <div style="height: 30px"></div>
+                    <div key="5" class="about-item">
+                      <span class="el-icon-s-home"></span>{{' ' + menuLang.about.data[4].name + ': '}}<a
+                      :href="menuLang.about.data[4].content">{{menuLang.about.data[4].content}}</a>
+                    </div>
+                  </el-col>
+                </div>
+                <el-col :span="10">
+                  <div>
+                    <img src="../../static/img/chain-ide-icon.png" class="card-img-class">
+                  </div>
+                </el-col>
+              </div>
+            </el-card>
+          </el-row>
+        </div>
+      </el-container>
+
     </el-main>
   </el-container>
 </template>
@@ -712,6 +715,13 @@
       },
       showResource() {
         this.showRight = false
+        this.menuLang.about.show = false
+        this.menuLang.resource.show = true
+      },
+      showAbout() {
+        this.showRight = false
+        this.menuLang.resource.show = false
+        this.menuLang.about.show = true
       },
       openOption(index) {
         for (let key in this.settingSelect) {
@@ -892,7 +902,10 @@
   }
 
   #about-card {
-    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .setting-about-card-row {
