@@ -19,7 +19,9 @@
     "monaco-editor": "^0.16.2",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "vue": "^2.5.2",
+    "vue-material": "^1.0.0-beta-11",
     "vue-monaco": "^0.3.1",
+    "vue-resize-split-pane": "^0.1.5",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
