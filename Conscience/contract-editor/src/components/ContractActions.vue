@@ -177,7 +177,7 @@ export default {
   data() {
     return {
       dialogFormVisible: false,
-      currentTransactionEvent: null, 
+      currentTransactionEvent: null,
       gasData: {
         ratio: 1,
         limit: 4000000,
@@ -471,7 +471,7 @@ export default {
 
         let contractAddress = 'Contract' + this.currentTrx
         const tx = iost.callABI(contractAddress, methodArr[1], value)
-
+        this.argList = []
         this.currentTransactionEvent = {
           evetType: 'run',
           transaction: tx
