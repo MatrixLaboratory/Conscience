@@ -177,7 +177,8 @@
               </el-menu>
               <!--setting menu aside end-->
             </el-main>
-            <rs-panes v-show="!showSettingsOnWindow" :size="380" :min-size="380" :allow-resize="true" split-to="columns" slot="secondPane"
+            <rs-panes v-show="!showSettingsOnWindow" :size="380" :min-size="380" :allow-resize="true" split-to="columns"
+                      slot="secondPane"
                       primary="second"
                       :resizerThickness=0>
               <el-main slot="firstPane">
@@ -446,16 +447,6 @@
         },
         deep: true
       },
-      langMode: {
-        handler: function (newValue) {
-          this.settingSelect = settingLang(newValue);
-          this.openOption({
-            index: newValue == "简体中文" ? "设置" : "Settings"
-          });
-          this.settingTitle = newValue == "简体中文" ? "通用" : "Commons";
-          this.menuLang = menuLang(newValue);
-        }
-      },
       themeMode: {
         handler: function (color) {
           if (color == "Dark") {
@@ -488,6 +479,14 @@
       let defaultFile = this.files[0];
       localStorage.setItem(this.files[0], defaultCode());
       this.editorFileChange(defaultFile);
+      let settingData = this.$route.query
+      if (settingData.lang !== undefined && settingData.lang === 'en') {
+        this.langMode = 'English'
+        this.settingSelect = settingLang(this.langMode)
+        this.settingTitle = "Commons"
+        this.menuLang = menuLang(this.langMode)
+        this.saveSetting.langMode = 'English'
+      }
     },
     methods: {
       compileResult: function (file, result) {
@@ -718,9 +717,12 @@
       showSettings() {
         this.showRight = true
         this.showSettingsOnWindow = true
-        this.openOption({
-          index: this.langMode == "简体中文" ? "设置" : "Settings"
-        })
+        if (this.settingSelect.setting.name === 'Settings') {
+          this.openOption({index: 'Settings'})
+        }
+        if (this.settingSelect.setting.name === '设置') {
+          this.openOption({index: '设置'})
+        }
       },
       showResource() {
         this.showRight = false
@@ -775,6 +777,12 @@
         if (this.saveSetting.codeThemeMode !== '' && this.saveSetting.codeThemeMode !== null) {
           this.codeThemeMode = this.saveSetting.codeThemeMode;
         }
+        this.settingSelect = settingLang(this.langMode)
+        this.openOption({
+          index: this.langMode == "简体中文" ? "设置" : "Settings"
+        })
+        this.settingTitle = this.langMode == "简体中文" ? "通用" : "Commons";
+        this.menuLang = menuLang(this.langMode)
       },
       openTab(url) {
         window.open(url)
