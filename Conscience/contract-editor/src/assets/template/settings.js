@@ -136,6 +136,15 @@ export function menuLang(lang) {
       topTitle: '运行',
       placeholder: '请选择要执行的方法',
       button: '运行'
+    },
+    query: {
+      topTitle: '查询',
+      placeholder: '请输入合约地址',
+      button: '查询'
+    },
+    confirmDialog: {
+      confirm: '确 定',
+      cancel: '取 消'
     }
   }
   if (lang === 'English') {
@@ -212,6 +221,15 @@ export function menuLang(lang) {
         topTitle: 'Run',
         placeholder: 'select the method to execute',
         button: 'Run'
+      },
+      query: {
+        topTitle: 'query',
+        placeholder: 'please enter the correct contract address',
+        button: 'query'
+      },
+      confirmDialog: {
+        confirm: 'confirm',
+        cancel: 'cancel'
       }
     }
   }
@@ -308,6 +326,37 @@ export function compileNotifyLang(lang) {
       compileFailed: {
         title: 'compile failed',
         message: 'compile success！'
+      }
+    }
+  }
+  return notifyLang
+}
+
+export function queryNotifyLang(lang) {
+  let notifyLang = {
+    title: '操作失败',
+    message: '请输入正确的合约地址',
+    querySuccess: {
+      title: '查询成功',
+      message: '查询合约信息成功'
+    },
+    queryFailed: {
+      title: '查询失败',
+      message: '查询合约信息失败'
+    }
+  }
+
+  if (lang === 'English') {
+    notifyLang = {
+      title: 'operation failed',
+      message: 'please enter the correct contract address',
+      querySuccess: {
+        title: 'search successful',
+        message: 'successfully querying contract information'
+      },
+      queryFailed: {
+        title: 'query failed',
+        message: 'failed to query contract information'
       }
     }
   }

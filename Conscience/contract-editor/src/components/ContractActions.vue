@@ -52,14 +52,26 @@
           </el-col>
         </el-row>
       </div>
+      <div style="margin-top: 20px; margin-left: 50px;">
+        <el-row :gutter="10">
+          <el-col :span="16">
+            <div class="grid-content bg-purple">
+              <el-input v-model="txAddress" prefix-icon="el-icon-edit" :placeholder="menuLang.query.placeholder"></el-input>
+            </div>
+          </el-col>
+          <el-col :span="4">
+            <div class="grid-content bg-purple">
+              <el-button type="primary" @click="queryContractInfo">{{menuLang.query.button}}</el-button>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
 
       <div v-show="treeData.length != 0">
         <el-divider></el-divider>
       </div>
 
-
       <!--渲染ABI列表-->
-
       <el-tree v-show="treeData.length != 0" :style="{backgroundColor : backgroundColor, fontSize : fontSize, color : 'white'}"
                node-key="id" default-expand-all :data="treeData"></el-tree>
     </div>
@@ -98,8 +110,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleTranscationEvent">确 定</el-button>
+        <el-button @click="dialogFormVisible = false">{{menuLang.confirmDialog.cancel}}</el-button>
+        <el-button type="primary" @click="handleTranscationEvent">{{menuLang.confirmDialog.confirm}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -170,7 +182,12 @@ import {
   runIostContract,
   generateIostContractHierachy
 } from "../../static/js/ContractCompile";
-import {compileNotifyLang, exceptionMessageLang} from "../assets/template/settings";
+import {
+  compileNotifyLang,
+  exceptionMessageLang,
+  queryNotifyLang
+} from "../assets/template/settings";
+import axios from 'axios'
 
 export default {
   name: "ContractActions",
@@ -198,7 +215,8 @@ export default {
       labelPosition: 'left',
       showRunArea: false,
       currentTrx: null,
-      result: ''
+      result: '',
+      txAddress: ''
     };
   },
   props: {
@@ -478,6 +496,47 @@ export default {
         }
         //trigger the modal
         this.dialogFormVisible = true
+      })
+    },
+    queryContractInfo() {
+      let data = queryNotifyLang(this.langMode);
+      if (this.txAddress.length < 0) {
+        this.$notify.error({
+          title: data.title,
+          message: data.message,
+          duration: 1000
+        })
+        return
+      }
+      this.currentTrx = this.txAddress
+      let apiKey = 'd8b1df24ce7bde79d32bf6fea313863c'
+      let url = 'https://api.iostabc.com/api/?apikey='
+                + apiKey + '&module=contract&action=get-contract-abi&contract=Contract'
+                + this.txAddress
+      let _this = this
+      axios.get(url).then(response => {
+        console.log(response)
+        let abis = response.data.data.abis
+        if (abis.length > 0) {
+          _this.showRunArea = true
+          _this.treeData = []
+          let index = 0
+          _this.treeData[index] = generateIostContractHierachy(index, _this.txAddress, abis)
+          _this.runMethodList = _this.treeData[0].children
+          console.log(_this.runMethodList)
+          console.log(_this.treeData)
+          _this.$notify.success({
+            title: data.querySuccess.title,
+            message: data.querySuccess.message,
+            duration: 1000
+          });
+        } else {
+          this.$notify.error({
+            title: data.queryFailed.title,
+            message: data.queryFailed.message,
+            duration: 1000
+          })
+        }
       })
     }
   }
