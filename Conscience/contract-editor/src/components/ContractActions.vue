@@ -508,11 +508,16 @@ export default {
         })
         return
       }
-      this.currentTrx = this.txAddress
       let apiKey = 'd8b1df24ce7bde79d32bf6fea313863c'
       let url = 'https://api.iostabc.com/api/?apikey='
                 + apiKey + '&module=contract&action=get-contract-abi&contract=Contract'
                 + this.txAddress
+      if (this.txAddress.indexOf('Contract') === 0) {
+        url = 'https://api.iostabc.com/api/?apikey='
+          + apiKey + '&module=contract&action=get-contract-abi&contract='
+          + this.txAddress
+      }
+      this.currentTrx = this.txAddress;
       let _this = this
       axios.get(url).then(response => {
         console.log(response)
