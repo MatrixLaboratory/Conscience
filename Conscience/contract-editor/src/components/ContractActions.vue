@@ -324,10 +324,6 @@ export default {
     },
     handleTranscationEvent() {
       this.dialogFormVisible = false
-      console.log(this.gasData.ratio)
-      console.log(this.gasData.limit
-      )
-      console.log('currentTransactionEvent:', this.currentTransactionEvent)
       switch(this.currentTransactionEvent.evetType) {
         case 'deploy':
           this.doDeployContract(this.currentTransactionEvent.transaction)
@@ -520,7 +516,6 @@ export default {
       this.currentTrx = this.txAddress;
       let _this = this
       axios.get(url).then(response => {
-        console.log(response)
         let abis = response.data.data.abis
         if (abis.length > 0) {
           _this.showRunArea = true
@@ -528,8 +523,6 @@ export default {
           let index = 0
           _this.treeData[index] = generateIostContractHierachy(index, _this.txAddress, abis)
           _this.runMethodList = _this.treeData[0].children
-          console.log(_this.runMethodList)
-          console.log(_this.treeData)
           _this.$notify.success({
             title: data.querySuccess.title,
             message: data.querySuccess.message,
