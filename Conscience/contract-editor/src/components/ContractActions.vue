@@ -211,7 +211,7 @@ export default {
       abiFilename: '',
       runMethodList: [],
       runIndex: null,
-      argList: {},
+      argList: [],
       labelPosition: 'left',
       showRunArea: false,
       currentTrx: null,
@@ -484,16 +484,8 @@ export default {
         }
 
         let contractAddress = 'Contract' + this.currentTrx
-        if (JSON.stringify(value) !== '{}') {
-          for (let key in value) {
-            let v = parseInt(value[key]);
-            if (!isNaN(v)) {
-              value[key] = v
-            }
-          }
-        }
         const tx = iost.callABI(contractAddress, methodArr[1], value)
-        this.argList = {}
+        this.argList = []
         this.currentTransactionEvent = {
           evetType: 'run',
           transaction: tx
