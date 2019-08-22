@@ -400,10 +400,11 @@ export default {
           trx: trxStr
         })
       }).on('success', (result) => {
-        console.log('result:', result)
+        console.log('run-success-result: ', result)
         this.$emit('runResult', {
           status: 'success',
-          trx: trxStr
+          trx: trxStr,
+          returns: result.returns
         })
       }).on('failed', (failed) => {
         console.error('failed to run IOST contract:', failed)
@@ -439,17 +440,13 @@ export default {
           trx: trxStr
         })
       }).on('success', (result) => {
-        console.log('result:', result)
+        console.log('deploy-success-result: ', result)
         this.treeData = []
         this.showRunArea = true
         this.currentTrx = trxStr
         let index = 0
         let abi = localStorage.getItem(this.abiFilename)
-        console.log('deploy-abi-type: ', typeof abi)
-        console.log('initial-abi: ', abi)
         abi = JSON.parse(abi)
-        console.log('deploy-abi-type-convert: ', typeof abi)
-        console.log('convert-abi: ', abi)
         let treeData = generateIostContractHierachy(index, this.compileFile, abi)
         this.treeData[index] = treeData
         this.runMethodList = this.treeData[index].children

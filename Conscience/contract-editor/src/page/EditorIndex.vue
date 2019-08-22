@@ -233,6 +233,7 @@
                           <div class="text item" style="color: white;">
                             <h4>{{logger.subtitle}}</h4>
                             <xmp><code>{{logger.description}}</code></xmp>
+                            <xmp v-show="logger.returns !== ''"><code>method-return: {{logger.returns}}</code></xmp>
                           </div>
                         </el-card>
                       </el-main>
@@ -559,7 +560,8 @@
           this.compileLoggers.push({
             title: `[${runResult.trx}]: Method run succeeded`,
             description: runResult.trx + ': method run succeeded!',
-            style: "success"
+            style: "success",
+            returns: runResult.returns
           })
         }
         if (runResult.status === 'failed') {
