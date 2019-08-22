@@ -565,7 +565,7 @@
         if (runResult.status === 'failed') {
           this.compileLoggers.push({
             title: `[${runResult.trx}]: Method run failed`,
-            description: runResult.trx + ': method run failed!',
+            description: runResult.trx + ': method run failed! \n' + runResult.message,
             style: "error"
           })
         }

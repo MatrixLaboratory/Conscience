@@ -440,8 +440,19 @@ export default {
         })
       }).on('success', (result) => {
         console.log('result:', result)
+        this.treeData = []
         this.showRunArea = true
         this.currentTrx = trxStr
+        let index = 0
+        let abi = localStorage.getItem(this.abiFilename)
+        console.log('deploy-abi-type: ', typeof abi)
+        console.log('initial-abi: ', abi)
+        abi = JSON.parse(abi)
+        console.log('deploy-abi-type-convert: ', typeof abi)
+        console.log('convert-abi: ', abi)
+        let treeData = generateIostContractHierachy(index, this.compileFile, abi)
+        this.treeData[index] = treeData
+        this.runMethodList = this.treeData[index].children
         this.$emit('deployResult', {
           status: 'success',
           trx: trxStr
@@ -484,7 +495,15 @@ export default {
         }
 
         let contractAddress = 'Contract' + this.currentTrx
-        const tx = iost.callABI(contractAddress, methodArr[1], value)
+        if (value.length > 0) {
+          for (let i = 0; i < value.length; i++) {
+            let v = parseInt(value[i])
+            if (!isNaN(v)) {
+              value[i] = v
+            }
+          }
+        }
+        const tx = iost.callABI(contractAddress, methodArr[1], value);
         this.argList = []
         this.currentTransactionEvent = {
           evetType: 'run',

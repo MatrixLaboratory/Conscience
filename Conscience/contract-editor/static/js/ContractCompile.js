@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 
-const isProduction = process.env.NODE_ENV === 'production'	
+const isProduction = process.env.NODE_ENV === 'production'
 const endPoint = isProduction ? 'https://puzzle-lt.com:9700' : '/api'
 
 const AXIOS_CONFIG = {
@@ -30,9 +30,9 @@ export async function compileIostContract(code, fileName = 'test.js') {
   }
   try {
     console.log(JSON.stringify(input))
-    const response = await axios.post(endPoint + '/iost/compile', {	
+    const response = await axios.post(endPoint + '/iost/compile', {
       input: JSON.stringify(input)
-    }, 
+    },
     AXIOS_CONFIG)
     return response.data;
   } catch (error) {
@@ -62,7 +62,7 @@ export async function compileSolContract(code, fileName = 'test.sol') {
   };
   const response = await axios.post(endPoint + '/solidity/compile', {
     input: JSON.stringify(input)
-  }, 
+  },
   AXIOS_CONFIG);
   return response.data;
 }
