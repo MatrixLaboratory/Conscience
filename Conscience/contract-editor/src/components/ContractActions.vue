@@ -493,10 +493,10 @@ export default {
 
         let contractAddress = 'Contract' + this.currentTrx
         if (value.length > 0) {
-          for (let i = 0; i < value.length; i++) {
-            let v = parseInt(value[i])
-            if (!isNaN(v)) {
-              value[i] = v
+          let argTypeList = this.runMethodList[this.runIndex].args
+          for (let i = 0; i < argTypeList.length; i++) {
+            if (argTypeList[i] === 'number') {
+              value[i] = parseInt(value[i])
             }
           }
         }

@@ -233,7 +233,7 @@
                           <div class="text item" style="color: white;">
                             <h4>{{logger.subtitle}}</h4>
                             <xmp><code>{{logger.description}}</code></xmp>
-                            <xmp v-show="logger.returns !== ''"><code>method-return: {{logger.returns}}</code></xmp>
+                            <xmp v-show="logger.returns !== '' && logger.returns !== undefined"><code>method-return: {{logger.returns}}</code></xmp>
                           </div>
                         </el-card>
                       </el-main>
@@ -549,6 +549,7 @@
         }
       },
       runResult(runResult) {
+        console.log('run-returns: ', runResult.returns)
         if (runResult.status === 'pending') {
           this.compileLoggers.push({
             title: `[${runResult.trx}]: in Execution`,
