@@ -210,7 +210,7 @@
                           <i
                             class="el-icon-upload2"
                             v-show="!showLoggers"
-                            @click="showLoggers = true, footerH='30%'"
+                            @click="showLoggers = true, footerH='40%'"
                           ></i>
                         </div>
                         <el-button
