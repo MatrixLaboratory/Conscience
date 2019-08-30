@@ -464,13 +464,14 @@ export default {
       })
     },
     runIostContract(method, value) {
-
+        // console.log("test")
+      // console.log(method)
       this.initIost()
       if (iost == null) {
         return
       }
-      let methodArr = method.split(' ')
-
+      let methodArr = method.split(': ')
+        // console.log(methodArr)
       window.IWalletJS.enable().then((account) => {
 
         if (!account) {
