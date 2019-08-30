@@ -210,7 +210,7 @@
                           <i
                             class="el-icon-upload2"
                             v-show="!showLoggers"
-                            @click="showLoggers = true, footerH='30%'"
+                            @click="showLoggers = true, footerH='40%'"
                           ></i>
                         </div>
                         <el-button
@@ -224,7 +224,6 @@
                       <el-main id="logger" class="logger-main" v-show="showLoggers" style="background-color: #1e1e1e">
                         <el-card class="box-card"
                                  v-for="(logger, index) in compileLoggers" :key="index"
-                                 style="background-color: #414141; border: #414141"
                         >
                           <div slot="header"
                                :class="{'clearfix':true, 'success':(logger.style == 'success'), 'error':(logger.style == 'error'), 'normal':(logger.style == 'normal')}">
@@ -232,8 +231,13 @@
                           </div>
                           <div class="text item" style="color: white;">
                             <h4>{{logger.subtitle}}</h4>
-                            <xmp><code>{{logger.description}}</code></xmp>
+                            <xmp>
+                              <code>{{logger.description}}</code>
+                            </xmp>
                             <xmp v-show="logger.returns !== '' && logger.returns !== undefined"><code>method-return: {{logger.returns}}</code></xmp>
+                          </div>
+                          <div class="link" style="backgrond-color: white;">
+                            <img src="https://picsum.photos/50/50"/><span>Please go to <a href="https://dapp.review/">https://dapp.review/</a> to view the trasaction</span>
                           </div>
                         </el-card>
                       </el-main>
@@ -1012,6 +1016,10 @@
 
 <style>
 
+  .box-card > .el-card__header {
+    background-color: #414141
+  }
+
   .success {
     color: #67c23a;
   }
@@ -1025,12 +1033,27 @@
   }
 
   .el-card__body {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
   }
 
   .text {
     font-size: 14px;
+  }
+
+  .link {
+    padding: 10px;
+    color: whitesmoke;
+    background-color:#414141;
+  }
+
+  .link > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
+
+  .link > span {
+    margin-left: 10px;
   }
 
   .about-item {
@@ -1040,6 +1063,8 @@
   }
 
   .item {
+    padding-left: 20px;
+    padding-right: 20px;
     margin-bottom: 5px;
   }
 
@@ -1056,6 +1081,8 @@
   .box-card {
     width: 100%;
     margin-bottom: 10px;
+    background-color: #525252; 
+    border: #525252;
   }
 
   xmp {
