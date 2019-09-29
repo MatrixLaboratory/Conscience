@@ -263,7 +263,7 @@
                             </xmp>
                           </div>
                           <div
-                            v-if="logger.action == 'deploy' && logger.style == 'success'"
+                            v-if="logger.action == 'compile' && logger.style == 'success'"
                             class="link"
                           >
                             <img src="../assets/dappreview2.png" />
@@ -1115,6 +1115,9 @@ export default {
   padding: 10px;
   color: whitesmoke;
   background-color: #414141;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link > img {
