@@ -263,7 +263,7 @@
                             </xmp>
                           </div>
                           <div
-                            v-if="logger.action == 'compile' && logger.style == 'success'"
+                            v-if="logger.action == 'deploy' && logger.style == 'success'"
                             class="link"
                           >
                             <img src="../assets/dappreview2.png" />
