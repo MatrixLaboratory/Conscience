@@ -236,8 +236,8 @@
                             </xmp>
                             <xmp v-show="logger.returns !== '' && logger.returns !== undefined"><code>method-return: {{logger.returns}}</code></xmp>
                           </div>
-                          <div class="link" style="backgrond-color: white;">
-                            <img src="https://picsum.photos/50/50"/><span>Please go to <a href="https://dapp.review/">https://dapp.review/</a> to view the trasaction</span>
+                          <div class="link" style="backgrond-color: white;visibility: hidden;">
+                            <img src="../assets/dappreview2.png"/><span>Submit dapps to <a href="https://dapp.review/">https://dapp.review/</a> to track all trasactions today!</span>
                           </div>
                         </el-card>
                       </el-main>
