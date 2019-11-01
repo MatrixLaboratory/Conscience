@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // const isProduction = process.env.NODE_ENV === 'production'
 // const endPoint = isProduction ? 'https://puzzle-lt.com:9700' : '/api'
-const endPoint = 'http://39.106.70.122:9600'
+const endPoint = 'https://iostide.com/api'
 
 const AXIOS_CONFIG = {
   headers: {
