@@ -12,7 +12,7 @@
     "serve": "http-server ./dist -p 9300"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "element-ui": "^2.8.2",
     "http-server": "^0.11.1",
     "iost": "^0.1.11",
