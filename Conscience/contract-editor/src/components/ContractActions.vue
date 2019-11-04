@@ -289,9 +289,15 @@ export default {
             duration: 1000
           });
           this.$emit("compileResult", this.compileFile, result);
+          let compiledIndex = -1;
           for (let index in this.compiledContracts) {
             if (this.compileFile == this.compiledContracts[index].name) {
-              return
+              this.compiledContracts[index] = {
+                name: this.compileFile,
+                contractCode: code,
+                contractAbi: JSON.stringify(result)
+              }
+              return;
             }
           }
           this.compiledContracts.push({
@@ -309,6 +315,7 @@ export default {
       str = str.replace(/\ +/g,"");
       let combine = '{\"lang\":\"'+this.result.lang+'\",\"version\":\"'+this.result.version+'\",\"abi\":['+str.trim()+"]}";
       this.deployIostContract(this.compiledContracts[this.deployIndex], combine);
+      console.log(this.compiledContracts[this.deployIndex]);
     },
     run: function() {
       this.runIostContract(this.runMethodList[this.runIndex].label, this.argList);
