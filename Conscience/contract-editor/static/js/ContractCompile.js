@@ -1,70 +1,76 @@
 "use strict";
 
-import axios from 'axios'
+import axios from "axios";
 
 // const isProduction = process.env.NODE_ENV === 'production'
 // const endPoint = isProduction ? 'https://puzzle-lt.com:9700' : '/api'
-const endPoint = 'https://iostide.com/api'
+const endPoint = "https://iost.chainide.com:2096";
 
 const AXIOS_CONFIG = {
   headers: {
-      'Content-Type': 'application/json;charset=UTF-8',
-      "Access-Control-Allow-Origin": "*",
-  }
-}
+    "Content-Type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*",
+  },
+};
 
-export async function compileIostContract(code, fileName = 'test.js') {
-  let source = {}
+export async function compileIostContract(code, fileName = "test.js") {
+  let source = {};
   source[fileName] = {
-    content: code
+    content: code,
   };
   let input = {
-    language: 'JavaScript',
+    language: "JavaScript",
     sources: source,
     settings: {
       outputSelection: {
-        '*': {
-          '*': ['*']
-        }
-      }
-    }
-  }
-  try {
-    console.log(JSON.stringify(input))
-    const response = await axios.post(endPoint + '/iost/compile', {
-      input: JSON.stringify(input)
+        "*": {
+          "*": ["*"],
+        },
+      },
     },
-    AXIOS_CONFIG)
+  };
+  try {
+    console.log(JSON.stringify(input));
+    const response = await axios.post(
+      endPoint + "/iost/compile",
+      {
+        input: JSON.stringify(input),
+      },
+      AXIOS_CONFIG
+    );
     return response.data;
   } catch (error) {
     console.error("Errored at compileIostContract()", error);
     console.error("Error response:", error.response);
     return {
-      errors: [error]
-    }
+      errors: [error],
+    };
   }
 }
 
-export async function compileSolContract(code, fileName = 'test.sol') {
+export async function compileSolContract(code, fileName = "test.sol") {
   let source = {};
   source[fileName] = {
-    content: code
+    content: code,
   };
   let input = {
-    language: 'Solidity',
+    language: "Solidity",
     sources: source,
     settings: {
       outputSelection: {
-        '*': {
-          '*': ['*']
-        }
-      }
-    }
+        "*": {
+          "*": ["*"],
+        },
+      },
+    },
   };
-  const response = await axios.post(endPoint + '/solidity/compile', {
-    input: JSON.stringify(input)
-  },
-  AXIOS_CONFIG);
+  const response = await axios.post(
+    endPoint + "/solidity/compile",
+    {
+      input: JSON.stringify(input),
+    },
+    AXIOS_CONFIG
+  );
   return response.data;
 }
 
@@ -72,12 +78,12 @@ export function generateIostContractHierachy(index, compileFile, abi) {
   let hierachy = {
     id: index,
     label: "Contract:" + compileFile,
-    children: []
+    children: [],
   };
-  abi.forEach(func => {
+  abi.forEach((func) => {
     hierachy.children.push({
-      label: `f(${func.args.join(', ')}): ${func.name}`,
-      args: func.args
+      label: `f(${func.args.join(", ")}): ${func.name}`,
+      args: func.args,
     });
   });
   return hierachy;
